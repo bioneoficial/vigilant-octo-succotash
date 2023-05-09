@@ -1,10 +1,13 @@
 import "../globals.css";
-
-interface Props {
-  Component: any;
-  pageProps: any;
+import { AppProps } from "next/app";
+interface MyAppProps {
+  Component: React.ComponentType<AppProps>;
+  pageProps: AppProps["pageProps"];
 }
 
-export default function MyApp({ Component, pageProps }: Props) {
+export default function MyApp({
+  Component,
+  pageProps,
+}: MyAppProps): JSX.Element {
   return <Component {...pageProps} />;
 }

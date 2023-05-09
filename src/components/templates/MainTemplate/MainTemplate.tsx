@@ -1,7 +1,7 @@
 import { HeaderDashboard } from "@/components/organisms/HeaderDashboard";
 import { SideMenuDashboard } from "@/components/organisms/SideMenuDashboard";
 
-export function MainTemplate() {
+export const MainTemplate: React.FC = (): JSX.Element => {
   return (
     <>
       <HeaderDashboard />
@@ -9,4 +9,4 @@ export function MainTemplate() {
       <div>main template</div>
     </>
   );
-}
+};
