@@ -14,3 +14,19 @@ export type profileMenuItemData = MenuItemData & {
   icon: React.ReactNode;
   alt: string;
 };
+
+export interface buttonProps {
+  onClick?: () => void;
+  title: string;
+  icon?: {
+    src: string;
+    alt: string;
+  };
+  grayIcon?: {
+    src: string;
+    alt: string;
+  };
+  status: boolean;
+  id?: string;
+  className?: string[];
+}

@@ -7,6 +7,7 @@ import { profileMenuItemData } from "@/types/types";
 import { LogoutIcon } from "@/components/atoms/LogoutIcon";
 import { NotificationIcon } from "@/components/atoms/NotificationIcon";
 import Image from "next/image";
+import { Button } from "@/components/atoms/Button";
 
 export const profileMenuItems: profileMenuItemData[] = [
   {
@@ -53,6 +54,12 @@ export const HeaderDashboard: React.FC = (): JSX.Element => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"></div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <Button
+                  title="Abrir Site"
+                  status={true}
+                  className={["flex", "items-center"]}
+                  onClick={() => window.open("https://funktoon.com/", "_blank")}
+                />
                 <button
                   type="button"
                   className="rounded-full bg-[#f0f0f080] p-1 text-gray-600 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -61,7 +68,7 @@ export const HeaderDashboard: React.FC = (): JSX.Element => {
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="header" className="relative ml-3">
+                <Menu as="header" className=" relative ml-3">
                   <>
                     <Menu.Button className="flex">
                       <Image
@@ -71,20 +78,12 @@ export const HeaderDashboard: React.FC = (): JSX.Element => {
                         src="https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo"
                         alt="Profile Picture"
                       />
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
+                      <Image
+                        src="../images/down-arrow.svg"
+                        alt="Dropdown"
+                        height={32}
+                        width={32}
+                      />
                     </Menu.Button>
                   </>
                   <Transition
