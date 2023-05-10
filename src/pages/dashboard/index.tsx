@@ -1,5 +1,5 @@
 import { MainTemplate } from "@/components/templates/MainTemplate";
 
 export default function Dashboard(): JSX.Element {
-  return <MainTemplate></MainTemplate>;
+  return <MainTemplate> Vamos comecar</MainTemplate>;
 }
