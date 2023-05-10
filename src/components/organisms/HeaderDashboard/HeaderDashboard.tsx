@@ -8,6 +8,7 @@ import { LogoutIcon } from "@/components/atoms/LogoutIcon";
 import { NotificationIcon } from "@/components/atoms/NotificationIcon";
 import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
+import { classNames } from "@/utils/utils";
 
 export const profileMenuItems: profileMenuItemData[] = [
   {
@@ -30,13 +31,9 @@ export const profileMenuItems: profileMenuItemData[] = [
   },
 ];
 
-const classNames = (...classes: string[]): string => {
-  return classes.filter(Boolean).join(" ");
-};
-
 export const HeaderDashboard: React.FC = (): JSX.Element => {
   return (
-    <Disclosure as="nav" className="bg-[#fff]">
+    <Disclosure as="header" className="bg-[#fff]  shadow-md">
       {({ open }): JSX.Element => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -57,18 +54,25 @@ export const HeaderDashboard: React.FC = (): JSX.Element => {
                 <Button
                   title="Abrir Site"
                   status={true}
-                  className={["flex", "items-center"]}
-                  onClick={() => window.open("https://funktoon.com/", "_blank")}
+                  className={[
+                    "flex",
+                    "items-center",
+                    "mr-4",
+                    "text-[#8b00d1] font-medium",
+                  ]}
+                  onClick={(): Window | null =>
+                    window.open("https://funktoon.com/", "_blank")
+                  }
                 />
                 <button
                   type="button"
-                  className="rounded-full bg-[#f0f0f080] p-1 text-gray-600 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full bg-[#f0f0f080] mr-4 p-1 text-gray-600 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="header" className=" relative ml-3">
+                <Menu as="nav" className=" relative ml-3 ">
                   <>
                     <Menu.Button className="flex">
                       <Image
@@ -131,7 +135,7 @@ export const HeaderDashboard: React.FC = (): JSX.Element => {
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      : "hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

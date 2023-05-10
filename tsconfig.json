@@ -25,5 +25,5 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"],
-  "extends": ["@tsconfig/vite-react/tsconfig.json","@tsconfig/next/tsconfig.json", "@tsconfig/recommended/tsconfig.json"]
+  "extends": ["@tsconfig/next/tsconfig.json", "@tsconfig/recommended/tsconfig.json"]
 }

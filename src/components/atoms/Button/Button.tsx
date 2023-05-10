@@ -1,4 +1,5 @@
 import { buttonProps } from "@/types/types";
+import { classNames } from "@/utils/utils";
 import Image from "next/image";
 
 export const Button: React.FC<buttonProps> = ({
@@ -10,10 +11,6 @@ export const Button: React.FC<buttonProps> = ({
   id,
   className = [],
 }: buttonProps) => {
-  const classNames = (...classes: string[]): string => {
-    return classes.filter(Boolean).join(" ");
-  };
-
   if (status) {
     return (
       <button
