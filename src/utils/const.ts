@@ -1,4 +1,4 @@
-import { SideMenuItemData } from "@/types/types";
+import { PrivacyItem, SideMenuItemData } from "@/types/types";
 import { SideMenuItem } from "./enums";
 
 export const menuItem: SideMenuItemData[] = [
@@ -74,3 +74,22 @@ export const menuItem: SideMenuItemData[] = [
 //     alt: "Sair",
 //   },
 // ];
+
+export const PrivacyItems: PrivacyItem[] = [
+  {
+    id: 2,
+    name: "Termos de Uso",
+    status: "Ativo",
+    type: "Termos de uso",
+    version: 2,
+    date: "23/08/2022",
+  },
+  {
+    id: 1,
+    name: "Política de privacidade e Cookies",
+    status: "Ativo",
+    type: "Política de privacidade",
+    version: 1,
+    date: "12/08/2022",
+  },
+];

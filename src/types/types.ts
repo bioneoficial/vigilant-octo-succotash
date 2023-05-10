@@ -1,9 +1,9 @@
 import { SideMenuItem } from "@/utils/enums";
 
-type MenuItemData = {
+interface MenuItemData {
   name: string;
   href: string;
-};
+}
 
 export type SideMenuItemData = MenuItemData & {
   name: SideMenuItem;
@@ -42,3 +42,12 @@ export interface SideMenuDashboardProps {
 export type HeaderDashboardProps = SideMenuDashboardProps & {
   toggleMenu: () => void;
 };
+
+export interface PrivacyItem {
+  id: number;
+  name: string;
+  status: string;
+  type: string;
+  version: number;
+  date: string;
+}
