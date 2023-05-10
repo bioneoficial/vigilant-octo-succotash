@@ -2,10 +2,7 @@ import { menuItem } from "@/utils/const";
 import { classNames } from "@/utils/utils";
 import Image from "next/image";
 import { Menu } from "@headlessui/react";
-
-interface SideMenuDashboardProps {
-  open: boolean;
-}
+import { SideMenuDashboardProps } from "@/types/types";
 
 export const SideMenuDashboard: React.FC<SideMenuDashboardProps> = ({
   open,

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { profileMenuItemData } from "@/types/types";
+import { HeaderDashboardProps, profileMenuItemData } from "@/types/types";
 import { SettingsIcon } from "@/components/atoms/SettingsIcon";
 import { LogoutIcon } from "@/components/atoms/LogoutIcon";
 import { NotificationIcon } from "@/components/atoms/NotificationIcon";
@@ -30,11 +30,6 @@ export const profileMenuItems: profileMenuItemData[] = [
   },
 ];
 
-interface HeaderDashboardProps {
-  open: boolean;
-  toggleMenu: () => void;
-}
-
 export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
   open,
   toggleMenu,
@@ -48,7 +43,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
       <div className={`absolute top-2 left-0 flex items-center`}>
         <button
           onClick={toggleMenu}
-          className="inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white z-99"
+          className="inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         >
           <span className="sr-only">Open main menu</span>
           {open ? (
@@ -82,7 +77,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
             </button>
 
             {/* Profile dropdown */}
-            <Menu as="nav" className=" relative ml-3 ">
+            <Menu as="nav" className=" relative ml-3">
               <>
                 <Menu.Button className="flex">
                   <Image
@@ -109,7 +104,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {profileMenuItems.map((item) => (
                     <Menu.Item key={item.name}>
                       {({ active }): JSX.Element => (
@@ -117,7 +112,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
                           href={item.href}
                           className={classNames(
                             active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm text-gray-700"
+                            "block px-4 py-2 text-sm text-gray-700 hover:bg-[#4a6cf70d] hover:text-[#8b00d1]"
                           )}
                         >
                           {item.icon}

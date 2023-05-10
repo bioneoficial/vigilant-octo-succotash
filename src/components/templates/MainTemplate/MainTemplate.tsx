@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { HeaderDashboard } from "@/components/organisms/HeaderDashboard";
 import { SideMenuDashboard } from "@/components/organisms/SideMenuDashboard";
-
-interface MainTemplateProps {
-  children: React.ReactNode;
-}
+import { MainTemplateProps } from "@/types/types";
 
 export const MainTemplate: React.FC<MainTemplateProps> = ({
   children,
@@ -21,7 +18,7 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
       <div className="flex flex-col w-full">
         <HeaderDashboard open={open} toggleMenu={toggleMenu} />
         <main
-          className={`transition-all duration-300 z-10 transform ${
+          className={`transition-all duration-300 transform ${
             open ? "translate-x-60" : "translate-x-0"
           }`}
         >

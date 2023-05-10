@@ -30,3 +30,15 @@ export interface buttonProps {
   id?: string;
   className?: string[];
 }
+
+export interface MainTemplateProps {
+  children: React.ReactNode;
+}
+
+export interface SideMenuDashboardProps {
+  open: boolean;
+}
+
+export type HeaderDashboardProps = SideMenuDashboardProps & {
+  toggleMenu: () => void;
+};
