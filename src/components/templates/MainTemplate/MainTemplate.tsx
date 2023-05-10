@@ -16,12 +16,18 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
   };
 
   return (
-    <>
-      <HeaderDashboard />
-      <SideMenuDashboard open={open} toggleMenu={toggleMenu} />
-      <main className={`ml-${open ? "60" : "0"} transition-all duration-300`}>
-        {children}
-      </main>
-    </>
+    <div className="flex">
+      <SideMenuDashboard open={open} />
+      <div className="flex flex-col w-full">
+        <HeaderDashboard open={open} toggleMenu={toggleMenu} />
+        <main
+          className={`transition-all duration-300 z-10 transform ${
+            open ? "translate-x-60" : "translate-x-0"
+          }`}
+        >
+          {children}
+        </main>
+      </div>
+    </div>
   );
 };

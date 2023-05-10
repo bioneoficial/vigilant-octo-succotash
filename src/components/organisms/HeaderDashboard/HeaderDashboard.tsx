@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { BellIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { profileMenuItemData } from "@/types/types";
 import { SettingsIcon } from "@/components/atoms/SettingsIcon";
 import { LogoutIcon } from "@/components/atoms/LogoutIcon";
@@ -30,9 +30,35 @@ export const profileMenuItems: profileMenuItemData[] = [
   },
 ];
 
-export const HeaderDashboard: React.FC = (): JSX.Element => {
+interface HeaderDashboardProps {
+  open: boolean;
+  toggleMenu: () => void;
+}
+
+export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
+  open,
+  toggleMenu,
+}): JSX.Element => {
   return (
-    <header className="bg-[#fff] shadow-md">
+    <header
+      className={`bg-[#fff] shadow-md transform transition-all ease-out duration-300 ${
+        open ? "translate-x-60" : "translate-x-0"
+      }`}
+    >
+      <div className={`absolute top-2 left-0 flex items-center`}>
+        <button
+          onClick={toggleMenu}
+          className="inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white z-99"
+        >
+          <span className="sr-only">Open main menu</span>
+          {open ? (
+            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+          ) : (
+            <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+          )}
+        </button>
+      </div>
+
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"></div>
