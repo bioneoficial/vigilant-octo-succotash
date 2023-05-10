@@ -39,7 +39,7 @@ export const menuItem: SideMenuItemData[] = [
   },
   {
     name: SideMenuItem.PoliticasTermos,
-    href: "/dashboard/politicas-termos",
+    href: "/dashboard/privacy",
     current: false,
   },
   {

@@ -3,6 +3,7 @@ import { classNames } from "@/utils/utils";
 import Image from "next/image";
 import { Menu } from "@headlessui/react";
 import { SideMenuDashboardProps } from "@/types/types";
+import Link from "next/link";
 
 export const SideMenuDashboard: React.FC<SideMenuDashboardProps> = ({
   open,
@@ -29,9 +30,8 @@ export const SideMenuDashboard: React.FC<SideMenuDashboardProps> = ({
           </a>
           <div className="space-y-1 px-2 pb-3 pt-2">
             {menuItem.map((item) => (
-              <Menu.Button
+              <Link
                 key={item.name}
-                as="a"
                 href={item.href}
                 className={classNames(
                   item.current
@@ -42,7 +42,7 @@ export const SideMenuDashboard: React.FC<SideMenuDashboardProps> = ({
                 aria-current={item.current ? "page" : undefined}
               >
                 {item.name}
-              </Menu.Button>
+              </Link>
             ))}
           </div>
         </Menu>

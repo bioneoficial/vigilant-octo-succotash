@@ -20,7 +20,7 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
         <main
           className={`transition-all duration-300 transform ${
             open ? "translate-x-60" : "translate-x-0"
-          }`}
+          } z-0`}
         >
           {children}
         </main>
