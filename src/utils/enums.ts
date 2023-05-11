@@ -11,7 +11,13 @@ export enum SideMenuItem {
   MeuPerfil = "Meu perfil",
 }
 
-export enum PrivacyItemStatus { //aplicar
+export enum PrivacyItemType {
+  PoliticaPrivacidade = "Política de Privacidade",
+  TermosUso = "Termos de Uso",
+  PoliticaTermoAutor = "Política de Termo de Autor",
+}
+
+export enum PrivacyItemStatus {
   Ativo = "Ativo",
   Inativo = "Inativo",
 }

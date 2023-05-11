@@ -1,4 +1,8 @@
-import { SideMenuItem } from "@/utils/enums";
+import {
+  PrivacyItemStatus,
+  PrivacyItemType,
+  SideMenuItem,
+} from "@/utils/enums";
 
 interface MenuItemData {
   name: string;
@@ -48,8 +52,9 @@ export type HeaderDashboardProps = SideMenuDashboardProps & {
 export interface PrivacyItem {
   id: number;
   name: string;
-  status: string;
-  type: string;
+  status: PrivacyItemStatus;
+  type: PrivacyItemType;
   version: number;
+  publish: boolean;
   date: string;
 }

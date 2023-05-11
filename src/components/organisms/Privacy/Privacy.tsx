@@ -1,4 +1,5 @@
 import { PrivacyItems } from "@/utils/const";
+import { PrivacyItemStatus } from "@/utils/enums";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -49,7 +50,15 @@ export const Privacy: React.FC = () => {
                   key={item.id + item.name}
                 >
                   <td className="py-3 px-6 text-left">{item.name}</td>
-                  <td className="py-3 px-6 text-left">{item.status}</td>
+                  <td
+                    className={`py-3 px-6 text-left font-normal ${
+                      item.status === PrivacyItemStatus.Ativo
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {item.status}
+                  </td>
                   <td className="py-3 px-6 text-left">{item.type}</td>
                   <td className="py-3 px-6 text-center">{item.version}</td>
                   <td className="py-3 px-6 text-center">{item.date}</td>
