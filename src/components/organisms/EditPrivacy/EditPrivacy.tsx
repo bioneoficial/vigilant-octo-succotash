@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { PrivacyItem } from "@/types/types";
 import { PrivacyItemStatus, PrivacyItemType } from "@/utils/enums";
+import { Editor } from "@tinymce/tinymce-react";
 
 interface EditPrivacyProps {
   item: PrivacyItem;
@@ -31,44 +32,39 @@ export const EditPrivacy: React.FC<EditPrivacyProps> = ({
     setEditedItem(item);
   }, [item]);
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ): void => {
-    console.log(event.target.value);
+  const handleEditorChange = (content: string, editor: unknown): void => {
+    console.log("Content was updated:", content);
+    console.log("Editor was updated:", editor);
   };
 
-  // if (!editedItem) return null;
-
   return (
-    <div className="p-4">
+    <div className="p-4 bg-gray-200">
       <h2 className="text-2xl font-semibold mb-4">Politicas de Privacidade</h2>
-      <div className="border-b border-gray-200 py-4">
+      <div className="border-b border-gray-200 py-4 bg-white">
         <h3 className="text-lg font-semibold">{editedItem?.name}</h3>
-        <textarea
-          className="mt-2 border rounded p-2 w-full"
-          name="name"
-          value={editedItem?.name}
-          onChange={handleInputChange}
-        />
-        <div className="flex items-center mt-2">
-          <p className="text-gray-500 text-sm">{editedItem?.type}</p>
-          <div
-            className={`ml-4 px-2 py-1 rounded text-xs text-white font-semibold ${
-              editedItem?.status === PrivacyItemStatus.Ativo
-                ? "bg-green-500"
-                : "bg-red-500"
-            }`}
-          >
-            {editedItem?.status}
-          </div>
+        <div className="border rounded p-2">
+          <Editor
+            apiKey="elhqxjppa5ipq0e8xb3dfrcs53g78dc00pke776zqeauhywg"
+            initialValue="Initial content"
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table paste code help wordcount",
+              ],
+              toolbar:
+                "undo redo | formatselect | bold italic backcolor fontfamily fontsize | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help",
+              fontsize_formats: "8px 10px 12px 14px 16px 18px 24px 36px",
+              font_formats:
+                "Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;Times New Roman=times new roman,times,serif",
+            }}
+            onEditorChange={handleEditorChange}
+          />
         </div>
-        <p className="mt-2 text-sm text-gray-500">
-          Versão: {editedItem?.version}
-        </p>
-        <p className="mt-2 text-sm text-gray-500">
-          {editedItem?.publish ? "Publicado" : "Não Publicado"} em{" "}
-          {editedItem?.date}
-        </p>
       </div>
     </div>
   );

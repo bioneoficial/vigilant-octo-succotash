@@ -40,7 +40,7 @@ export const SideMenuDashboard: React.FC<SideMenuDashboardProps> = ({
                 router.pathname === item.href
                   ? " bg-gray-500 text-white"
                   : "hover:bg-gray-700 hover:text-white",
-                "flex gap-2 block rounded-md px-3 py-2 text-base font-medium"
+                "flex gap-2 rounded-md px-3 py-2 text-base font-medium"
               )}
               aria-current={item.current ? "page" : undefined}
             >
