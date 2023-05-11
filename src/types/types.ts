@@ -8,6 +8,8 @@ interface MenuItemData {
 export type SideMenuItemData = MenuItemData & {
   name: SideMenuItem;
   current: boolean;
+  icon: string;
+  alt: string;
 };
 
 export type profileMenuItemData = MenuItemData & {
