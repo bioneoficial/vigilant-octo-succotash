@@ -1,99 +1,59 @@
 import { PrivacyItem, SideMenuItemData } from "@/types/types";
 import { SideMenuItem } from "./enums";
 
-export const menuItem: SideMenuItemData[] = [
+const sideMenuData: { [key in SideMenuItem]: { icon: string; href: string } } =
   {
-    name: SideMenuItem.Dashboard,
-    href: "/dashboard",
-    current: false,
-    icon: "/images/dashboard.svg",
-    alt: "Dashboard",
-  },
-  {
-    name: SideMenuItem.Configuracoes,
-    href: "/dashboard/configuracoes",
-    current: false,
-    icon: "/images/configuracoes.svg",
-    alt: "Configurações",
-  },
-  {
-    name: SideMenuItem.ConteudoHome,
-    href: "/dashboard/conteudo-home",
-    current: false,
-    icon: "/images/home.svg",
-    alt: "Conteúdo Home",
-  },
-  {
-    name: SideMenuItem.Cupons,
-    href: "/dashboard/cupons",
-    current: false,
-    icon: "/images/coupons.svg",
-    alt: "Cupons",
-  },
-  {
-    name: SideMenuItem.Selos,
-    href: "/dashboard/selos",
-    current: false,
-    icon: "/images/selo.svg",
-    alt: "Selos",
-  },
-  {
-    name: SideMenuItem.Denuncias,
-    href: "/dashboard/denuncias",
-    current: false,
-    icon: "/images/denuncia.svg",
-    alt: "Denúncias",
-  },
-  {
-    name: SideMenuItem.Usuarios,
-    href: "/dashboard/usuarios",
-    current: false,
-    icon: "/images/usuarios.svg",
-    alt: "Usuários",
-  },
-  {
-    name: SideMenuItem.PoliticasTermos,
-    href: "/dashboard/privacy",
-    current: false,
-    icon: "/images/politica.svg",
-    alt: "Políticas e termos",
-  },
-  {
-    name: SideMenuItem.Series,
-    href: "/dashboard/series",
-    current: false,
-    icon: "/images/series.svg",
-    alt: "Séries",
-  },
-  {
-    name: SideMenuItem.MeuPerfil,
-    href: "/dashboard/meu-perfil",
-    current: false,
-    icon: "/images/meu-perfil.svg",
-    alt: "Meu perfil",
-  },
-];
+    [SideMenuItem.Dashboard]: {
+      icon: "/images/dashboard.svg",
+      href: "/dashboard",
+    },
+    [SideMenuItem.Configuracoes]: {
+      icon: "/images/configuracoes.svg",
+      href: "/dashboard/configuracoes",
+    },
+    [SideMenuItem.ConteudoHome]: {
+      icon: "/images/home.svg",
+      href: "/dashboard/conteudo-home",
+    },
+    [SideMenuItem.Cupons]: {
+      icon: "/images/coupons.svg",
+      href: "/dashboard/cupons",
+    },
+    [SideMenuItem.Selos]: {
+      icon: "/images/selo.svg",
+      href: "/dashboard/selos",
+    },
+    [SideMenuItem.Denuncias]: {
+      icon: "/images/denuncia.svg",
+      href: "/dashboard/denuncias",
+    },
+    [SideMenuItem.Usuarios]: {
+      icon: "/images/usuarios.svg",
+      href: "/dashboard/usuarios",
+    },
+    [SideMenuItem.PoliticasTermos]: {
+      icon: "/images/politica.svg",
+      href: "/dashboard/privacy",
+    },
+    [SideMenuItem.Series]: {
+      icon: "/images/series.svg",
+      href: "/dashboard/series",
+    },
+    [SideMenuItem.MeuPerfil]: {
+      icon: "/images/meu-perfil.svg",
+      href: "/dashboard/meu-perfil",
+    },
+  };
 
-// export const profileMenuItems: profileMenuItemData[] = [
-//   {
-//     name: "Notificações",
-//     href: "#notifications",
-//     icon: "/images/bell.svg",
-//     alt: "Notificações",
-//   },
-//   {
-//     name: "Perfil",
-//     href: "#profile",
-//     icon: "/images/settings.svg",
-//     alt: "Perfil",
-//   },
-//   {
-//     name: "Sair",
-//     href: "#logout",
-//     icon: "/images/logout.svg",
-//     alt: "Sair",
-//   },
-// ];
+export const menuItem: SideMenuItemData[] = Object.entries(sideMenuData).map(
+  ([name, { icon, href }]) => ({
+    name: name as SideMenuItem,
+    href,
+    current: false,
+    icon,
+    alt: name as SideMenuItem,
+  })
+);
 
 export const PrivacyItems: PrivacyItem[] = [
   {
