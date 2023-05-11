@@ -15,12 +15,14 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
   return (
     <div className="flex">
       <SideMenuDashboard open={open} />
-      <div className="flex flex-col w-full">
+      <div
+        className={`flex flex-col w-full ${open ? "lg:w-4/5" : "lg:w-full"}`}
+      >
         <HeaderDashboard open={open} toggleMenu={toggleMenu} />
         <main
           className={`transition-all duration-300 transform ${
             open ? "translate-x-60" : "translate-x-0"
-          } z-0`}
+          }`}
         >
           {children}
         </main>

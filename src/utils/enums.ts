@@ -10,3 +10,14 @@ export enum SideMenuItem {
   Series = "Séries",
   MeuPerfil = "Meu perfil",
 }
+
+export enum PrivacyItemType {
+  PoliticaPrivacidade = "Política de Privacidade",
+  TermosUso = "Termos de Uso",
+  PoliticaTermoAutor = "Política de Termo de Autor",
+}
+
+export enum PrivacyItemStatus {
+  Ativo = "Ativo",
+  Inativo = "Inativo",
+}

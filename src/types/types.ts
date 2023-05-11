@@ -1,13 +1,19 @@
-import { SideMenuItem } from "@/utils/enums";
+import {
+  PrivacyItemStatus,
+  PrivacyItemType,
+  SideMenuItem,
+} from "@/utils/enums";
 
-type MenuItemData = {
+interface MenuItemData {
   name: string;
   href: string;
-};
+}
 
 export type SideMenuItemData = MenuItemData & {
   name: SideMenuItem;
   current: boolean;
+  icon: string;
+  alt: string;
 };
 
 export type profileMenuItemData = MenuItemData & {
@@ -42,3 +48,13 @@ export interface SideMenuDashboardProps {
 export type HeaderDashboardProps = SideMenuDashboardProps & {
   toggleMenu: () => void;
 };
+
+export interface PrivacyItem {
+  id: number;
+  name: string;
+  status: PrivacyItemStatus;
+  type: PrivacyItemType;
+  version: number;
+  publish: boolean;
+  date: string;
+}

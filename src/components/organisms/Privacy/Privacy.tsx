@@ -1,32 +1,7 @@
+import { PrivacyItems } from "@/utils/const";
+import { PrivacyItemStatus } from "@/utils/enums";
+import Image from "next/image";
 import { useRouter } from "next/router";
-
-type PrivacyItem = {
-  id: number;
-  name: string;
-  status: string;
-  type: string;
-  version: number;
-  date: string;
-};
-
-const PrivacyItems: PrivacyItem[] = [
-  {
-    id: 2,
-    name: "Termos de Uso",
-    status: "Ativo",
-    type: "Termos de uso",
-    version: 2,
-    date: "23/08/2022",
-  },
-  {
-    id: 1,
-    name: "Política de privacidade e Cookies",
-    status: "Ativo",
-    type: "Política de privacidade",
-    version: 1,
-    date: "12/08/2022",
-  },
-];
 
 export const Privacy: React.FC = () => {
   const router = useRouter();
@@ -35,26 +10,24 @@ export const Privacy: React.FC = () => {
     router.push(`/dashboard/privacy/${id}`);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDelete = (id: number): void => {
-    // Implement deletion logic
+    console.log(id);
   };
 
   return (
     <section className="p-4">
       <div className="mx-auto">
         <div className="my-5 flex items-center">
-          <div className="flex-grow">
-            <h2 className="text-2xl font-bold">Políticas e termos</h2>
-          </div>
+          <h2 className="text-2xl font-bold">Políticas e termos</h2>
           <div>
             <button
               onClick={(): Promise<boolean> =>
                 router.push("/dashboard/privacy/create")
               }
-              className="ml-5 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700"
+              className="flex items-center ml-5 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]"
             >
-              <i className="lni lni-plus mr-1"></i>Nova
+              <Image src="/images/plus.svg" width={19} height={19} alt="plus" />
+              Nova
             </button>
           </div>
         </div>
@@ -77,7 +50,15 @@ export const Privacy: React.FC = () => {
                   key={item.id + item.name}
                 >
                   <td className="py-3 px-6 text-left">{item.name}</td>
-                  <td className="py-3 px-6 text-left">{item.status}</td>
+                  <td
+                    className={`py-3 px-6 text-left font-normal ${
+                      item.status === PrivacyItemStatus.Ativo
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {item.status}
+                  </td>
                   <td className="py-3 px-6 text-left">{item.type}</td>
                   <td className="py-3 px-6 text-center">{item.version}</td>
                   <td className="py-3 px-6 text-center">{item.date}</td>
@@ -87,13 +68,23 @@ export const Privacy: React.FC = () => {
                         onClick={(): void => handleEdit(item.id)}
                         className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                       >
-                        <i className="lni lni-pencil"></i>
+                        <Image
+                          src="/images/pencil.svg"
+                          width={19}
+                          height={19}
+                          alt="plus"
+                        />
                       </button>
                       <button
                         onClick={(): void => handleDelete(item.id)}
                         className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
                       >
-                        <i className="lni lni-trash-can"></i>
+                        <Image
+                          src="/images/trash.svg"
+                          width={19}
+                          height={19}
+                          alt="plus"
+                        />
                       </button>
                     </div>
                   </td>

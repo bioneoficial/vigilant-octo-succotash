@@ -1,76 +1,77 @@
-import { SideMenuItemData } from "@/types/types";
-import { SideMenuItem } from "./enums";
+import { PrivacyItem, SideMenuItemData } from "@/types/types";
+import { PrivacyItemStatus, PrivacyItemType, SideMenuItem } from "./enums";
 
-export const menuItem: SideMenuItemData[] = [
+const sideMenuData: { [key in SideMenuItem]: { icon: string; href: string } } =
   {
-    name: SideMenuItem.Dashboard,
-    href: "/dashboard",
+    [SideMenuItem.Dashboard]: {
+      icon: "/images/dashboard.svg",
+      href: "/dashboard",
+    },
+    [SideMenuItem.Configuracoes]: {
+      icon: "/images/configuracoes.svg",
+      href: "/dashboard/configuracoes",
+    },
+    [SideMenuItem.ConteudoHome]: {
+      icon: "/images/home.svg",
+      href: "/dashboard/conteudo-home",
+    },
+    [SideMenuItem.Cupons]: {
+      icon: "/images/coupons.svg",
+      href: "/dashboard/cupons",
+    },
+    [SideMenuItem.Selos]: {
+      icon: "/images/selo.svg",
+      href: "/dashboard/selos",
+    },
+    [SideMenuItem.Denuncias]: {
+      icon: "/images/denuncia.svg",
+      href: "/dashboard/denuncias",
+    },
+    [SideMenuItem.Usuarios]: {
+      icon: "/images/usuarios.svg",
+      href: "/dashboard/usuarios",
+    },
+    [SideMenuItem.PoliticasTermos]: {
+      icon: "/images/politica.svg",
+      href: "/dashboard/privacy",
+    },
+    [SideMenuItem.Series]: {
+      icon: "/images/series.svg",
+      href: "/dashboard/series",
+    },
+    [SideMenuItem.MeuPerfil]: {
+      icon: "/images/meu-perfil.svg",
+      href: "/dashboard/meu-perfil",
+    },
+  };
+
+export const menuItem: SideMenuItemData[] = Object.entries(sideMenuData).map(
+  ([name, { icon, href }]) => ({
+    name: name as SideMenuItem,
+    href,
     current: false,
+    icon,
+    alt: name as SideMenuItem,
+  })
+);
+
+export const PrivacyItems: PrivacyItem[] = [
+  {
+    id: 2,
+    name: "Termos de Uso",
+    status: PrivacyItemStatus.Ativo,
+    type: PrivacyItemType.TermosUso,
+    version: 2,
+    publish: true,
+    date: "23/08/2022",
   },
   {
-    name: SideMenuItem.Configuracoes,
-    href: "/dashboard/configuracoes",
-    current: false,
-  },
-  {
-    name: SideMenuItem.ConteudoHome,
-    href: "/dashboard/conteudo-home",
-    current: false,
-  },
-  {
-    name: SideMenuItem.Cupons,
-    href: "/dashboard/cupons",
-    current: false,
-  },
-  {
-    name: SideMenuItem.Selos,
-    href: "/dashboard/selos",
-    current: false,
-  },
-  {
-    name: SideMenuItem.Denuncias,
-    href: "/dashboard/denuncias",
-    current: false,
-  },
-  {
-    name: SideMenuItem.Usuarios,
-    href: "/dashboard/usuarios",
-    current: false,
-  },
-  {
-    name: SideMenuItem.PoliticasTermos,
-    href: "/dashboard/privacy",
-    current: false,
-  },
-  {
-    name: SideMenuItem.Series,
-    href: "/dashboard/series",
-    current: false,
-  },
-  {
-    name: SideMenuItem.MeuPerfil,
-    href: "/dashboard/meu-perfil",
-    current: false,
+    id: 1,
+    name: "Política de privacidade e Cookies",
+    status: PrivacyItemStatus.Inativo,
+    type: PrivacyItemType.PoliticaPrivacidade,
+    publish: true,
+    version: 1,
+    date: "12/08/2022",
   },
 ];
-
-// export const profileMenuItems: profileMenuItemData[] = [
-//   {
-//     name: "Notificações",
-//     href: "#notifications",
-//     icon: "/images/bell.svg",
-//     alt: "Notificações",
-//   },
-//   {
-//     name: "Perfil",
-//     href: "#profile",
-//     icon: "/images/settings.svg",
-//     alt: "Perfil",
-//   },
-//   {
-//     name: "Sair",
-//     href: "#logout",
-//     icon: "/images/logout.svg",
-//     alt: "Sair",
-//   },
-// ];
