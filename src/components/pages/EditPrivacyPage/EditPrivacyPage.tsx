@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 const EditPrivacyPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
+  console.log("id", id);
+
   return (
     <MainTemplate>
       <EditPrivacy

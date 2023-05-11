@@ -11,7 +11,7 @@ export const Privacy: React.FC = () => {
   };
 
   const handleDelete = (id: number): void => {
-    console.log(id);
+    console.log("id", id);
   };
 
   return (

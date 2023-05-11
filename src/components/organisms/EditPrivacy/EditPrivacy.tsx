@@ -44,8 +44,8 @@ export const EditPrivacy: React.FC<EditPrivacyProps> = ({
         <h3 className="text-lg font-semibold">{editedItem?.name}</h3>
         <div className="border rounded p-2">
           <Editor
-            apiKey="elhqxjppa5ipq0e8xb3dfrcs53g78dc00pke776zqeauhywg"
-            initialValue="Initial content"
+            apiKey={process.env.TINY_API_KEY}
+            initialValue={"Funktoon"}
             init={{
               height: 500,
               menubar: false,
