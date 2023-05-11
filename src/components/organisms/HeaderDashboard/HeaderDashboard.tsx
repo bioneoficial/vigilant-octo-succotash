@@ -88,7 +88,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
                     alt="Profile Picture"
                   />
                   <Image
-                    src="../images/down-arrow.svg"
+                    src="/images/down-arrow.svg"
                     alt="Dropdown"
                     height={32}
                     width={32}
