@@ -3,7 +3,7 @@ import { MainTemplate } from "@/components/templates/MainTemplate";
 import { PrivacyItemStatus, PrivacyItemType } from "@/utils/enums";
 import { useRouter } from "next/router";
 
-const PrivacyItemPage: React.FC = () => {
+const EditPrivacyPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
@@ -24,4 +24,4 @@ const PrivacyItemPage: React.FC = () => {
   );
 };
 
-export default PrivacyItemPage;
+export default EditPrivacyPage;
