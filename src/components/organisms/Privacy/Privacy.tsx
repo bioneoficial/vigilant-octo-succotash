@@ -1,3 +1,4 @@
+import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
 import { PrivacyItem } from "@/types/types";
 import { PrivacyItems } from "@/utils/const";
@@ -17,8 +18,11 @@ export const Privacy: React.FC = () => {
     }
   };
 
-  const handleDelete = (id: number): void => {
-    console.log("id", id);
+  const handleDelete = (item: PrivacyItem): void => {
+    if (item) {
+      dispatch(setPrivacyItem(item));
+      dispatch(openModal());
+    }
   };
 
   return (
@@ -83,7 +87,7 @@ export const Privacy: React.FC = () => {
                         />
                       </button>
                       <button
-                        onClick={(): void => handleDelete(item.id)}
+                        onClick={(): void => handleDelete(item)}
                         className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
                       >
                         <Image
