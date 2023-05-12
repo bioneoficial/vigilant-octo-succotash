@@ -57,4 +57,5 @@ export interface PrivacyItem {
   version: number;
   publish: boolean;
   date: string;
+  description: string;
 }
