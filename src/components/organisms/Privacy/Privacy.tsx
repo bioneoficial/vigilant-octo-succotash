@@ -25,7 +25,7 @@ export const Privacy: React.FC = () => {
       );
     }
     setPreviousPrivacyItem(privacyItem);
-  }, [privacyItem]);
+  }, [privacyItem, previousPrivacyItem]);
 
   return (
     <section className="p-4">
