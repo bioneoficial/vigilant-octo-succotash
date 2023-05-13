@@ -2,6 +2,7 @@ import {
   PrivacyItemStatus,
   PrivacyItemType,
   SideMenuItem,
+  modalTypeEnum,
 } from "@/utils/enums";
 
 interface MenuItemData {
@@ -59,3 +60,12 @@ export interface PrivacyItem {
   date: string;
   description: string;
 }
+
+export interface modelTypeInterface {
+  modalType: modalTypeEnum;
+}
+export type modalInterface = modelTypeInterface & {
+  title: string;
+  description: string;
+  isOpen: boolean;
+};

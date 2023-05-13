@@ -2,7 +2,7 @@ import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
 import { PrivacyItem } from "@/types/types";
 import { PrivacyItems } from "@/utils/const";
-import { PrivacyItemStatus } from "@/utils/enums";
+import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,7 @@ export const Privacy: React.FC = () => {
   const handleDelete = (item: PrivacyItem): void => {
     if (item) {
       dispatch(setPrivacyItem(item));
-      dispatch(openModal());
+      dispatch(openModal(modalTypeEnum.delete));
     }
   };
 
