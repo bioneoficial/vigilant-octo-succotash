@@ -9,7 +9,10 @@ import {
   selectModal,
 } from "@/Redux/Reducers/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPrivacyItem } from "@/Redux/Reducers/privacySlice";
+import {
+  deletePrivacyItem,
+  selectPrivacyItem,
+} from "@/Redux/Reducers/privacySlice";
 import { Button } from "@/components/atoms/Button";
 import { modalTypeEnum } from "@/utils/enums";
 
@@ -32,7 +35,7 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
     const handleDeleteConfirmation = (): void => {
       if (privacyItem) {
         console.log("Deleting item with id", privacyItem);
-
+        dispatch(deletePrivacyItem());
         dispatch(closeModal());
       }
     };

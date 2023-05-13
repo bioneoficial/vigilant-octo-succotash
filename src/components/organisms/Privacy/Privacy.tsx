@@ -1,15 +1,34 @@
 import { openModal } from "@/Redux/Reducers/modalSlice";
-import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
+import {
+  selectPrivacyItem,
+  setPrivacyItem,
+} from "@/Redux/Reducers/privacySlice";
 import { PrivacyItem } from "@/types/types";
 import { PrivacyItems } from "@/utils/const";
 import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Privacy: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const [PrivacyItemsMock, setPrivacyItemsMock] =
+    useState<PrivacyItem[]>(PrivacyItems);
+  const privacyItem = useSelector(selectPrivacyItem);
+  const [previousPrivacyItem, setPreviousPrivacyItem] =
+    useState<PrivacyItem | null>(null);
+
+  useEffect(() => {
+    if (!privacyItem && previousPrivacyItem) {
+      setPrivacyItemsMock((currentItems) =>
+        currentItems.filter((item) => item.id !== previousPrivacyItem.id)
+      );
+    }
+    setPreviousPrivacyItem(privacyItem);
+  }, [privacyItem]);
 
   const handleEdit = (item: PrivacyItem): void => {
     if (item) {
@@ -55,7 +74,7 @@ export const Privacy: React.FC = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {PrivacyItems.map((item) => (
+              {PrivacyItemsMock.map((item) => (
                 <tr
                   className="border-b border-gray-200 hover:bg-gray-100"
                   key={item.id + item.name}

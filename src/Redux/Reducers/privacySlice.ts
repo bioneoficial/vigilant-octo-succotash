@@ -17,10 +17,13 @@ export const privacySlice = createSlice({
     setPrivacyItem: (state, action: PayloadAction<PrivacyItem>) => {
       state.item = action.payload;
     },
+    deletePrivacyItem: (state) => {
+      state.item = null;
+    },
   },
 });
 
-export const { setPrivacyItem } = privacySlice.actions;
+export const { setPrivacyItem, deletePrivacyItem } = privacySlice.actions;
 
 export const selectPrivacyItem = (state: RootState): PrivacyItem | null =>
   state.privacy.item;
