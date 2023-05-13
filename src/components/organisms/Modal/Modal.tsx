@@ -37,7 +37,7 @@ export const Modal: React.FC<ModalProps> = ({
               {title}
             </h3>
             <div className="mt-2">
-              <p className="text-sm text-gray-500">{description}</p>
+              <p className="text-md text-gray-500 pb-2">{description}</p>
             </div>
           </div>
         </div>

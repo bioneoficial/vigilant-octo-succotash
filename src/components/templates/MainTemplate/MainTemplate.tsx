@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { selectPrivacyItem } from "@/Redux/Reducers/privacySlice";
 import { Button } from "@/components/atoms/Button";
+import { modalTypeEnum } from "@/utils/enums";
 
 export const MainTemplate: React.FC<MainTemplateProps> = ({
   children,
@@ -35,39 +36,54 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
         dispatch(closeModal());
       }
     };
+    let title = "";
+    let description = "";
+    let content: JSX.Element | null = null;
 
     switch (modalType) {
-      case "deleteConfirmation":
-        return (
+      case modalTypeEnum.delete:
+        title = "Deletar ?";
+        description = `${privacyItem?.name} será excluida! Deseja continuar?`;
+        content = (
           <div className="flex justify-between">
             <Button
               title="Sim, deletar!"
               status={true}
               onClick={handleDeleteConfirmation}
+              className={[
+                "flex items-center mt-2 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
+              ]}
             />
             <Button
               title="Cancelar"
               status={true}
               onClick={(): unknown => dispatch(closeModal())}
+              className={[
+                "flex items-center mt-2 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
+              ]}
             />
           </div>
         );
+        break;
 
       default:
-        return null;
+        break;
     }
+    return (
+      <Modal
+        title={title}
+        description={description}
+        isOpen={modalContent.isOpen}
+      >
+        {content}
+      </Modal>
+    );
   };
 
   return (
     <div className="flex">
       {modalContent.isOpen && (
-        <Modal
-          title="Deletar ?"
-          description={`${privacyItem?.name} será excluida! Deseja continuar?`}
-          isOpen={modalContent.isOpen}
-        >
-          <ModalContent modalType={modalContent.modalType} />
-        </Modal>
+        <ModalContent modalType={modalContent.modalType} />
       )}
       <SideMenuDashboard open={openMenu} />
       <div className={`flex flex-col  ${openMenu ? "lg:w-4/5" : "lg:w-full"}`}>
