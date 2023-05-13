@@ -33,3 +33,18 @@ export const handleDeletePrivacy = (
     dispatch(openModal(modalTypeEnum.delete));
   }
 };
+
+export const gambiarraDoSelect = (
+  initialValue: string | undefined,
+  options: { value: string; text: string }[]
+): void => {
+  let indexSelected;
+  const test = options.find((option, index) => {
+    if (option.text === initialValue) indexSelected = index;
+    return option.text === initialValue;
+  });
+  if (test && indexSelected !== undefined) {
+    options.splice(indexSelected, 1);
+    options.unshift(test);
+  }
+};
