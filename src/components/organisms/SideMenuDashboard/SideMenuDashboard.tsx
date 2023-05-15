@@ -24,7 +24,7 @@ export const SideMenuDashboard: React.FC<SideMenuDashboardProps> = ({
           rel="noopener noreferrer"
         >
           <Image
-            src="../images/logo-funktoon.svg"
+            src="/images/logo-funktoon.svg"
             alt="Dropdown"
             height={32}
             width={180}

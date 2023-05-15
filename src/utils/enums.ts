@@ -21,3 +21,8 @@ export enum PrivacyItemStatus {
   Ativo = "Ativo",
   Inativo = "Inativo",
 }
+
+export enum modalTypeEnum {
+  empty = "",
+  delete = "deleteConfirmation",
+}

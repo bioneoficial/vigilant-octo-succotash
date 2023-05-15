@@ -38,7 +38,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
     <header
       className={`bg-[#fff] shadow-md transform transition-all ease-out duration-300 ${
         open ? "translate-x-60" : "translate-x-0"
-      } z-50`}
+      } z-10`}
     >
       <div className={`absolute top-2 left-0 flex items-center`}>
         <button

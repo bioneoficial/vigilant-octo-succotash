@@ -64,6 +64,7 @@ export const PrivacyItems: PrivacyItem[] = [
     version: 2,
     publish: true,
     date: "23/08/2022",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     id: 1,
@@ -73,5 +74,6 @@ export const PrivacyItems: PrivacyItem[] = [
     publish: true,
     version: 1,
     date: "12/08/2022",
+    description: "Lorem ipsum dolor sit amet",
   },
 ];

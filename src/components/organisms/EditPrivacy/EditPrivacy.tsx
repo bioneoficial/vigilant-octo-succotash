@@ -1,70 +1,149 @@
-import { useState, useEffect } from "react";
+import { useId, useState } from "react";
 import { PrivacyItem } from "@/types/types";
-import { PrivacyItemStatus, PrivacyItemType } from "@/utils/enums";
 import { Editor } from "@tinymce/tinymce-react";
+import { useSelector } from "react-redux";
+import { selectPrivacyItem } from "@/Redux/Reducers/privacySlice";
+import { InputField } from "@/components/atoms/InputField";
+import { SelectField } from "@/components/atoms/SelectField";
 
-interface EditPrivacyProps {
-  item: PrivacyItem;
-}
+export const EditPrivacy: React.FC = () => {
+  const item = useSelector(selectPrivacyItem);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [editedItem, setEditedItem] = useState<PrivacyItem | null>(item);
+  const uuid = useId();
 
-export const EditPrivacy: React.FC<EditPrivacyProps> = ({
-  item = {
-    id: 2,
-    name: "Termos de Uso",
-    status: PrivacyItemStatus.Ativo,
-    type: PrivacyItemType.TermosUso,
-    version: 2,
-    publish: true,
-    date: "23/08/2022",
-  },
-}) => {
-  const [editedItem, setEditedItem] = useState<PrivacyItem | undefined>({
-    id: 2,
-    name: "Termos de Uso",
-    status: PrivacyItemStatus.Ativo,
-    type: PrivacyItemType.TermosUso,
-    version: 2,
-    publish: true,
-    date: "23/08/2022",
-  });
-
-  useEffect(() => {
-    setEditedItem(item);
-  }, [item]);
+  console.log("item", editedItem);
 
   const handleEditorChange = (content: string, editor: unknown): void => {
     console.log("Content was updated:", content);
-    console.log("Editor was updated:", editor);
+    console.log("Editor was updated:", editor); // precisamos melhorar o editor e aplicar o PUT da API
   };
 
   return (
-    <div className="p-4 bg-gray-200">
-      <h2 className="text-2xl font-semibold mb-4">Politicas de Privacidade</h2>
-      <div className="border-b border-gray-200 py-4 bg-white">
-        <h3 className="text-lg font-semibold">{editedItem?.name}</h3>
-        <div className="border rounded p-2">
-          <Editor
-            apiKey="elhqxjppa5ipq0e8xb3dfrcs53g78dc00pke776zqeauhywg"
-            initialValue="Initial content"
-            init={{
-              height: 500,
-              menubar: false,
-              plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste code help wordcount",
-              ],
-              toolbar:
-                "undo redo | formatselect | bold italic backcolor fontfamily fontsize | \
-                alignleft aligncenter alignright alignjustify | \
-                bullist numlist outdent indent | removeformat | help",
-              fontsize_formats: "8px 10px 12px 14px 16px 18px 24px 36px",
-              font_formats:
-                "Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;Times New Roman=times new roman,times,serif",
-            }}
-            onEditorChange={handleEditorChange}
+    <div className=" flex flex-col items-center justify-center p-4 ">
+      <h2 className="text-2xl font-semibold mb-4">Editar</h2>
+      <div className=" p-2  w-10/12">
+        <div className="flex p-2 py-4 bg-white justify-between items-center w-12/12 border-solid border-2 border-gray-200 mb-4">
+          <h3 className="text-lg font-semibold ">{editedItem?.name}</h3>
+          <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 ">
+            Salvar
+          </button>
+        </div>
+        <div className="flex flex-col items-center justify-center p-4 md:flex-row md:space-x-4">
+          <InputField
+            label="Nome"
+            name="nameInput"
+            placeholder="Nome da política/termo"
+            required={true}
+            initialValue={editedItem?.name}
+            id={uuid + editedItem?.name}
+            classNameInput={[
+              "w-full",
+              "py-2",
+              "px-3",
+              "border",
+              "border-gray-400",
+              "rounded",
+            ]}
+            className={[
+              "text-gray-700",
+              "leading-tight",
+              "text-md",
+              "mt-3",
+              "mb-1",
+            ]}
+          />
+          <SelectField
+            label="Tipo"
+            name="typeInput"
+            required={true}
+            options={[
+              { value: "PoliticaPrivacidade", text: "Política de Privacidade" },
+              { value: "TermosUso", text: "Termos de Uso" },
+              {
+                value: "PoliticaTermoAutor",
+                text: "Política de Termo de Autor",
+              },
+            ]}
+            initialValue={editedItem?.type}
+            classNameInput={[
+              "w-full",
+              "py-2",
+              "px-3",
+              "border",
+              "border-gray-400",
+              "rounded",
+            ]}
+            className={[
+              "text-gray-700",
+              "leading-tight",
+              "text-md",
+              "mt-3",
+              "mb-1",
+            ]}
+          />
+          <InputField
+            label="Versão"
+            name="versionInput"
+            required={true}
+            type="number"
+            initialValue={editedItem?.version}
+            id={uuid + editedItem?.version}
+            classNameInput={[
+              "w-full",
+              "py-2",
+              "px-3",
+              "border",
+              "border-gray-400",
+              "rounded",
+            ]}
+            className={[
+              "text-gray-700",
+              "leading-tight",
+              "text-md",
+              "mt-3",
+              "mb-1",
+            ]}
+          />
+          <InputField
+            label="Publicar"
+            name="publishInput"
+            required={true}
+            type="checkbox"
+            initialValue={editedItem?.version}
+            id={uuid + editedItem?.version}
+            classNameInput={["py-2", "px-3 accent-pink-500 mt-auto w-10 h-6"]}
+            className={[
+              "flex gap-2",
+              "text-gray-700",
+              "leading-tight",
+              "mt-5",
+              "mb-1",
+            ]}
           />
         </div>
+        <Editor
+          // apiKey={process.env.TINY_API_KEY} ver se em PROD o .env nao acusa warning
+          apiKey="elhqxjppa5ipq0e8xb3dfrcs53g78dc00pke776zqeauhywg"
+          initialValue={item?.description}
+          init={{
+            height: 500,
+            menubar: true,
+            // plugins: [
+            //   "advlist autolink lists link image charmap print preview anchor",
+            //   "searchreplace visualblocks code fullscreen",
+            //   "insertdatetime media table paste code help wordcount",
+            // ],
+            toolbar:
+              "undo redo | formatselect | bold italic backcolor fontfamily fontsize | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help",
+            fontsize_formats: "8px 10px 12px 14px 16px 18px 24px 36px",
+            font_formats:
+              "Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;Times New Roman=times new roman,times,serif",
+          }}
+          onEditorChange={handleEditorChange}
+        />
       </div>
     </div>
   );
