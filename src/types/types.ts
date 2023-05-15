@@ -73,9 +73,11 @@ export type modalInterface = modelTypeInterface & {
 export interface cupom {
   id: number;
   nome: string;
+  descricao: string;
   codigo: string;
   usoLimite: number;
   diaQtd: number;
   validade: Date;
   status: boolean;
+  createdAt: Date;
 }
