@@ -19,9 +19,11 @@ type Props = {
     | "tel"
     | "text"
     | "time"
-    | "checkbox";
+    | "checkbox"
+    | "file";
   className?: string[];
   classNameInput?: string[];
+  inputRef?: React.RefObject<HTMLInputElement>;
 };
 
 const InputFieldComponent: React.FC<Props> = ({
@@ -37,8 +39,28 @@ const InputFieldComponent: React.FC<Props> = ({
   type = "text",
   className = [],
   classNameInput = [],
+  inputRef,
 }: Props) => {
-  if (
+  if (type === "file") {
+    return (
+      <label className={classNames(...className)} htmlFor={id}>
+        {label}
+        <input
+          aria-invalid={!!errorMessage}
+          autoFocus={autoFocus}
+          className={classNames(...classNameInput)}
+          name={name}
+          onChange={onChange}
+          required={required}
+          type={type}
+          id={id}
+          accept="image/*"
+          ref={inputRef}
+        />
+        {!!errorMessage && <div>{errorMessage}</div>}
+      </label>
+    );
+  } else if (
     type === "checkbox" &&
     (typeof initialValue === "boolean" || typeof initialValue === null)
   ) {
@@ -50,6 +72,7 @@ const InputFieldComponent: React.FC<Props> = ({
           onChange={onChange}
           type={type}
           id={id}
+          ref={inputRef}
         />
         {label}
       </label>
@@ -72,6 +95,7 @@ const InputFieldComponent: React.FC<Props> = ({
           required={required}
           type={type}
           id={id}
+          ref={inputRef}
         />
         {!!errorMessage && <div>{errorMessage}</div>}
       </label>
@@ -92,6 +116,7 @@ const InputFieldComponent: React.FC<Props> = ({
         required={required}
         type={type}
         id={id}
+        ref={inputRef}
       />
       {!!errorMessage && <div>{errorMessage}</div>}
     </label>
