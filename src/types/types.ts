@@ -69,3 +69,13 @@ export type modalInterface = modelTypeInterface & {
   description: string;
   isOpen: boolean;
 };
+
+export interface cupom {
+  id: number;
+  nome: string;
+  codigo: string;
+  usoLimite: number;
+  diaQtd: number;
+  validade: Date;
+  status: boolean;
+}
