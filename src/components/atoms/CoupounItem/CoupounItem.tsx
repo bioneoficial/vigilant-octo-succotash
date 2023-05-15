@@ -16,10 +16,13 @@ export const CouponItem: React.FC<cupom> = ({
   const formattedCreatedAt = createdAt.toLocaleDateString();
 
   return (
-    <tr className="border-collapse border border-slate-300" key={id + nome}>
+    <tr
+      className="border-collapse border border-slate-300 hover:bg-black hover:text-white"
+      key={id + nome}
+    >
       <td>{nome}</td>
       <td>{descricao}</td>
-      <td>{codigo}</td>
+      <td className="bg-gray-500 mx-auto">{codigo}</td>
       <td>{usoLimite}</td>
       <td>{diaQtd}</td>
       <td>{formattedValidade}</td>

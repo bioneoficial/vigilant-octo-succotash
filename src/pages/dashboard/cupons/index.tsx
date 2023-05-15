@@ -8,17 +8,16 @@ export default function MyCouponsPage(): JSX.Element {
   const uuidCupom = useId();
   return (
     <MainTemplate>
-      <h2 className=" mt-6 ml-6 mb-4 text-2xl font-semibold">Cupons</h2>
-      <Button
-        title="+ Novo Cupom"
-        status={true}
-        className={[
-          "flex items-center py-2 px-2 ml-6 mb-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
-        ]}
-      />
-
-      <div className=" ml-6 mx-auto flex flex-row justify-between items-start 0">
-        <table className="table-auto border-collapse border border-slate-500">
+      <div className=" ml-6 flex flex-col justify-center items-center w-full ">
+        <h2 className=" mt-6 ml-6 mb-4 text-2xl font-semibold">Cupons</h2>
+        <Button
+          title="+ Novo Cupom"
+          status={true}
+          className={[
+            "flex items-center py-2 px-2 ml-6 mb-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
+          ]}
+        />
+        <table className="table-auto border-collapse ">
           <thead className="border-collapse border border-slate-500">
             <tr>
               <th>Nome</th>
@@ -36,11 +35,6 @@ export default function MyCouponsPage(): JSX.Element {
             {cuponsMock.map((cupom) => (
               <CouponItem {...cupom} key={uuidCupom + cupom.id} />
             ))}
-            {/* <tr className="border-collapse border border-slate-300">
-              <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-              <td>Malcolm Lockyer</td>
-              <td>1961</td>
-            </tr> */}
           </tbody>
         </table>
       </div>
