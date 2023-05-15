@@ -87,7 +87,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 10,
     diaQtd: 30,
     validade: new Date("2023-12-31"),
-    status: true,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -98,7 +98,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 5,
     diaQtd: 15,
     validade: new Date("2023-11-30"),
-    status: false,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -109,7 +109,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 20,
     diaQtd: 60,
     validade: new Date("2023-10-31"),
-    status: true,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -120,7 +120,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 3,
     diaQtd: 10,
     validade: new Date("2023-09-30"),
-    status: true,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -131,7 +131,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 8,
     diaQtd: 25,
     validade: new Date("2023-08-31"),
-    status: false,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -142,7 +142,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 15,
     diaQtd: 45,
     validade: new Date("2023-07-31"),
-    status: true,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -153,7 +153,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 2,
     diaQtd: 5,
     validade: new Date("2023-06-30"),
-    status: true,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -164,7 +164,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 12,
     diaQtd: 35,
     validade: new Date("2023-05-31"),
-    status: false,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -175,7 +175,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 7,
     diaQtd: 20,
     validade: new Date("2023-04-30"),
-    status: true,
+    status: PrivacyItemStatus.Ativo,
     createdAt: new Date("2021-08-31"),
   },
   {
@@ -186,7 +186,7 @@ export const cuponsMock: cupom[] = [
     usoLimite: 6,
     diaQtd: 18,
     validade: new Date("2023-03-31"),
-    status: false,
+    status: PrivacyItemStatus.Inativo,
     createdAt: new Date("2021-08-31"),
   },
 ];

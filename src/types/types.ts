@@ -78,6 +78,6 @@ export interface cupom {
   usoLimite: number;
   diaQtd: number;
   validade: Date;
-  status: boolean;
+  status: boolean | PrivacyItemStatus;
   createdAt: Date;
 }

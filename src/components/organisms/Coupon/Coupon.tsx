@@ -1,9 +1,13 @@
+import { openModal } from "@/Redux/Reducers/modalSlice";
 import { Button } from "@/components/atoms/Button";
 import { CouponItem } from "@/components/atoms/CoupounItem";
 import { cuponsMock } from "@/utils/const";
+import { modalTypeEnum } from "@/utils/enums";
 import { useId } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Coupon(): JSX.Element {
+  const dispatch = useDispatch();
   const uuidCupom = useId();
   return (
     <div className=" ml-6 flex flex-col justify-center items-center w-full ">
@@ -14,8 +18,11 @@ export default function Coupon(): JSX.Element {
         className={[
           "flex items-center py-2 px-2 ml-6 mb-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
         ]}
+        onClick={(): void => {
+          dispatch(openModal(modalTypeEnum.CREATE_COUPON));
+        }}
       />
-      <table className="table-auto border-collapse">
+      <table className="table-auto border-collapse text-center">
         <thead className="border-collapse border border-slate-500">
           <tr>
             <th>Nome</th>

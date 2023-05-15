@@ -1,4 +1,5 @@
 import { cupom } from "@/types/types";
+import { PrivacyItemStatus } from "@/utils/enums";
 import Image from "next/image";
 
 export const CouponItem: React.FC<cupom> = ({
@@ -17,7 +18,7 @@ export const CouponItem: React.FC<cupom> = ({
 
   return (
     <tr
-      className="border-collapse border border-slate-300 hover:bg-gray-700 hover:text-white"
+      className="border-collapse border  border-slate-300 hover:bg-gray-700 hover:text-white"
       key={id + nome}
     >
       <td>{nome}</td>
@@ -26,7 +27,13 @@ export const CouponItem: React.FC<cupom> = ({
       <td>{usoLimite}</td>
       <td>{diaQtd}</td>
       <td>{formattedValidade}</td>
-      <td>{status}</td>
+      <td
+        className={` ${
+          status === PrivacyItemStatus.Ativo ? "text-green-600" : "text-red-600"
+        }`}
+      >
+        {status}
+      </td>
       <td>{formattedCreatedAt}</td>
       <td>
         <Image src="/images/pencil.svg" width={19} height={19} alt="plus" />
