@@ -1,6 +1,6 @@
 import { openModal } from "@/Redux/Reducers/modalSlice";
 import { Button } from "@/components/atoms/Button";
-import { CouponItem } from "@/components/atoms/CoupounItem";
+import { CouponItem } from "@/components/molecules/CoupounItem";
 import { cuponsMock } from "@/utils/const";
 import { modalTypeEnum } from "@/utils/enums";
 import { useId } from "react";

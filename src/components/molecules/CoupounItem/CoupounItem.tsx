@@ -35,7 +35,7 @@ export const CouponItem: React.FC<cupom> = ({
         {status}
       </td>
       <td>{formattedCreatedAt}</td>
-      <td>
+      <td className=" px-2">
         <Image src="/images/pencil.svg" width={19} height={19} alt="plus" />
       </td>
     </tr>
