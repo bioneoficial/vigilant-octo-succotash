@@ -17,7 +17,7 @@ export const CouponItem: React.FC<cupom> = ({
 
   return (
     <tr
-      className="border-collapse border border-slate-300 hover:bg-black hover:text-white"
+      className="border-collapse border border-slate-300 hover:bg-gray-700 hover:text-white"
       key={id + nome}
     >
       <td>{nome}</td>
