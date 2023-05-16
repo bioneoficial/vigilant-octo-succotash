@@ -28,7 +28,23 @@ export const UserItem: React.FC<user> = ({
       </td>
       <td>{formattedCreatedAt}</td>
       <td>{email}</td>
-      <td>{imagem}</td>
+      <td>
+        { imagem === "" ? <Image
+          className="h-8 w-8 rounded-full"
+          width={32}
+          height={32}
+          src={"https://www.gravatar.com/avatar/000?d=mp&f=y"}
+          alt="User Item Picture"
+        /> :
+        <Image
+          className="h-8 w-8 rounded-full"
+          width={32}
+          height={32}
+          src={imagem}
+          alt="User Item Picture"
+        />
+}
+      </td>
       <td>{tipo}</td>
 
       <td className=" px-2">

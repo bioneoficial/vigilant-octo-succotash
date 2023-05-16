@@ -8,7 +8,7 @@ const initialUsers: user[] = Array.from({ length: 15 }, (_, i) => ({
   id: i,
   nome: `Usuário ${i}`,
   email: `usuario${i}@exemplo.com`,
-  imagem: "https://via.placeholder.com/150",
+  imagem: "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo",
   status: i % 2 === 0 ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo,
   tipo: Object.values(UserRole)[
     Math.floor(Math.random() * Object.values(UserRole).length)
@@ -20,9 +20,15 @@ export default function Users(): JSX.Element {
   const [searchTermName, setSearchTermName] = useState<string>("");
   const [searchTermEmail, setSearchTermEmail] = useState<string>("");
   const [users, setUsers] = useState<user[]>(initialUsers);
-
   const [currentPage, setCurrentPage] = useState<number>(1);
+
   const itemsPerPage = 10;
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentUsers = users.slice(firstItemIndex, lastItemIndex);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
 
   useEffect(() => {
     const results = initialUsers.filter(
@@ -34,11 +40,6 @@ export default function Users(): JSX.Element {
     setUsers(results);
   }, [searchTermName, searchTermEmail]);
 
-  const lastItemIndex = currentPage * itemsPerPage;
-  const firstItemIndex = lastItemIndex - itemsPerPage;
-  const currentUsers = users.slice(firstItemIndex, lastItemIndex);
-
-  const totalPages = Math.ceil(users.length / itemsPerPage);
 
   const handleClickNext = (): void => {
     if (currentPage < totalPages) {
