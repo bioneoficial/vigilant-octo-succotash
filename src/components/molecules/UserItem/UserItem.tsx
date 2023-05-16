@@ -1,3 +1,4 @@
+import { Button } from "@/components/atoms/Button";
 import { user } from "@/types/types";
 import { PrivacyItemStatus } from "@/utils/enums";
 import Image from "next/image";
@@ -48,7 +49,7 @@ export const UserItem: React.FC<user> = ({
       <td>{tipo}</td>
 
       <td className=" px-2">
-        <Image src="/images/pencil.svg" width={19} height={19} alt="plus" />
+        <Button title={""} status={true} icon={{ src: "/images/pencil.svg", alt: "Edit User" }} />
       </td>
     </tr>
   );

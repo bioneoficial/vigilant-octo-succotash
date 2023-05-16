@@ -4,7 +4,7 @@ import { HEAD_TABLE_USERS, PrivacyItemStatus, UserRole } from "@/utils/enums";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const initialUsers: user[] = Array.from({ length: 15 }, (_, i) => ({
+const initialUsers: user[] = Array.from({ length: 901 }, (_, i) => ({
   id: i,
   nome: `Usuário ${i}`,
   email: `usuario${i}@exemplo.com`,
@@ -29,6 +29,38 @@ export default function Users(): JSX.Element {
 
   const totalPages = Math.ceil(users.length / itemsPerPage);
 
+  const pageNumbers = [];
+  const maxPagesToShow = 5;
+  const firstPage = 1;
+  const lastPage = totalPages;
+
+  if (totalPages <= maxPagesToShow) {
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+  } else {
+    const middlePage = Math.floor(maxPagesToShow / 2);
+    const leftEllipsisPage = Math.max(currentPage - middlePage, firstPage + 1);
+    const rightEllipsisPage = Math.min(currentPage + middlePage, lastPage - 1);
+
+    pageNumbers.push(firstPage);
+    if (leftEllipsisPage > 2) {
+      pageNumbers.push("...");
+    }
+    for (let i = leftEllipsisPage; i <= rightEllipsisPage; i++) {
+      pageNumbers.push(i);
+    }
+    if (rightEllipsisPage < totalPages - 1) {
+      pageNumbers.push("...");
+    }
+    pageNumbers.push(lastPage);
+  }
+
+  const handleClickPage = (pageNumber: number | string): void => {
+    if (typeof pageNumber === "number") {
+      setCurrentPage(pageNumber);
+    }
+  };
 
   useEffect(() => {
     const results = initialUsers.filter(
@@ -38,20 +70,11 @@ export default function Users(): JSX.Element {
     );
 
     setUsers(results);
+    setCurrentPage(firstPage);
   }, [searchTermName, searchTermEmail]);
 
 
-  const handleClickNext = (): void => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
 
-  const handleClickPrev = (): void => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
 
   return (
     <div className="ml-6 flex flex-col justify-center items-center w-full">
@@ -81,7 +104,7 @@ export default function Users(): JSX.Element {
                     <input
                       type="text"
                       placeholder={header}
-                      className="font-bold pr-8"
+                      className="font-bold pr-8 placeholder-black"
                       value={
                         header === HEAD_TABLE_USERS.NOME
                           ? searchTermName
@@ -107,8 +130,29 @@ export default function Users(): JSX.Element {
           ))}
         </tbody>
       </table>
-      <button onClick={handleClickPrev}>Previous</button>
-      <button onClick={handleClickNext}>Next</button>
+      <div className="flex justify-center items-center mt-4">
+        {pageNumbers.map((pageNumber, index) => {
+          if (pageNumber === "...") {
+            return (
+              <span key={index} className="mx-1">
+                {pageNumber}
+              </span>
+            );
+          } else {
+            return (
+              <button
+                key={index}
+                className={`mx-1 px-2 py-1 rounded-full ${
+                  currentPage === pageNumber ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+                onClick={(): void => handleClickPage(pageNumber)}
+              >
+                {pageNumber}
+              </button>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 }
