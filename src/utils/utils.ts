@@ -1,9 +1,10 @@
 import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
-import { PrivacyItem } from "@/types/types";
+import { PrivacyItem, user } from "@/types/types";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { modalTypeEnum } from "./enums";
+import { selectUser } from "@/Redux/Reducers/userSlice";
 
 export const classNames = (...classes: string[]): string => {
   return classes.filter(Boolean).join(" ");
@@ -46,5 +47,17 @@ export const gambiarraDoSelect = (
   if (test && indexSelected !== undefined) {
     options.splice(indexSelected, 1);
     options.unshift(test);
+  }
+};
+
+export const handleEditUserModal = (
+  item: user,
+  dispatch: Dispatch<AnyAction>,
+  type: modalTypeEnum,
+): void => {
+  if (item) {
+    console.log(item)
+    dispatch(selectUser(item.id));
+    dispatch(openModal(type));
   }
 };

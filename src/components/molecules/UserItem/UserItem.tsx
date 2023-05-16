@@ -1,7 +1,9 @@
 import { Button } from "@/components/atoms/Button";
 import { user } from "@/types/types";
-import { PrivacyItemStatus } from "@/utils/enums";
+import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
+import { handleEditUserModal } from "@/utils/utils";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
 
 export const UserItem: React.FC<user> = ({
   id,
@@ -12,6 +14,9 @@ export const UserItem: React.FC<user> = ({
   createdAt,
   tipo,
 }) => {
+  const dispatch = useDispatch();
+
+  
   const formattedCreatedAt = createdAt.toLocaleDateString();
 
   return (
@@ -49,7 +54,15 @@ export const UserItem: React.FC<user> = ({
       <td>{tipo}</td>
 
       <td className=" px-2">
-        <Button title={""} status={true} icon={{ src: "/images/pencil.svg", alt: "Edit User" }} />
+        <Button title={""} status={true} icon={{ src: "/images/pencil.svg", alt: "Edit User" }} onClick={(): void => handleEditUserModal({
+  id,
+  nome,
+  email,
+  imagem,
+  status,
+  createdAt,
+  tipo,
+},dispatch,modalTypeEnum.EDIT_USER)} />
       </td>
     </tr>
   );
