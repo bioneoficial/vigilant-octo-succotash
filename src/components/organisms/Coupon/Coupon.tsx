@@ -2,7 +2,7 @@ import { openModal } from "@/Redux/Reducers/modalSlice";
 import { Button } from "@/components/atoms/Button";
 import { CouponItem } from "@/components/molecules/CoupounItem";
 import { cuponsMock } from "@/utils/const";
-import { modalTypeEnum } from "@/utils/enums";
+import { HEAD_TABLE_COUPONS, modalTypeEnum } from "@/utils/enums";
 import { useId } from "react";
 import { useDispatch } from "react-redux";
 
@@ -25,15 +25,9 @@ export default function Coupon(): JSX.Element {
       <table className="table-auto border-collapse text-center">
         <thead className="border-collapse border border-slate-500">
           <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Código</th>
-            <th>Limite Usos</th>
-            <th>Qtd Dias</th>
-            <th>Validade</th>
-            <th>Status</th>
-            <th>Criado</th>
-            <th>Ações</th>
+            {Object.values(HEAD_TABLE_COUPONS).map((header) => (
+              <th key={header}>{header}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
