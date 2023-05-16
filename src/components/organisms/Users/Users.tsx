@@ -59,6 +59,10 @@ export default function Users(): JSX.Element {
   const handleClickPage = (pageNumber: number | string): void => {
     if (typeof pageNumber === "number") {
       setCurrentPage(pageNumber);
+    } else if (pageNumber === "prev" && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else if (pageNumber === "next" && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
@@ -72,9 +76,6 @@ export default function Users(): JSX.Element {
     setUsers(results);
     setCurrentPage(firstPage);
   }, [searchTermName, searchTermEmail]);
-
-
-
 
   return (
     <div className="ml-6 flex flex-col justify-center items-center w-full">
@@ -131,6 +132,14 @@ export default function Users(): JSX.Element {
         </tbody>
       </table>
       <div className="flex justify-center items-center mt-4">
+        {currentPage > 1 && (
+          <button
+            className="mx-1 px-2 py-1 rounded-full bg-gray-200"
+            onClick={(): void => handleClickPage("prev")}
+          >
+            Prev
+          </button>
+        )}
         {pageNumbers.map((pageNumber, index) => {
           if (pageNumber === "...") {
             return (
@@ -143,7 +152,9 @@ export default function Users(): JSX.Element {
               <button
                 key={index}
                 className={`mx-1 px-2 py-1 rounded-full ${
-                  currentPage === pageNumber ? "bg-blue-500 text-white" : "bg-gray-200"
+                  currentPage === pageNumber
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
                 }`}
                 onClick={(): void => handleClickPage(pageNumber)}
               >
@@ -152,6 +163,14 @@ export default function Users(): JSX.Element {
             );
           }
         })}
+        {currentPage < totalPages && (
+          <button
+            className="mx-1 px-2 py-1 rounded-full bg-gray-200"
+            onClick={(): void => handleClickPage("next")}
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
