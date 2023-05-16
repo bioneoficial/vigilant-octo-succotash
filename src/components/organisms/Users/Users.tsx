@@ -2,8 +2,9 @@ import { UserItem } from "@/components/molecules/UserItem";
 import { user } from "@/types/types";
 import { HEAD_TABLE_USERS, PrivacyItemStatus, UserRole } from "@/utils/enums";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-const users: user[] = Array.from({ length: 10 }, (_, i) => ({
+const initialUsers: user[] = Array.from({ length: 15 }, (_, i) => ({
   id: i,
   nome: `Usuário ${i}`,
   email: `usuario${i}@exemplo.com`,
@@ -16,6 +17,21 @@ const users: user[] = Array.from({ length: 10 }, (_, i) => ({
 }));
 
 export default function Users(): JSX.Element {
+  const [searchTermName, setSearchTermName] = useState<string>("");
+  const [searchTermEmail, setSearchTermEmail] = useState<string>("");
+
+  const [users, setUsers] = useState<user[]>(initialUsers);
+
+  useEffect(() => {
+    const results = initialUsers.filter(
+      (user) =>
+        user.nome.toLowerCase().includes(searchTermName.toLowerCase()) &&
+        user.email.toLowerCase().includes(searchTermEmail.toLowerCase())
+    );
+
+    setUsers(results);
+  }, [searchTermName, searchTermEmail]);
+
   return (
     <div className="ml-6 flex flex-col justify-center items-center w-full">
       <h2 className="mt-6 ml-6 mb-4 text-2xl font-semibold">Usuários</h2>
@@ -45,15 +61,21 @@ export default function Users(): JSX.Element {
                       type="text"
                       placeholder={header}
                       className="font-bold pr-8"
+                      value={
+                        header === HEAD_TABLE_USERS.NOME
+                          ? searchTermName
+                          : searchTermEmail
+                      }
+                      onChange={
+                        header === HEAD_TABLE_USERS.NOME
+                          ? (e): void => setSearchTermName(e.target.value)
+                          : (e): void => setSearchTermEmail(e.target.value)
+                      }
                     />
                   </th>
                 );
               } else {
-                return (
-                  <th key={header} className="">
-                    {header}
-                  </th>
-                );
+                return <th key={header}>{header}</th>;
               }
             })}
           </tr>
