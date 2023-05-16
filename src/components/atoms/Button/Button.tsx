@@ -19,7 +19,9 @@ export const Button: React.FC<buttonProps> = ({
         disabled={false}
         className={classNames(...className)}
       >
-        {icon.src && <Image src={icon.src} alt={icon.alt} />}
+        {icon.src && (
+          <Image src={icon.src} alt={icon.alt} width={24} height={24} />
+        )}
         {title}
       </button>
     );

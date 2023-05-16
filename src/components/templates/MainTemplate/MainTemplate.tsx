@@ -15,6 +15,7 @@ import {
 } from "@/Redux/Reducers/privacySlice";
 import { Button } from "@/components/atoms/Button";
 import { modalTypeEnum } from "@/utils/enums";
+import { InputField } from "@/components/atoms/InputField";
 
 export const MainTemplate: React.FC<MainTemplateProps> = ({
   children,
@@ -63,6 +64,78 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
               onClick={(): unknown => dispatch(closeModal())}
               className={[
                 "flex items-center mt-2 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
+              ]}
+            />
+          </div>
+        );
+        break;
+
+      case modalTypeEnum.CREATE_COUPON:
+        title = "Adicionar novo cupom";
+        description = "Preencha os campos abaixo para adicionar um novo cupom";
+        content = (
+          <div className="flex flex-col justify-between">
+            <Button
+              title=""
+              status={true}
+              onClick={(): unknown => dispatch(closeModal())}
+              className={["fixed float-right top-2 right-2 "]}
+              icon={{ src: "/images/x-mark.svg", alt: "x-mark" }}
+            />
+            <InputField
+              label="Nome:"
+              name="nomeCreateCoupon"
+              placeholder="Insira o nome"
+              classNameInput={[
+                "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
+              ]}
+            />
+            <InputField
+              label="Código:"
+              name="codigoCreateCoupon"
+              placeholder="Insira Codigo"
+              classNameInput={[
+                "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
+              ]}
+            />
+            <InputField
+              label="Limite de uso"
+              name="limiteCreateCoupon"
+              type="number"
+              initialValue={1}
+              classNameInput={[
+                "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
+              ]}
+            />
+            <InputField
+              label="Qtd Dias Premium"
+              name="qtdDiasCreateCoupon"
+              type="number"
+              initialValue={1}
+              classNameInput={[
+                "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
+              ]}
+            />
+            <InputField
+              label="Validade"
+              name="validadeCreateCoupon"
+              type="date"
+              classNameInput={[
+                "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
+              ]}
+            />
+            <InputField
+              label="Cupom Ativo"
+              name="statusCreateCoupon"
+              type="checkbox"
+              classNameInput={[" w-4 h-4 mt-4 rounded-lg ml-2"]}
+            />
+            <Button
+              title="Salvar"
+              status={true}
+              onClick={(): unknown => dispatch(closeModal())}
+              className={[
+                "flex self-center mt-2 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
               ]}
             />
           </div>

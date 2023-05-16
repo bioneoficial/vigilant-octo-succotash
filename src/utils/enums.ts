@@ -25,4 +25,5 @@ export enum PrivacyItemStatus {
 export enum modalTypeEnum {
   empty = "",
   delete = "deleteConfirmation",
+  CREATE_COUPON = "createCoupon",
 }
