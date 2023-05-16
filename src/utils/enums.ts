@@ -32,7 +32,6 @@ export enum BASE_TABLE_HEAD {
   NOME = "Nome",
   STATUS = "Status",
   CRIADO = "Criado",
-  ACOES = "Ações",
 }
 
 export const HEAD_TABLE_COUPONS = {
@@ -42,6 +41,7 @@ export const HEAD_TABLE_COUPONS = {
   LIMITE_USO: "Limite Usos",
   QTD_DIAS: "Qtd Dias",
   VALIDADE: "Validade",
+  ACOES: "Ações",
 } as const;
 
 export const HEAD_TABLE_USERS = {
@@ -49,4 +49,12 @@ export const HEAD_TABLE_USERS = {
   EMAIL: "Email",
   IMAGEM: "Imagem",
   TIPO: "Tipo",
+  ACOES: "Ações",
 } as const;
+
+export enum UserRole {
+  usuario = "Usuário",
+  admin = "Admin",
+  autor = "Autor",
+  root = "Root",
+}

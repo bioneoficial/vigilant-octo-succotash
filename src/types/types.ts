@@ -2,6 +2,7 @@ import {
   PrivacyItemStatus,
   PrivacyItemType,
   SideMenuItem,
+  UserRole,
   modalTypeEnum,
 } from "@/utils/enums";
 
@@ -79,5 +80,15 @@ export interface cupom {
   diaQtd: number;
   validade: Date;
   status: boolean | PrivacyItemStatus;
+  createdAt: Date;
+}
+
+export interface user {
+  id: number;
+  nome: string;
+  email: string;
+  status: boolean | PrivacyItemStatus;
+  imagem: string;
+  tipo: UserRole;
   createdAt: Date;
 }

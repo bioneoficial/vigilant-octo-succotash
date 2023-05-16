@@ -1,5 +1,19 @@
-import { HEAD_TABLE_USERS } from "@/utils/enums";
+import { UserItem } from "@/components/molecules/UserItem";
+import { user } from "@/types/types";
+import { HEAD_TABLE_USERS, PrivacyItemStatus, UserRole } from "@/utils/enums";
 import Image from "next/image";
+
+const users: user[] = Array.from({ length: 10 }, (_, i) => ({
+  id: i,
+  nome: `Usuário ${i}`,
+  email: `usuario${i}@exemplo.com`,
+  imagem: "https://via.placeholder.com/150",
+  status: i % 2 === 0 ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo,
+  tipo: Object.values(UserRole)[
+    Math.floor(Math.random() * Object.values(UserRole).length)
+  ],
+  createdAt: new Date(),
+}));
 
 export default function Users(): JSX.Element {
   return (
@@ -44,7 +58,11 @@ export default function Users(): JSX.Element {
             })}
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {users.map((user) => (
+            <UserItem key={user.id} {...user} />
+          ))}
+        </tbody>
       </table>
     </div>
   );
