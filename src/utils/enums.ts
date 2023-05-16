@@ -26,4 +26,36 @@ export enum modalTypeEnum {
   empty = "",
   delete = "deleteConfirmation",
   CREATE_COUPON = "createCoupon",
+  EDIT_USER = "editUser",
+}
+
+export enum BASE_TABLE_HEAD {
+  NOME = "Nome",
+  STATUS = "Status",
+  CRIADO = "Criado",
+}
+
+export const HEAD_TABLE_COUPONS = {
+  ...BASE_TABLE_HEAD,
+  CODIGO: "Código",
+  DESCRICAO: "Descrição",
+  LIMITE_USO: "Limite Usos",
+  QTD_DIAS: "Qtd Dias",
+  VALIDADE: "Validade",
+  ACOES: "Ações",
+} as const;
+
+export const HEAD_TABLE_USERS = {
+  ...BASE_TABLE_HEAD,
+  EMAIL: "Email",
+  IMAGEM: "Imagem",
+  TIPO: "Tipo",
+  ACOES: "Ações",
+} as const;
+
+export enum UserRole {
+  usuario = "Usuário",
+  admin = "Admin",
+  autor = "Autor",
+  root = "Root",
 }

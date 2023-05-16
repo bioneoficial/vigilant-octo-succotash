@@ -142,6 +142,18 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
         );
         break;
 
+        case modalTypeEnum.EDIT_USER:
+          title = "Gerenciar Usuário";
+          <Button
+          title=""
+          status={true}
+          onClick={(): unknown => dispatch(closeModal())}
+          className={["fixed float-right top-2 right-2 "]}
+          icon={{ src: "/images/x-mark.svg", alt: "x-mark" }}
+        />
+
+          break;
+
       default:
         break;
     }
