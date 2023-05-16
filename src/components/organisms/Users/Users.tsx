@@ -19,8 +19,10 @@ const initialUsers: user[] = Array.from({ length: 15 }, (_, i) => ({
 export default function Users(): JSX.Element {
   const [searchTermName, setSearchTermName] = useState<string>("");
   const [searchTermEmail, setSearchTermEmail] = useState<string>("");
-
   const [users, setUsers] = useState<user[]>(initialUsers);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const results = initialUsers.filter(
@@ -31,6 +33,24 @@ export default function Users(): JSX.Element {
 
     setUsers(results);
   }, [searchTermName, searchTermEmail]);
+
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentUsers = users.slice(firstItemIndex, lastItemIndex);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const handleClickNext = (): void => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handleClickPrev = (): void => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
 
   return (
     <div className="ml-6 flex flex-col justify-center items-center w-full">
@@ -81,11 +101,13 @@ export default function Users(): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {currentUsers.map((user) => (
             <UserItem key={user.id} {...user} />
           ))}
         </tbody>
       </table>
+      <button onClick={handleClickPrev}>Previous</button>
+      <button onClick={handleClickNext}>Next</button>
     </div>
   );
 }
