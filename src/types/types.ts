@@ -83,12 +83,12 @@ export interface cupom {
   createdAt: Date;
 }
 
-export interface user {
+export interface user { // ajeitar user com o banco
   id: number;
   nome: string;
   email: string;
   status: boolean | PrivacyItemStatus;
   imagem: string;
   tipo: UserRole;
-  createdAt: Date;
+  createdAt?: Date | null;
 }

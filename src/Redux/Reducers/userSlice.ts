@@ -3,13 +3,13 @@ import type { RootState } from "../store";
 import { user } from "@/types/types";
 
 interface UserState {
-  items: user[];
-  selectedItem: user | null;
+  users: user[];
+  selectedUser: user | null;
 }
 
 const initialState: UserState = {
-  items: [],
-  selectedItem: null,
+  users: [],
+  selectedUser: null,
 };
 
 export const userSlice = createSlice({
@@ -17,24 +17,24 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action: PayloadAction<user>) => {
-      state.items.push(action.payload);
+      state.users.push(action.payload);
     }, 
     deleteUser: (state, action: PayloadAction<number>) => {
-      state.items = state.items.filter((user) => user.id !== action.payload);
+      state.users = state.users.filter((user) => user.id !== action.payload);
     },
     selectUser: (state, action: PayloadAction<number>) => {
-      state.selectedItem = state.items.find((user) => user.id === action.payload) || null;
+      state.selectedUser = state.users.find((user) => user.id === action.payload) || null;
     },
     deselectUser: (state) => {
-      state.selectedItem = null;
+      state.selectedUser = null;
     },
   },
 });
 
 export const { addUser, deleteUser, selectUser, deselectUser } = userSlice.actions;
 
-export const selectUsers = (state: RootState): user[] => state.user.items;
+export const selectUsers = (state: RootState): user[] => state.user.users;
 
-export const selectSelectedUser = (state: RootState): user | null => state.user.selectedItem;
+export const selectSelectedUser = (state: RootState): user | null => state.user.selectedUser;
 
 export default userSlice.reducer;

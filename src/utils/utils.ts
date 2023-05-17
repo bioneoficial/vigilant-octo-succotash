@@ -4,7 +4,7 @@ import { PrivacyItem, user } from "@/types/types";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { modalTypeEnum } from "./enums";
-import { selectUser } from "@/Redux/Reducers/userSlice";
+import {  selectUser } from "@/Redux/Reducers/userSlice";
 
 export const classNames = (...classes: string[]): string => {
   return classes.filter(Boolean).join(" ");
@@ -59,5 +59,17 @@ export const handleEditUserModal = (
     console.log(item)
     dispatch(selectUser(item.id));
     dispatch(openModal(type));
+  }
+};
+export const handleEditUser = (
+  user: user,
+  dispatch: Dispatch<AnyAction>,
+  router: NextRouter
+): void => {
+  if (user) {
+    console.log(user)
+    dispatch(selectUser(user.id));
+    router.push(`/dashboard/usuarios/${user.id}`);
+
   }
 };
