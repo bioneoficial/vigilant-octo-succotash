@@ -5,8 +5,8 @@ interface BannerSelectionProps {
   setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
   showCheckLandingPageApp: boolean;
   setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
-  bannerLink: string;
-  setBannerLink: React.Dispatch<React.SetStateAction<string>>;
+  bannerLink?: string;
+  setBannerLink?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const BannerSelection: React.FC<BannerSelectionProps> = ({
@@ -14,14 +14,14 @@ export const BannerSelection: React.FC<BannerSelectionProps> = ({
   setUrlImageBannerSelection,
   showCheckLandingPageApp,
   setShowCheckLandingPageApp,
-  bannerLink,
-  setBannerLink,
+  //   bannerLink,
+  //   setBannerLink,
 }) => {
-  const handleBannerLinkChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setBannerLink(event.target.value);
-  };
+  //   const handleBannerLinkChange = (
+  //     event: React.ChangeEvent<HTMLInputElement>
+  //   ): void => {
+  //     setBannerLink(event.target.value);
+  //   };
 
   const handleUrlImageBannerSelectionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -36,17 +36,9 @@ export const BannerSelection: React.FC<BannerSelectionProps> = ({
   };
 
   return (
-    <div>
-      <h3>Banner Selection</h3>
-      <div>
-        <label htmlFor="bannerLink">Banner Link:</label>
-        <input
-          type="text"
-          id="bannerLink"
-          value={bannerLink}
-          onChange={handleBannerLinkChange}
-        />
-      </div>
+    <div className="bg-gray-200 rounded-sm shadow-2xl">
+      <h3>Imagem Banner (Acima do seleções)</h3>
+
       <div>
         <label htmlFor="urlImageBannerSelection">Banner Image URL:</label>
         <input
@@ -67,6 +59,13 @@ export const BannerSelection: React.FC<BannerSelectionProps> = ({
           Show Check Landing Page App
         </label>
       </div>
+      {/* <label htmlFor="bannerLink">Banner Link:</label>
+      <input ENTENDER A LOGICA DISSO
+        type="text"
+        id="bannerLink"
+        value={bannerLink}
+        onChange={handleBannerLinkChange}
+      /> */}
     </div>
   );
 };
