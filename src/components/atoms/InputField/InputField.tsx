@@ -62,7 +62,9 @@ const InputFieldComponent: React.FC<Props> = ({
     );
   } else if (
     type === "checkbox" &&
-    (typeof initialValue === "boolean" || typeof initialValue === null)
+    (initialValue === "true" ||
+      initialValue === "false" ||
+      typeof initialValue === null)
   ) {
     return (
       <label className={classNames(...className)} htmlFor={id}>
@@ -73,6 +75,7 @@ const InputFieldComponent: React.FC<Props> = ({
           type={type}
           id={id}
           ref={inputRef}
+          checked={initialValue === "true" ? true : false}
         />
         {label}
       </label>

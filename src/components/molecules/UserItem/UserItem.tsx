@@ -1,8 +1,9 @@
 import { Button } from "@/components/atoms/Button";
 import { user } from "@/types/types";
-import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
-import { handleEditUserModal } from "@/utils/utils";
+import { PrivacyItemStatus,  } from "@/utils/enums";
+import { handleEditUser } from "@/utils/utils";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 export const UserItem: React.FC<user> = ({
@@ -15,9 +16,10 @@ export const UserItem: React.FC<user> = ({
   tipo,
 }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   
-  const formattedCreatedAt = createdAt.toLocaleDateString();
+  const formattedCreatedAt = createdAt?.toLocaleDateString();
 
   return (
     <tr
@@ -54,7 +56,7 @@ export const UserItem: React.FC<user> = ({
       <td>{tipo}</td>
 
       <td className=" px-2">
-        <Button title={""} status={true} icon={{ src: "/images/pencil.svg", alt: "Edit User" }} onClick={(): void => handleEditUserModal({
+        <Button title={""} status={true} icon={{ src: "/images/pencil.svg", alt: "Edit User" }} onClick={(): void =>  handleEditUser({
   id,
   nome,
   email,
@@ -62,7 +64,7 @@ export const UserItem: React.FC<user> = ({
   status,
   createdAt,
   tipo,
-},dispatch,modalTypeEnum.EDIT_USER)} />
+},dispatch,router )} />
       </td>
     </tr>
   );
