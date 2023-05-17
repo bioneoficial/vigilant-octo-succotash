@@ -83,7 +83,7 @@ export interface cupom {
   createdAt: Date;
 }
 
-export interface user { // ajeitar user com o banco
+export interface user { // ajeitar user com o banco, falta description, assinatura entre outros?
   id: number;
   nome: string;
   email: string;
