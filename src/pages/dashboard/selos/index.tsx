@@ -1,9 +1,10 @@
+import Selos from "@/components/organisms/Selos/Selos";
 import { MainTemplate } from "@/components/templates/MainTemplate";
 
 const SelosPage: React.FC = () => {
   return (
     <MainTemplate>
-      <div className=" text-black">Vamos comecar </div>
+      <Selos />
     </MainTemplate>
   );
 };
