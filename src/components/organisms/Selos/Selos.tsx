@@ -1,9 +1,41 @@
 import { Button } from "@/components/atoms/Button";
 import SelosItem from "@/components/molecules/SelosItem/SelosItem";
+import { Stamps } from "@/types/types";
 import { useRouter } from "next/router";
 // import { useId } from "react";
 
 export default function Selos(): JSX.Element {
+  const selos: Stamps[] = [
+    {
+      id: 1,
+      name: "Selo 1",
+      desc: "Descrição do Selo 1",
+      image: "https://example.com/selo1.png",
+      active: 1,
+      order: 1,
+      order_by_serie: "name",
+      featured: 0,
+      created_at: "2021-10-01T00:00:00Z",
+      updated_at: "2021-10-01T00:00:00Z",
+      deleted_at: "",
+      series_count: 3,
+    },
+    {
+      id: 2,
+      name: "Selo 2",
+      desc: "Descrição do Selo 2",
+      image: "https://example.com/selo2.png",
+      active: 0,
+      order: 2,
+      order_by_serie: "created_at",
+      featured: 1,
+      created_at: "2021-10-02T00:00:00Z",
+      updated_at: "2021-10-02T00:00:00Z",
+      deleted_at: "",
+      series_count: 5,
+    },
+  ];
+
   const router = useRouter();
   //   const uuidCupom = useId();
   const handleBtnClick = (id: number): void => {
@@ -24,20 +56,19 @@ export default function Selos(): JSX.Element {
       />
       <div className="flex justify-around w-full">
         <table className="table-auto border border-slate-500 border-collapse text-center">
-          <caption className="text-center text-bold text-green-500  mb-1">
-            Selos Ativos no App
-          </caption>
+          <caption className="font-bold mb-2">Selos Ativos no App</caption>
 
-          <thead className="border-collapse border border-slate-500">
+          <thead className="border-collapse border border-slate-500 ">
             <tr>
-              <th>Ordem</th>
-              <th>Nome</th>
-              <th>Séries</th>
-              <th> Ordenar conteúdo</th>
+              <th className="px-2">Ordem</th>
+              <th className="px-2">Nome</th>
+              <th className="px-2">Séries</th>
+              <th className="px-2">Status</th>
+              <th className="px-2">Ordenar</th>
             </tr>
           </thead>
           <tbody>
-            <SelosItem />
+            <SelosItem Selos={selos} />
           </tbody>
         </table>
       </div>

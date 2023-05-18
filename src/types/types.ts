@@ -207,3 +207,7 @@ export interface Stamps{ // that can be series/conteudo too?
   deleted_at: string;
   series_count: number;
 }
+
+export interface SelosItemProps {
+  Selos: Stamps[];
+}
