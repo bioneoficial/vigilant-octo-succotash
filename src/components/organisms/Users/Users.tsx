@@ -1,64 +1,55 @@
-import { addUser } from "@/Redux/Reducers/userSlice";
+import { addUsers } from "@/Redux/Reducers/userSlice";
+import { Pagination } from "@/components/molecules/Pagination";
 import { UserItem } from "@/components/molecules/UserItem";
 import { user } from "@/types/types";
-import { initialUsers } from "@/utils/const";
-import { HEAD_TABLE_USERS } from "@/utils/enums";
+import { HEAD_TABLE_USERS, PrivacyItemStatus, UserRole } from "@/utils/enums";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
+const initialUsers: user[] = Array.from({ length: 10000 }, (_, i) => ({
+  id: i,
+  nome: `Usuário ${i}`,
+  email: `usuario${i}@exemplo.com`,
+  imagem:
+    "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo",
+  status: i % 2 === 0 ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo,
+  tipo: Object.values(UserRole)[
+    Math.floor(Math.random() * Object.values(UserRole).length)
+  ],
+  createdAt: new Date().toISOString(),
+}));
 export default function Users(): JSX.Element {
   const [searchTermName, setSearchTermName] = useState<string>("");
   const [searchTermEmail, setSearchTermEmail] = useState<string>("");
   const [users, setUsers] = useState<user[]>(initialUsers);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const dispatch = useDispatch();
-  initialUsers.map((user) => {
-    dispatch(
-      addUser({
-        id: user.id,
-        nome: user.nome,
-        email: user.email,
-        status: user.status,
-        imagem: user.imagem,
-        tipo: user.tipo,
-      })
-    );
-  });
+
+  // useEffect(() => {
+  //   initialUsers.map((user) => {
+  //     dispatch(
+  //       addUser({
+  //         id: user.id,
+  //         nome: user.nome,
+  //         email: user.email,
+  //         status: user.status,
+  //         imagem: user.imagem,
+  //         tipo: user.tipo,
+  //       })
+  //     );
+  //   });
+  // }, [dispatch]);
+  dispatch(addUsers(initialUsers));
 
   const itemsPerPage = 10;
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
-  const currentUsers = users.slice(firstItemIndex, lastItemIndex);
+  const currentUsers = useMemo(() => {
+    return users.slice(firstItemIndex, lastItemIndex);
+  }, [users, firstItemIndex, lastItemIndex]);
 
   const totalPages = Math.ceil(users.length / itemsPerPage);
-
-  const pageNumbers = [];
-  const maxPagesToShow = 5;
-  const firstPage = 1;
-  const lastPage = totalPages;
-
-  if (totalPages <= maxPagesToShow) {
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(i);
-    }
-  } else {
-    const middlePage = Math.floor(maxPagesToShow / 2);
-    const leftEllipsisPage = Math.max(currentPage - middlePage, firstPage + 1);
-    const rightEllipsisPage = Math.min(currentPage + middlePage, lastPage - 1);
-
-    pageNumbers.push(firstPage);
-    if (leftEllipsisPage > 2) {
-      pageNumbers.push("...");
-    }
-    for (let i = leftEllipsisPage; i <= rightEllipsisPage; i++) {
-      pageNumbers.push(i);
-    }
-    if (rightEllipsisPage < totalPages - 1) {
-      pageNumbers.push("...");
-    }
-    pageNumbers.push(lastPage);
-  }
 
   const handleClickPage = (pageNumber: number | string): void => {
     if (typeof pageNumber === "number") {
@@ -70,16 +61,18 @@ export default function Users(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    const results = initialUsers.filter(
+  const filteredUsers = useMemo(() => {
+    return initialUsers.filter(
       (user) =>
         user.nome.toLowerCase().includes(searchTermName.toLowerCase()) &&
         user.email.toLowerCase().includes(searchTermEmail.toLowerCase())
     );
-
-    setUsers(results);
-    setCurrentPage(firstPage);
   }, [searchTermName, searchTermEmail]);
+
+  useEffect(() => {
+    setUsers(filteredUsers);
+    setCurrentPage(1); // reset page number when filtering
+  }, [filteredUsers]);
 
   return (
     <div className="ml-6 flex flex-col justify-center items-center w-full">
@@ -136,45 +129,11 @@ export default function Users(): JSX.Element {
         </tbody>
       </table>
       <div className="flex justify-center items-center mt-4">
-        {currentPage > 1 && (
-          <button
-            className="mx-1 px-2 py-1 rounded-full bg-gray-200"
-            onClick={(): void => handleClickPage("prev")}
-          >
-            Prev
-          </button>
-        )}
-        {pageNumbers.map((pageNumber, index) => {
-          if (pageNumber === "...") {
-            return (
-              <span key={index} className="mx-1">
-                {pageNumber}
-              </span>
-            );
-          } else {
-            return (
-              <button
-                key={index}
-                className={`mx-1 px-2 py-1 rounded-full ${
-                  currentPage === pageNumber
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }`}
-                onClick={(): void => handleClickPage(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            );
-          }
-        })}
-        {currentPage < totalPages && (
-          <button
-            className="mx-1 px-2 py-1 rounded-full bg-gray-200"
-            onClick={(): void => handleClickPage("next")}
-          >
-            Next
-          </button>
-        )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handleClickPage}
+        />
       </div>
     </div>
   );

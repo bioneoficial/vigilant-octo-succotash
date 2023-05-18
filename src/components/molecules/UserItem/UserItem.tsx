@@ -17,8 +17,9 @@ export const UserItem: React.FC<user> = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const formattedCreatedAt = createdAt?.toLocaleDateString();
+  0;
+  const someDate = new Date(createdAt ?? "");
+  const formattedCreatedAt = someDate?.toLocaleDateString();
 
   return (
     <tr

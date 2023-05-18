@@ -92,7 +92,7 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   status: boolean | PrivacyItemStatus;
   imagem: string;
   tipo: UserRole;
-  createdAt?: Date | null;
+  createdAt?:  string;
   cpf?: string | null;
   isSubscriber?: boolean;
 }
@@ -157,4 +157,10 @@ export interface UserCardProps {
   name: string | undefined;
   isSubscriber: boolean;
   profileImage: string;
+}
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (pageNumber: number | string) => void;
 }
