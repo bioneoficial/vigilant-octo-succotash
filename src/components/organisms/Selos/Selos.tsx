@@ -1,4 +1,6 @@
 import { Button } from "@/components/atoms/Button";
+import SelosAtivos from "@/components/molecules/SelosAtivos/SelosAtivos";
+import SelosOcultos from "@/components/molecules/SelosOcultos/SelosOcultos";
 import { useRouter } from "next/router";
 // import { useId } from "react";
 
@@ -22,20 +24,22 @@ export default function Selos(): JSX.Element {
         onClick={(): void => handleBtnClick(5)}
       />
       <div className="flex justify-around w-full">
-        <table className="table-auto border-collapse text-center">
+        <table className="table-auto border border-slate-500 border-collapse text-center">
           <caption className="text-center text-bold text-red-600 mb-1">
             Selos Ocultados no App
           </caption>
-          <thead className="border-collapse border border-slate-500">
+          <thead className="border border-collapse border-slate-500">
             <tr>
               <th>Ordem</th>
               <th>Nome</th>
               <th>Séries</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <SelosOcultos />
+          </tbody>
         </table>
-        <table className="table-auto border-collapse text-center">
+        <table className="table-auto border border-slate-500 border-collapse text-center">
           <caption className="text-center text-bold text-green-500  mb-1">
             Selos Ativos no App
           </caption>
@@ -48,7 +52,9 @@ export default function Selos(): JSX.Element {
               <th> Ordenar conteúdo</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <SelosAtivos />
+          </tbody>
         </table>
       </div>
     </div>
