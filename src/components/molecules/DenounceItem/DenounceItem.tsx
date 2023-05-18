@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { selectUser } from "@/Redux/Reducers/userSlice";
+import { Button } from "@/components/atoms/Button";
 import { DenounceItemProps } from "@/types/types";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 export const DenounceItem: React.FC<DenounceItemProps> = ({
   id,
-  denouncerId = 0,
+  denouncerId,
   denouncerName,
   denounceType,
   denounceDetails,
@@ -12,17 +16,29 @@ export const DenounceItem: React.FC<DenounceItemProps> = ({
   episodeId = 0,
   SerieName,
   autorName,
-  autorId = 0,
+  autorId,
   denouceData,
 }) => {
   // essa tela tera que ser bem alterada.
+  const dispatch = useDispatch();
+  const router = useRouter();
 
+  const handleBtnClick = (id: number): void => {
+    dispatch(selectUser(id));
+    router.push(`/dashboard/usuarios/${id}`);
+  };
   return (
     <tr
       className="border-collapse border  border-slate-300 hover:bg-gray-700 hover:text-white"
       key={id + denouncerId}
     >
-      <td>{denouncerName}</td>
+      <td>
+        <Button
+          title={denouncerName}
+          status={true}
+          onClick={(): void => handleBtnClick(denouncerId)}
+        />
+      </td>
       <td className="bg-gray-500">{denounceType}</td>
       <td className="flex justify-center">
         <Image
@@ -36,7 +52,13 @@ export const DenounceItem: React.FC<DenounceItemProps> = ({
       </td>
       <td>{denounceDetails}</td>
       <td>{SerieName}</td>
-      <td>{autorName}</td>
+      <td>
+        <Button
+          title={autorName}
+          status={true}
+          onClick={(): void => handleBtnClick(autorId)}
+        />
+      </td>
       <td>{denouceData}</td>
     </tr>
   );

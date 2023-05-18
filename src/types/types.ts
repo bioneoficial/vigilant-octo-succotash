@@ -168,7 +168,7 @@ export interface DenounceItemProps {
   episodeId?: number;
   SerieName: string;
   autorName: string;
-  autorId?: number;
+  autorId: number;
   denouceData: string;
 }
 

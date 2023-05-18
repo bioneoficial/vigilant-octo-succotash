@@ -228,7 +228,7 @@ export const DenounceMock: DenounceItemProps[] = [
     episodeId: 1,
     SerieName: "Example Series",
     autorName: "Fernando Leoncio",
-    autorId: 1,
+    autorId: 3,
     denouceData: "2021-10-02",
   },
   {
@@ -241,7 +241,7 @@ export const DenounceMock: DenounceItemProps[] = [
     episodeId: 1,
     SerieName: "Example Series",
     autorName: "Marcelus Soares",
-    autorId: 1,
+    autorId: 4,
     denouceData: "2021-10-02",
   },
 ];
