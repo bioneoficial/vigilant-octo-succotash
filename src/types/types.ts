@@ -1,10 +1,14 @@
 import {
+  DENOUCE_TYPE,
+  GENRES_NAMES,
   PrivacyItemStatus,
   PrivacyItemType,
   SideMenuItem,
   UserRole,
   modalTypeEnum,
 } from "@/utils/enums";
+import { AppProps } from "next/app";
+import { FormEvent } from "react";
 
 interface MenuItemData {
   name: string;
@@ -90,5 +94,116 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   status: boolean | PrivacyItemStatus;
   imagem: string;
   tipo: UserRole;
-  createdAt?: Date | null;
+  createdAt?:  string;
+  cpf?: string | null;
+  isSubscriber?: boolean;
+}
+
+export interface BannerSelectionProps {
+  urlImageBannerSelection: string;
+  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
+  showCheckLandingPageApp: boolean;
+  setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
+  bannerLink?: string;
+  setBannerLink?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ConfigFormProps {
+  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
+  setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
+  setBannerLink: React.Dispatch<React.SetStateAction<string>>;
+  setShowBannerSelection: (show: boolean) => void;
+  showBannerSelection: boolean;
+  urlImageBannerSelection: string;
+  showCheckLandingPageApp: boolean;
+  bannerLink: string;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+}
+
+export interface UserFormProps {
+  handleSubmitUser: (event: React.FormEvent<HTMLFormElement>) => void;
+  urlImageBannerSelection: string;
+  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ModalProps {
+  title: string;
+  description: string;
+  isOpen: boolean;
+  children: React.ReactNode;
+}
+
+export interface PrivacyState {
+  item: PrivacyItem | null;
+}
+
+export interface UserState {
+  users: user[];
+  selectedUser: user | null;
+}
+
+export interface MyAppProps {
+  Component: React.ComponentType<AppProps>;
+  pageProps: AppProps["pageProps"];
+}
+
+// export interface Denounce {
+//   id: number;
+//   denounceOptionId: number;
+//   userId: number;
+//   comicId: number;
+//   details: string;
+// }
+
+// export interface DenounceType {
+//   "Conteúdo ofensivo ou impróprio"
+// }
+export interface DenounceItemProps {
+  id: number;
+  denouncerId: number;
+  denouncerName: string;
+  denounceType: DENOUCE_TYPE;
+  denounceDetails: string;
+  episodeImage: string;
+  episodeId?: number;
+  SerieName: string;
+  autorName: string;
+  autorId: number;
+  denouceData: string;
+}
+
+export interface UserCardProps {
+  name: string | undefined;
+  isSubscriber: boolean;
+  profileImage: string;
+}
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (pageNumber: number | string) => void;
+}
+
+export interface Genres {
+  id: number;
+  name: GENRES_NAMES;
+  desc: string | null;
+  active: 1 | 0;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export interface Stamps{ // that can be series/conteudo too? 
+  id: number;
+  name: string;
+  desc: string;
+  image: string;
+  active: 1 | 0;
+  order: number;
+  order_by_serie: string;
+  featured: 1 | 0;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+  series_count: number;
 }

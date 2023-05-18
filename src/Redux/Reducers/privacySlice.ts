@@ -1,10 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { PrivacyItem } from "@/types/types";
+import { PrivacyItem, PrivacyState } from "@/types/types";
 
-interface PrivacyState {
-  item: PrivacyItem | null;
-}
 
 const initialState: PrivacyState = {
   item: null,

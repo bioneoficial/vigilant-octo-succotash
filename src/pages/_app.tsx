@@ -1,11 +1,7 @@
 import { Provider } from "react-redux";
 import "../globals.css";
-import { AppProps } from "next/app";
 import { store } from "@/Redux/store";
-interface MyAppProps {
-  Component: React.ComponentType<AppProps>;
-  pageProps: AppProps["pageProps"];
-}
+import { MyAppProps } from "@/types/types";
 
 export default function MyApp({
   Component,

@@ -1,17 +1,17 @@
 import React from "react";
 import Image from "next/image";
+import { UserCardProps } from "@/types/types";
 
-interface Props {
-  name: string | undefined;
-  isSubscriber: boolean;
-}
-
-const UserCard: React.FC<Props> = ({ name = "Nome", isSubscriber }) => {
+const UserCard: React.FC<UserCardProps> = ({
+  name = "Nome",
+  isSubscriber,
+  profileImage,
+}) => {
   return (
-    <div className="border border-red-400 flex flex-col items-center w-1/2 mx-auto">
-      <div className="relative w-24 h-24 rounded-full overflow-hidden">
+    <div className="border border-red-400 flex flex-col items-center w-1/2 mx-auto p-2 ">
+      <div className=" w-24 h-24 rounded-full overflow-hidden">
         <Image
-          src="https://www.gravatar.com/avatar/000?d=mp&amp;f=y"
+          src={profileImage}
           className="image-user"
           width={150}
           height={150}

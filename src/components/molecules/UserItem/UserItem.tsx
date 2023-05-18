@@ -1,6 +1,6 @@
 import { Button } from "@/components/atoms/Button";
 import { user } from "@/types/types";
-import { PrivacyItemStatus,  } from "@/utils/enums";
+import { PrivacyItemStatus } from "@/utils/enums";
 import { handleEditUser } from "@/utils/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -17,9 +17,9 @@ export const UserItem: React.FC<user> = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-
-  
-  const formattedCreatedAt = createdAt?.toLocaleDateString();
+  0;
+  const someDate = new Date(createdAt ?? "");
+  const formattedCreatedAt = someDate?.toLocaleDateString();
 
   return (
     <tr
@@ -37,34 +37,47 @@ export const UserItem: React.FC<user> = ({
       <td>{formattedCreatedAt}</td>
       <td>{email}</td>
       <td>
-        { imagem === "" ? <Image
-          className="h-8 w-8 rounded-full"
-          width={32}
-          height={32}
-          src={"https://www.gravatar.com/avatar/000?d=mp&f=y"}
-          alt="User Item Picture"
-        /> :
-        <Image
-          className="h-8 w-8 rounded-full"
-          width={32}
-          height={32}
-          src={imagem}
-          alt="User Item Picture"
-        />
-}
+        {imagem === "" ? (
+          <Image
+            className="h-8 w-8 rounded-full"
+            width={32}
+            height={32}
+            src={"https://www.gravatar.com/avatar/000?d=mp&f=y"}
+            alt="User Item Picture"
+          />
+        ) : (
+          <Image
+            className="h-8 w-8 rounded-full"
+            width={32}
+            height={32}
+            src={imagem}
+            alt="User Item Picture"
+          />
+        )}
       </td>
       <td>{tipo}</td>
 
       <td className=" px-2">
-        <Button title={""} status={true} icon={{ src: "/images/pencil.svg", alt: "Edit User" }} onClick={(): void =>  handleEditUser({
-  id,
-  nome,
-  email,
-  imagem,
-  status,
-  createdAt,
-  tipo,
-},dispatch,router )} />
+        <Button
+          title={""}
+          status={true}
+          icon={{ src: "/images/pencil.svg", alt: "Edit User" }}
+          onClick={(): void =>
+            handleEditUser(
+              {
+                id,
+                nome,
+                email,
+                imagem,
+                status,
+                createdAt,
+                tipo,
+              },
+              dispatch,
+              router
+            )
+          }
+        />
       </td>
     </tr>
   );

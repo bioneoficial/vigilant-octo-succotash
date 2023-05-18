@@ -1,9 +1,4 @@
-interface ModalProps {
-  title: string;
-  description: string;
-  isOpen: boolean;
-  children: React.ReactNode;
-}
+import { ModalProps } from "@/types/types";
 
 export const Modal: React.FC<ModalProps> = ({
   title,

@@ -1,18 +1,7 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 import { InputField } from "@/components/atoms/InputField";
 import { BannerSelection } from "@/components/molecules/BannerSelection";
-
-interface ConfigFormProps {
-  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
-  setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
-  setBannerLink: React.Dispatch<React.SetStateAction<string>>;
-  setShowBannerSelection: (show: boolean) => void;
-  showBannerSelection: boolean;
-  urlImageBannerSelection: string;
-  showCheckLandingPageApp: boolean;
-  bannerLink: string;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-}
+import { ConfigFormProps } from "@/types/types";
 
 export const ConfigForm = ({
   showBannerSelection,
