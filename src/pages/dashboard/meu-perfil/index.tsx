@@ -67,7 +67,7 @@ export default function MyProfilePage(): JSX.Element {
               <textarea
                 ref={bioRef}
                 placeholder="Biografia"
-                className=" w-full my-2 p-2 border rounded"
+                className=" w-full my-2 p-2 border border-gray-400 rounded"
               />
             </label>
 

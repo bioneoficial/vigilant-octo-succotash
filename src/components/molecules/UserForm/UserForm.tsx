@@ -1,12 +1,7 @@
 import { InputField } from "@/components/atoms/InputField";
+import { UserFormProps } from "@/types/types";
 import Image from "next/image";
 import React from "react";
-
-interface UserFormProps {
-  handleSubmitUser: (event: React.FormEvent<HTMLFormElement>) => void;
-  urlImageBannerSelection: string;
-  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
-}
 
 export const UserForm: React.FC<UserFormProps> = ({
   handleSubmitUser,

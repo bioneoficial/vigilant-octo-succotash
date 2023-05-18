@@ -1,5 +1,5 @@
-import { PrivacyItem, SideMenuItemData, cupom } from "@/types/types";
-import { PrivacyItemStatus, PrivacyItemType, SideMenuItem } from "./enums";
+import { PrivacyItem, SideMenuItemData, cupom, user } from "@/types/types";
+import { PrivacyItemStatus, PrivacyItemType, SideMenuItem, UserRole } from "./enums";
 
 const sideMenuData: { [key in SideMenuItem]: { icon: string; href: string } } =
   {
@@ -190,3 +190,16 @@ export const cuponsMock: cupom[] = [
     createdAt: new Date("2021-08-31"),
   },
 ];
+
+export const initialUsers: user[] = Array.from({ length: 15 }, (_, i) => ({
+  id: i,
+  nome: `Usuário ${i}`,
+  email: `usuario${i}@exemplo.com`,
+  imagem:
+    "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo",
+  status: i % 2 === 0 ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo,
+  tipo: Object.values(UserRole)[
+    Math.floor(Math.random() * Object.values(UserRole).length)
+  ],
+  createdAt: new Date(),
+}));

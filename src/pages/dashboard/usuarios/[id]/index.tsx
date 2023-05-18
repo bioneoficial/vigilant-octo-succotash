@@ -22,7 +22,15 @@ const PrivacyItemPage: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4">Gerenciar Usuario</h2>
         <div className=" p-2  w-10/12">
           <>
-            <UserCard name={selecteduser?.nome} isSubscriber={false} />
+            <UserCard
+              name={selecteduser?.nome}
+              isSubscriber={false}
+              profileImage={
+                selecteduser?.imagem
+                  ? selecteduser.imagem
+                  : "https://www.gravatar.com/avatar/000?d=mp&amp;f=y"
+              }
+            />
           </>
           <div className="flex flex-col items-center justify-center p-4 md:flex-row md:space-x-4">
             <InputField
@@ -54,7 +62,7 @@ const PrivacyItemPage: React.FC = () => {
               <textarea
                 ref={bioRef}
                 placeholder="Biografia"
-                className=" w-full my-2 p-2 border rounded"
+                className=" w-full my-2 p-2 border border-gray-400 rounded"
               />
             </label>
             <InputField

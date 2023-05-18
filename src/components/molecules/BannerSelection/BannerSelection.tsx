@@ -1,13 +1,7 @@
+import { BannerSelectionProps } from "@/types/types";
 import React from "react";
 
-interface BannerSelectionProps {
-  urlImageBannerSelection: string;
-  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
-  showCheckLandingPageApp: boolean;
-  setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
-  bannerLink?: string;
-  setBannerLink?: React.Dispatch<React.SetStateAction<string>>;
-}
+
 
 export const BannerSelection: React.FC<BannerSelectionProps> = ({
   urlImageBannerSelection,

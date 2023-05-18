@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { user } from "@/types/types";
+import { user, UserState } from "@/types/types";
 
-interface UserState {
-  users: user[];
-  selectedUser: user | null;
-}
+
 
 const initialState: UserState = {
   users: [],

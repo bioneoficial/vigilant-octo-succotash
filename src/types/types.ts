@@ -5,6 +5,8 @@ import {
   UserRole,
   modalTypeEnum,
 } from "@/utils/enums";
+import { AppProps } from "next/app";
+import { FormEvent } from "react";
 
 interface MenuItemData {
   name: string;
@@ -91,4 +93,68 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   imagem: string;
   tipo: UserRole;
   createdAt?: Date | null;
+  cpf?: string | null;
+  isSubscriber?: boolean;
+}
+
+export interface BannerSelectionProps {
+  urlImageBannerSelection: string;
+  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
+  showCheckLandingPageApp: boolean;
+  setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
+  bannerLink?: string;
+  setBannerLink?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ConfigFormProps {
+  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
+  setShowCheckLandingPageApp: React.Dispatch<React.SetStateAction<boolean>>;
+  setBannerLink: React.Dispatch<React.SetStateAction<string>>;
+  setShowBannerSelection: (show: boolean) => void;
+  showBannerSelection: boolean;
+  urlImageBannerSelection: string;
+  showCheckLandingPageApp: boolean;
+  bannerLink: string;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+}
+
+export interface UserFormProps {
+  handleSubmitUser: (event: React.FormEvent<HTMLFormElement>) => void;
+  urlImageBannerSelection: string;
+  setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ModalProps {
+  title: string;
+  description: string;
+  isOpen: boolean;
+  children: React.ReactNode;
+}
+
+export interface PrivacyState {
+  item: PrivacyItem | null;
+}
+
+export interface UserState {
+  users: user[];
+  selectedUser: user | null;
+}
+
+export interface MyAppProps {
+  Component: React.ComponentType<AppProps>;
+  pageProps: AppProps["pageProps"];
+}
+
+export interface Denounce {
+  id: number;
+  denounceOptionId: number;
+  userId: number;
+  comicId: number;
+  details: string;
+}
+
+export interface UserCardProps {
+  name: string | undefined;
+  isSubscriber: boolean;
+  profileImage: string;
 }

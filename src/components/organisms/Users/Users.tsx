@@ -1,23 +1,11 @@
 import { addUser } from "@/Redux/Reducers/userSlice";
 import { UserItem } from "@/components/molecules/UserItem";
 import { user } from "@/types/types";
-import { HEAD_TABLE_USERS, PrivacyItemStatus, UserRole } from "@/utils/enums";
+import { initialUsers } from "@/utils/const";
+import { HEAD_TABLE_USERS } from "@/utils/enums";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
-const initialUsers: user[] = Array.from({ length: 15 }, (_, i) => ({
-  id: i,
-  nome: `Usuário ${i}`,
-  email: `usuario${i}@exemplo.com`,
-  imagem:
-    "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo",
-  status: i % 2 === 0 ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo,
-  tipo: Object.values(UserRole)[
-    Math.floor(Math.random() * Object.values(UserRole).length)
-  ],
-  createdAt: new Date(),
-}));
 
 export default function Users(): JSX.Element {
   const [searchTermName, setSearchTermName] = useState<string>("");
