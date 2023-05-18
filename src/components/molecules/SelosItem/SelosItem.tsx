@@ -1,11 +1,12 @@
-const SelosOcultos: React.FC = () => {
+const SelosItem: React.FC = () => {
   return (
     <tr>
       <td>ordem</td>
       <td>nome</td>
       <td>series</td>
+      <td>ordenar conteudo</td>
     </tr>
   );
 };
 
-export default SelosOcultos;
+export default SelosItem;

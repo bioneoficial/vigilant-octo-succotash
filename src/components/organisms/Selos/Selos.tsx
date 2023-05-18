@@ -1,6 +1,5 @@
 import { Button } from "@/components/atoms/Button";
-import SelosAtivos from "@/components/molecules/SelosAtivos/SelosAtivos";
-import SelosOcultos from "@/components/molecules/SelosOcultos/SelosOcultos";
+import SelosItem from "@/components/molecules/SelosItem/SelosItem";
 import { useRouter } from "next/router";
 // import { useId } from "react";
 
@@ -8,7 +7,7 @@ export default function Selos(): JSX.Element {
   const router = useRouter();
   //   const uuidCupom = useId();
   const handleBtnClick = (id: number): void => {
-    router.push(`/dashboard/usuarios/${id}`);
+    router.push(`/dashboard/selos/${id}`);
   };
   return (
     <div className=" ml-6 flex flex-col justify-center items-center w-full ">
@@ -25,21 +24,6 @@ export default function Selos(): JSX.Element {
       />
       <div className="flex justify-around w-full">
         <table className="table-auto border border-slate-500 border-collapse text-center">
-          <caption className="text-center text-bold text-red-600 mb-1">
-            Selos Ocultados no App
-          </caption>
-          <thead className="border border-collapse border-slate-500">
-            <tr>
-              <th>Ordem</th>
-              <th>Nome</th>
-              <th>Séries</th>
-            </tr>
-          </thead>
-          <tbody>
-            <SelosOcultos />
-          </tbody>
-        </table>
-        <table className="table-auto border border-slate-500 border-collapse text-center">
           <caption className="text-center text-bold text-green-500  mb-1">
             Selos Ativos no App
           </caption>
@@ -53,7 +37,7 @@ export default function Selos(): JSX.Element {
             </tr>
           </thead>
           <tbody>
-            <SelosAtivos />
+            <SelosItem />
           </tbody>
         </table>
       </div>
