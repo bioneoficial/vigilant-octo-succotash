@@ -1,4 +1,5 @@
 import {
+  GENRES_NAMES,
   PrivacyItemStatus,
   PrivacyItemType,
   SideMenuItem,
@@ -163,4 +164,28 @@ export interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (pageNumber: number | string) => void;
+}
+
+export interface Genres {
+  id: number;
+  name: GENRES_NAMES;
+  desc: string | null;
+  active: 1 | 0;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export interface Stamps{ // that can be series/conteudo too? 
+  id: number;
+  name: string;
+  desc: string;
+  image: string;
+  active: 1 | 0;
+  order: number;
+  order_by_serie: string;
+  featured: 1 | 0;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+  series_count: number;
 }

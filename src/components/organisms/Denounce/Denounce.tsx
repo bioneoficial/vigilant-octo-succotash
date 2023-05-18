@@ -1,3 +1,5 @@
+import { HEAD_TABLE_DENOUNCE } from "@/utils/enums";
+
 export const Denounce: React.FC = () => {
   return (
     <section className="p-4">
@@ -10,12 +12,11 @@ export const Denounce: React.FC = () => {
         <table className="min-w-max w-full table-auto">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Name</th>
-              <th className="py-3 px-6 text-left">Status</th>
-              <th className="py-3 px-6 text-left">Tipo</th>
-              <th className="py-3 px-6 text-center">Versão</th>
-              <th className="py-3 px-6 text-center">Data</th>
-              <th className="py-3 px-6 text-center">Ações</th>
+              {Object.values(HEAD_TABLE_DENOUNCE).map((header) => (
+                <th key={header} className="py-3 px-6 text-left">
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light"></tbody>

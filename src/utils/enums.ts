@@ -59,3 +59,28 @@ export enum UserRole {
   autor = "Autor",
   root = "Root",
 }
+
+export enum HEAD_TABLE_DENOUNCE {
+  DENUNCIA_POR = "Denúncia por",
+  DENUNCIA = "Denúncia",
+  EPISODIO = "Episódio",
+  DETALHES = "Detalhes",
+  SERIE = "Série",
+  AUTOR = "Autor",
+  DATA = "Data",
+}
+
+export enum GENRES_NAMES {
+  SCI_FI = "Sci-fi",
+  REVANCHE_ORIGINARIA = "Revanche Originária",
+  CONTEUDO_RESTRITO = "Conteúdo Restrito",
+  MOLECADA = "Molecada",
+  LGBTQI_PLUS = "LGBTQI+",
+  TERROR_SOBRENATURAL = "Terror Sobrenatural",
+  LENDAS = "Lendas",
+  HORROR_TROPICAL = "Horror Tropical",
+  LIVRE = "Livre",
+  DISTOPIA_LATINA = "Distopia Latina",
+  CRIME_MISTERIO =  "Crime e mistério",
+  COTIDIANOS_EXTRAORDINARIOS = "Cotidianos Extraordinários"
+}
