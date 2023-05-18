@@ -84,3 +84,9 @@ export enum GENRES_NAMES {
   CRIME_MISTERIO =  "Crime e mistério",
   COTIDIANOS_EXTRAORDINARIOS = "Cotidianos Extraordinários"
 }
+export enum DENOUCE_TYPE {
+  CONTEUDO_IMPROPRIO = "Conteúdo ofensivo ou impróprio",
+  DIREITOS_AUTORAIS = "Violação de direitos autorais",
+  OUTROS = "Outros",
+  SPAM = "Spam ou propaganda",
+}

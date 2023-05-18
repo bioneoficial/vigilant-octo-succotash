@@ -1,5 +1,5 @@
-import { PrivacyItem, SideMenuItemData, cupom } from "@/types/types";
-import { PrivacyItemStatus, PrivacyItemType, SideMenuItem } from "./enums";
+import { DenounceItemProps, PrivacyItem, SideMenuItemData, cupom } from "@/types/types";
+import { DENOUCE_TYPE, PrivacyItemStatus, PrivacyItemType, SideMenuItem } from "./enums";
 
 const sideMenuData: { [key in SideMenuItem]: { icon: string; href: string } } =
   {
@@ -188,5 +188,60 @@ export const cuponsMock: cupom[] = [
     validade: new Date("2023-03-31"),
     status: PrivacyItemStatus.Inativo,
     createdAt: new Date("2021-08-31"),
+  },
+];
+
+export const DenounceMock: DenounceItemProps[] = [
+  {
+    id: 1,
+    denouncerId: 1,
+    denouncerName: "John Doe",
+    denounceType: DENOUCE_TYPE.CONTEUDO_IMPROPRIO,
+    denounceDetails: "This user used hate speech in their comment",
+    episodeImage: "https://i.imgur.com/Vw65lJs.jpeg",
+    episodeId: 1,
+    SerieName: "Example Series",
+    autorName: "Jane Smith",
+    autorId: 2,
+    denouceData: "2021-10-01",
+  },
+  {
+    id: 2,
+    denouncerId: 2,
+    denouncerName: "Jane Smith",
+    denounceType: DENOUCE_TYPE.DIREITOS_AUTORAIS,
+    denounceDetails: "This user is spamming the comments section",
+    episodeImage: "https://i.imgur.com/Vw65lJs.jpeg",
+    episodeId: 1,
+    SerieName: "Example Series",
+    autorName: "John Doe",
+    autorId: 1,
+    denouceData: "2021-10-02",
+  },
+  {
+    id: 3,
+    denouncerId: 3,
+    denouncerName: "Marcelus Soares",
+    denounceType: DENOUCE_TYPE.OUTROS,
+    denounceDetails: "This user is spamming the comments section",
+    episodeImage: "https://i.imgur.com/Vw65lJs.jpeg",
+    episodeId: 1,
+    SerieName: "Example Series",
+    autorName: "Fernando Leoncio",
+    autorId: 1,
+    denouceData: "2021-10-02",
+  },
+  {
+    id: 4,
+    denouncerId: 4,
+    denouncerName: "Fernando Leoncio",
+    denounceType: DENOUCE_TYPE.SPAM,
+    denounceDetails: "This user is spamming the comments section",
+    episodeImage: "https://i.imgur.com/Vw65lJs.jpeg",
+    episodeId: 1,
+    SerieName: "Example Series",
+    autorName: "Marcelus Soares",
+    autorId: 1,
+    denouceData: "2021-10-02",
   },
 ];

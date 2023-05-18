@@ -1,13 +1,11 @@
+import { DenounceItem } from "@/components/molecules/DenounceItem";
+import { DenounceMock } from "@/utils/const";
 import { HEAD_TABLE_DENOUNCE } from "@/utils/enums";
 
 export const Denounce: React.FC = () => {
   return (
-    <section className="p-4">
-      <div className="mx-auto">
-        <div className="my-5 flex items-center">
-          <h2 className="text-2xl font-bold">Denúncias</h2>
-        </div>
-      </div>
+    <section className="p-4 text-center w-fit mx-auto">
+      <h2 className="text-2xl font-bold">Denúncias</h2>
       <div className="bg-white shadow-md rounded my-6">
         <table className="min-w-max w-full table-auto">
           <thead>
@@ -19,7 +17,11 @@ export const Denounce: React.FC = () => {
               ))}
             </tr>
           </thead>
-          <tbody className="text-gray-600 text-sm font-light"></tbody>
+          <tbody className="text-gray-600 text-sm font-light">
+            {DenounceMock.map((denounce) => (
+              <DenounceItem {...denounce} key={denounce.id} />
+            ))}
+          </tbody>
         </table>
       </div>
     </section>

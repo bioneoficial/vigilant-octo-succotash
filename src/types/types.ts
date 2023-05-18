@@ -1,4 +1,5 @@
 import {
+  DENOUCE_TYPE,
   GENRES_NAMES,
   PrivacyItemStatus,
   PrivacyItemType,
@@ -146,12 +147,29 @@ export interface MyAppProps {
   pageProps: AppProps["pageProps"];
 }
 
-export interface Denounce {
+// export interface Denounce {
+//   id: number;
+//   denounceOptionId: number;
+//   userId: number;
+//   comicId: number;
+//   details: string;
+// }
+
+// export interface DenounceType {
+//   "Conteúdo ofensivo ou impróprio"
+// }
+export interface DenounceItemProps {
   id: number;
-  denounceOptionId: number;
-  userId: number;
-  comicId: number;
-  details: string;
+  denouncerId: number;
+  denouncerName: string;
+  denounceType: DENOUCE_TYPE;
+  denounceDetails: string;
+  episodeImage: string;
+  episodeId?: number;
+  SerieName: string;
+  autorName: string;
+  autorId?: number;
+  denouceData: string;
 }
 
 export interface UserCardProps {
