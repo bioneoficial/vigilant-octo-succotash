@@ -1,4 +1,5 @@
 import { Button } from "@/components/atoms/Button";
+import SelosContainer from "@/components/molecules/SelosContainer/SelosContainer";
 import SelosItem from "@/components/molecules/SelosItem/SelosItem";
 import { Stamps } from "@/types/types";
 import { useRouter } from "next/router";
@@ -10,7 +11,7 @@ export default function Selos(): JSX.Element {
       id: 1,
       name: "Selo 1",
       desc: "Descrição do Selo 1",
-      image: "https://example.com/selo1.png",
+      image: "/images/selos/AqueceCoracao.svg",
       active: 1,
       order: 1,
       order_by_serie: "name",
@@ -24,7 +25,7 @@ export default function Selos(): JSX.Element {
       id: 2,
       name: "Selo 2",
       desc: "Descrição do Selo 2",
-      image: "https://example.com/selo2.png",
+      image: "/images/selos/BolaQuadrada.svg",
       active: 0,
       order: 2,
       order_by_serie: "created_at",
@@ -37,7 +38,7 @@ export default function Selos(): JSX.Element {
   ];
 
   const router = useRouter();
-  //   const uuidCupom = useId();
+  //   const uuidCupom = useId(); Iremos fazer fetch dos selos nesse menino aqui ou pelo menos ler ele.
   const handleBtnClick = (id: number): void => {
     router.push(`/dashboard/selos/${id}`);
   };
@@ -72,8 +73,8 @@ export default function Selos(): JSX.Element {
           </tbody>
         </table>
       </div>
-      <div className="m-6 flex flex-col justify-center items-center w-full">
-        container
+      <div className="m-6 flex  justify-around items-center w-full text-center">
+        <SelosContainer Selos={selos} />
       </div>
     </div>
   );
