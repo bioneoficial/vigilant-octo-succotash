@@ -1,6 +1,9 @@
+import { setCoupon } from "@/Redux/Reducers/couponSlice";
+import { openModal } from "@/Redux/Reducers/modalSlice";
+import { Button } from "@/components/atoms/Button";
 import { cupom } from "@/types/types";
-import { PrivacyItemStatus } from "@/utils/enums";
-import Image from "next/image";
+import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
+import { useDispatch } from "react-redux";
 
 export const CouponItem: React.FC<cupom> = ({
   id,
@@ -15,6 +18,7 @@ export const CouponItem: React.FC<cupom> = ({
 }) => {
   const formattedValidade = validade.toLocaleDateString();
   const formattedCreatedAt = createdAt.toLocaleDateString();
+  const dispatch = useDispatch();
 
   return (
     <tr
@@ -37,7 +41,27 @@ export const CouponItem: React.FC<cupom> = ({
       <td>{formattedValidade}</td>
 
       <td className=" px-2">
-        <Image src="/images/pencil.svg" width={19} height={19} alt="plus" />
+        <Button
+          title={""}
+          status={true}
+          icon={{ src: "/images/pencil.svg", alt: "EditCoupon" }}
+          onClick={(): void => {
+            dispatch(
+              setCoupon({
+                id,
+                nome,
+                descricao,
+                codigo,
+                usoLimite,
+                diaQtd,
+                validade,
+                status,
+                createdAt,
+              })
+            );
+            dispatch(openModal(modalTypeEnum.EDIT_COUPON));
+          }}
+        />
       </td>
     </tr>
   );

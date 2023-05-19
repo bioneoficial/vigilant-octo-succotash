@@ -1,6 +1,6 @@
 import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
-import { PrivacyItem, user } from "@/types/types";
+import { PrivacyItem, cupom, user } from "@/types/types";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { modalTypeEnum } from "./enums";

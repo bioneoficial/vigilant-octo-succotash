@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga'; // import Saga middleware
 import privacyReducer from "@/Redux/Reducers/privacySlice";
 import modalReducer from "@/Redux/Reducers/modalSlice";
 import userReducer from "@/Redux/Reducers/userSlice";
+import couponReducer from "@/Redux/Reducers/couponSlice";
 
 import mySaga from '../../sagas'; 
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   privacy: privacyReducer,
   modal: modalReducer,
   user: userReducer,
+  coupon: couponReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
