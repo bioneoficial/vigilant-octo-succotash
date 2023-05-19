@@ -73,7 +73,7 @@ export default function Selos(): JSX.Element {
           </tbody>
         </table>
       </div>
-      <div className="m-6 flex  justify-around items-center w-full text-center">
+      <div className="m-6 text-center ">
         <SelosContainer Selos={selos} />
       </div>
     </div>
