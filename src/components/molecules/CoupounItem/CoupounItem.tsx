@@ -1,6 +1,9 @@
+import { setCoupon } from "@/Redux/Reducers/couponSlice";
+import { openModal } from "@/Redux/Reducers/modalSlice";
+import { Button } from "@/components/atoms/Button";
 import { cupom } from "@/types/types";
-import { PrivacyItemStatus } from "@/utils/enums";
-import Image from "next/image";
+import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
+import { useDispatch } from "react-redux";
 
 export const CouponItem: React.FC<cupom> = ({
   id,
@@ -15,6 +18,7 @@ export const CouponItem: React.FC<cupom> = ({
 }) => {
   const formattedValidade = validade.toLocaleDateString();
   const formattedCreatedAt = createdAt.toLocaleDateString();
+  const dispatch = useDispatch();
 
   return (
     <tr
@@ -22,11 +26,6 @@ export const CouponItem: React.FC<cupom> = ({
       key={id + nome}
     >
       <td>{nome}</td>
-      <td>{descricao}</td>
-      <td className="bg-gray-500 mx-auto">{codigo}</td>
-      <td>{usoLimite}</td>
-      <td>{diaQtd}</td>
-      <td>{formattedValidade}</td>
       <td
         className={` ${
           status === PrivacyItemStatus.Ativo ? "text-green-600" : "text-red-600"
@@ -35,8 +34,34 @@ export const CouponItem: React.FC<cupom> = ({
         {status}
       </td>
       <td>{formattedCreatedAt}</td>
+      <td className="bg-gray-500 mx-auto">{codigo}</td>
+      <td>{descricao}</td>
+      <td>{usoLimite}</td>
+      <td>{diaQtd}</td>
+      <td>{formattedValidade}</td>
+
       <td className=" px-2">
-        <Image src="/images/pencil.svg" width={19} height={19} alt="plus" />
+        <Button
+          title={""}
+          status={true}
+          icon={{ src: "/images/pencil.svg", alt: "EditCoupon" }}
+          onClick={(): void => {
+            dispatch(
+              setCoupon({
+                id,
+                nome,
+                descricao,
+                codigo,
+                usoLimite,
+                diaQtd,
+                validade,
+                status,
+                createdAt,
+              })
+            );
+            dispatch(openModal(modalTypeEnum.EDIT_COUPON));
+          }}
+        />
       </td>
     </tr>
   );

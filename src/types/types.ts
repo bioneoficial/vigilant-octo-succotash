@@ -83,7 +83,7 @@ export interface cupom {
   usoLimite: number;
   diaQtd: number;
   validade: Date;
-  status: boolean | PrivacyItemStatus;
+  status: PrivacyItemStatus;
   createdAt: Date;
 }
 
@@ -206,4 +206,8 @@ export interface Stamps{ // that can be series/conteudo too?
   updated_at: string;
   deleted_at: string;
   series_count: number;
+}
+
+export interface SelosItemProps {
+  Selos: Stamps[];
 }

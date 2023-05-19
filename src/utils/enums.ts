@@ -27,6 +27,7 @@ export enum modalTypeEnum {
   delete = "deleteConfirmation",
   CREATE_COUPON = "createCoupon",
   EDIT_USER = "editUser",
+  EDIT_COUPON = "editCoupon",
 }
 
 export enum BASE_TABLE_HEAD {
