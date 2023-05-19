@@ -1,17 +1,40 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from 'redux-persist';
+import sessionStorage from 'redux-persist/lib/storage/session';
+import createSagaMiddleware from 'redux-saga'; // import Saga middleware
+
 import privacyReducer from "@/Redux/Reducers/privacySlice";
 import modalReducer from "@/Redux/Reducers/modalSlice";
 import userReducer from "@/Redux/Reducers/userSlice";
 
+import mySaga from '../../sagas'; 
 
-export const store = configureStore({
-  reducer: {
-    privacy: privacyReducer,
-    modal: modalReducer,
-    user: userReducer,
-  },
+const persistConfig = {
+  key: 'root',
+  storage: sessionStorage,
+};
+
+const rootReducer = combineReducers({
+  privacy: privacyReducer,
+  modal: modalReducer,
+  user: userReducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export type AppDispatch = typeof store.dispatch;
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [...getDefaultMiddleware({serializableCheck: false}), sagaMiddleware], // Add saga middleware
+});
+
+// then run the saga
+sagaMiddleware.run(mySaga);
+
+const persistor = persistStore(store);
+
+export { store, persistor };
+
+export type RootState = ReturnType<typeof rootReducer>;

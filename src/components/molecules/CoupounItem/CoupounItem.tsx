@@ -22,11 +22,6 @@ export const CouponItem: React.FC<cupom> = ({
       key={id + nome}
     >
       <td>{nome}</td>
-      <td>{descricao}</td>
-      <td className="bg-gray-500 mx-auto">{codigo}</td>
-      <td>{usoLimite}</td>
-      <td>{diaQtd}</td>
-      <td>{formattedValidade}</td>
       <td
         className={` ${
           status === PrivacyItemStatus.Ativo ? "text-green-600" : "text-red-600"
@@ -35,6 +30,12 @@ export const CouponItem: React.FC<cupom> = ({
         {status}
       </td>
       <td>{formattedCreatedAt}</td>
+      <td className="bg-gray-500 mx-auto">{codigo}</td>
+      <td>{descricao}</td>
+      <td>{usoLimite}</td>
+      <td>{diaQtd}</td>
+      <td>{formattedValidade}</td>
+
       <td className=" px-2">
         <Image src="/images/pencil.svg" width={19} height={19} alt="plus" />
       </td>
