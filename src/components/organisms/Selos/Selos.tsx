@@ -72,6 +72,9 @@ export default function Selos(): JSX.Element {
           </tbody>
         </table>
       </div>
+      <div className="m-6 flex flex-col justify-center items-center w-full">
+        container
+      </div>
     </div>
   );
 }
