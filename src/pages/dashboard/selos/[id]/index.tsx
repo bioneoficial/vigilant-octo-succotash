@@ -1,9 +1,10 @@
+import { CreateSelo } from "@/components/organisms/CreateSelo";
 import { MainTemplate } from "@/components/templates/MainTemplate";
 
 const SelosIdPage: React.FC = () => {
   return (
     <MainTemplate>
-      <div className=" text-black">Vamos comecar </div>
+      <CreateSelo />
     </MainTemplate>
   );
 };

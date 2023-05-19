@@ -3,7 +3,6 @@ import SelosContainer from "@/components/molecules/SelosContainer/SelosContainer
 import SelosItem from "@/components/molecules/SelosItem/SelosItem";
 import { Stamps } from "@/types/types";
 import { useRouter } from "next/router";
-// import { useId } from "react";
 
 export default function Selos(): JSX.Element {
   const selos: Stamps[] = [
@@ -38,10 +37,9 @@ export default function Selos(): JSX.Element {
   ];
 
   const router = useRouter();
+
   //   const uuidCupom = useId(); Iremos fazer fetch dos selos nesse menino aqui ou pelo menos ler ele.
-  const handleBtnClick = (id: number): void => {
-    router.push(`/dashboard/selos/${id}`);
-  };
+
   return (
     <div className=" ml-6 flex flex-col justify-center items-center w-full ">
       <h2 className=" mt-6 ml-6 mb-4 text-2xl font-semibold">
@@ -53,7 +51,7 @@ export default function Selos(): JSX.Element {
         className={[
           "flex items-center py-2 px-2 ml-6 mb-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
         ]}
-        onClick={(): void => handleBtnClick(5)}
+        onClick={(): Promise<boolean> => router.push(`/dashboard/selos/create`)}
       />
       <div className="flex justify-around w-full">
         <table className="table-auto border border-slate-500 border-collapse text-center">
