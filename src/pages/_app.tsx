@@ -2,6 +2,9 @@ import { Provider } from "react-redux";
 import "../globals.css";
 import { store } from "@/Redux/store";
 import { MyAppProps } from "@/types/types";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export default function MyApp({
   Component,
@@ -9,7 +12,9 @@ export default function MyApp({
 }: MyAppProps): JSX.Element {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </Provider>
   );
 }

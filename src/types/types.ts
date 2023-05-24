@@ -211,3 +211,7 @@ export interface Stamps{ // that can be series/conteudo too?
 export interface SelosItemProps {
   Selos: Stamps[];
 }
+
+export interface MyError {
+  message: string;
+}
