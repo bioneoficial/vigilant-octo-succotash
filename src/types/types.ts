@@ -91,12 +91,14 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   id: number;
   nome: string;
   email: string;
-  status: boolean | PrivacyItemStatus;
-  imagem: string;
-  tipo: UserRole;
+  status?: boolean | PrivacyItemStatus;
+  imagem?: string;
+  tipo?: UserRole;
   createdAt?:  string;
   cpf?: string | null;
   isSubscriber?: boolean;
+  descricao?: string;
+  fotoPath?: string;
 }
 
 export interface BannerSelectionProps {
@@ -214,4 +216,12 @@ export interface SelosItemProps {
 
 export interface MyError {
   message: string;
+}
+
+export interface getAllUsersResponse {
+  id: number;
+  nome: string;
+  descricao: string;
+  email: string;
+  fotoPath: string;
 }

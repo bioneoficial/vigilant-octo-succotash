@@ -20,7 +20,7 @@ export const UserItem: React.FC<user> = ({
   0;
   const someDate = new Date(createdAt ?? "");
   const formattedCreatedAt = someDate?.toLocaleDateString();
-
+  console.log(id, nome, email, imagem, status, createdAt, tipo);
   return (
     <tr
       className="border-collapse border  border-slate-300 hover:bg-gray-700 hover:text-white"
@@ -50,7 +50,7 @@ export const UserItem: React.FC<user> = ({
             className="h-8 w-8 rounded-full"
             width={32}
             height={32}
-            src={imagem}
+            src={imagem ?? ""}
             alt="User Item Picture"
           />
         )}

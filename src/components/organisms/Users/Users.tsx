@@ -1,55 +1,60 @@
-import { addUsers } from "@/Redux/Reducers/userSlice";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { addUsers, clearUsers, selectUsers } from "@/Redux/Reducers/userSlice";
+import { getAllUsers } from "@/api/usuario";
 import { Pagination } from "@/components/molecules/Pagination";
 import { UserItem } from "@/components/molecules/UserItem";
-import { user } from "@/types/types";
+import { MyError, getAllUsersResponse, user } from "@/types/types";
 import { HEAD_TABLE_USERS, PrivacyItemStatus, UserRole } from "@/utils/enums";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
 
-const initialUsers: user[] = Array.from({ length: 10000 }, (_, i) => ({
-  id: i,
-  nome: `Usuário ${i}`,
-  email: `usuario${i}@exemplo.com`,
-  imagem:
-    "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo",
-  status: i % 2 === 0 ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo,
-  tipo: Object.values(UserRole)[
-    Math.floor(Math.random() * Object.values(UserRole).length)
-  ],
-  createdAt: new Date().toISOString(),
-}));
 export default function Users(): JSX.Element {
   const [searchTermName, setSearchTermName] = useState<string>("");
   const [searchTermEmail, setSearchTermEmail] = useState<string>("");
-  const [users, setUsers] = useState<user[]>(initialUsers);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   initialUsers.map((user) => {
-  //     dispatch(
-  //       addUser({
-  //         id: user.id,
-  //         nome: user.nome,
-  //         email: user.email,
-  //         status: user.status,
-  //         imagem: user.imagem,
-  //         tipo: user.tipo,
-  //       })
-  //     );
-  //   });
-  // }, [dispatch]);
-  dispatch(addUsers(initialUsers));
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsers);
+
+  const { isLoading, error, data } = useQuery<
+    Array<getAllUsersResponse>,
+    MyError
+  >("getAllUsers", getAllUsers);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      const transformedData: user[] = data.map((item) => ({
+        id: item.id,
+        nome: item.nome,
+        email: item.email,
+        descricao: item.descricao,
+        imagem: item.fotoPath,
+      }));
+      dispatch(clearUsers());
+      dispatch(addUsers(transformedData));
+      console.log(transformedData);
+    }
+  }, [data, dispatch]);
+
+  const filteredUsers = useMemo(() => {
+    return users?.filter(
+      (user) =>
+        user.nome.toLowerCase().includes(searchTermName.toLowerCase()) &&
+        user.email.toLowerCase().includes(searchTermEmail.toLowerCase())
+    );
+  }, [searchTermName, searchTermEmail, users]);
 
   const itemsPerPage = 10;
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
   const currentUsers = useMemo(() => {
-    return users.slice(firstItemIndex, lastItemIndex);
-  }, [users, firstItemIndex, lastItemIndex]);
-
-  const totalPages = Math.ceil(users.length / itemsPerPage);
+    return filteredUsers?.slice(firstItemIndex, lastItemIndex);
+  }, [filteredUsers, firstItemIndex, lastItemIndex]);
+  console.log(currentUsers.length);
+  const totalPages = Math.ceil((currentUsers.length ?? 1) / itemsPerPage);
 
   const handleClickPage = (pageNumber: number | string): void => {
     if (typeof pageNumber === "number") {
@@ -61,18 +66,9 @@ export default function Users(): JSX.Element {
     }
   };
 
-  const filteredUsers = useMemo(() => {
-    return initialUsers.filter(
-      (user) =>
-        user.nome.toLowerCase().includes(searchTermName.toLowerCase()) &&
-        user.email.toLowerCase().includes(searchTermEmail.toLowerCase())
-    );
-  }, [searchTermName, searchTermEmail]);
-
-  useEffect(() => {
-    setUsers(filteredUsers);
-    setCurrentPage(1); // reset page number when filtering
-  }, [filteredUsers]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="ml-6 flex flex-col justify-center items-center w-full">
@@ -123,7 +119,7 @@ export default function Users(): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {currentUsers.map((user) => (
+          {currentUsers?.map((user) => (
             <UserItem key={user.id} {...user} />
           ))}
         </tbody>
