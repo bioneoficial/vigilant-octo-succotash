@@ -27,12 +27,8 @@ export const UserItem: React.FC<user> = ({
       key={id + nome}
     >
       <td>{nome}</td>
-      <td
-        className={` ${
-          status === PrivacyItemStatus.Ativo ? "text-green-600" : "text-red-600"
-        }`}
-      >
-        {status}
+      <td className={` ${status ? "text-green-600" : "text-red-600"}`}>
+        {status ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo}
       </td>
       <td>{formattedCreatedAt}</td>
       <td>{email}</td>

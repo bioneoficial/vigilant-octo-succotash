@@ -32,6 +32,8 @@ export default function Users(): JSX.Element {
         email: item.email,
         descricao: item.descricao,
         imagem: item.fotoPath,
+        status: item.ativo,
+        tipo: item.tipo,
       }));
       dispatch(clearUsers());
       dispatch(addUsers(transformedData));
@@ -53,7 +55,6 @@ export default function Users(): JSX.Element {
   const currentUsers = useMemo(() => {
     return filteredUsers?.slice(firstItemIndex, lastItemIndex);
   }, [filteredUsers, firstItemIndex, lastItemIndex]);
-  console.log(currentUsers.length);
   const totalPages = Math.ceil((currentUsers.length ?? 1) / itemsPerPage);
 
   const handleClickPage = (pageNumber: number | string): void => {

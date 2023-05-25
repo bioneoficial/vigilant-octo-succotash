@@ -91,7 +91,7 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   id: number;
   nome: string;
   email: string;
-  status?: boolean | PrivacyItemStatus;
+  status?: boolean;
   imagem?: string;
   tipo?: UserRole;
   createdAt?:  string;
@@ -224,4 +224,6 @@ export interface getAllUsersResponse {
   descricao: string;
   email: string;
   fotoPath: string;
+  ativo: boolean;
+  tipo: UserRole;
 }

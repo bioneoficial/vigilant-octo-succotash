@@ -55,10 +55,11 @@ export const HEAD_TABLE_USERS = {
 } as const;
 
 export enum UserRole {
-  usuario = "Usuário",
-  admin = "Admin",
-  autor = "Autor",
-  root = "Root",
+  usuario = "USUARIO",
+  admin = "ADMIN",
+  autor = "AUTOR",
+  assinante = "ASSINANTE",
+  root = "ROOT",
 }
 
 export enum HEAD_TABLE_DENOUNCE {
