@@ -25,11 +25,12 @@ const PrivacyItemPage: React.FC = () => {
             <UserCard
               name={selecteduser?.nome}
               isSubscriber={false}
-              profileImage={
-                selecteduser?.imagem
-                  ? selecteduser.imagem
-                  : "https://www.gravatar.com/avatar/000?d=mp&amp;f=y"
-              }
+              // profileImage={
+              //   selecteduser?.imagem
+              //     ? selecteduser.imagem
+              //     : "https://www.gravatar.com/avatar/000?d=mp&amp;f=y"
+              // }
+              profileImage={"https://www.gravatar.com/avatar/000?d=mp&amp;f=y"}
             />
           </>
           <div className="flex flex-col items-center justify-center p-4 md:flex-row md:space-x-4">
