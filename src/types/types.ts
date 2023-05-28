@@ -228,3 +228,16 @@ export interface getAllUsersResponse {
   ativo: boolean;
   tipo: UserRole;
 }
+
+export interface postUser {
+  id?: number;
+ nome: string;
+ descricao: string;
+ email: string;
+ senha: string;
+}
+
+export interface updatePhoto {
+  id: number;
+  foto: File;
+}
