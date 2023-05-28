@@ -46,7 +46,8 @@ export const UserItem: React.FC<user> = ({
             className="h-8 w-8 rounded-full"
             width={32}
             height={32}
-            src={imagem ?? ""}
+            // src={imagem ?? ""} esperando o bucket
+            src={"https://www.gravatar.com/avatar/000?d=mp&f=y"}
             alt="User Item Picture"
           />
         )}

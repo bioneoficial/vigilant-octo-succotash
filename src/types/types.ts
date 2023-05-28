@@ -219,6 +219,7 @@ export interface MyError {
 }
 
 export interface getAllUsersResponse {
+  data_inclusao: string;
   id: number;
   nome: string;
   descricao: string;

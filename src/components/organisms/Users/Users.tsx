@@ -24,7 +24,7 @@ export default function Users(): JSX.Element {
   >("getAllUsers", getAllUsers);
 
   useEffect(() => {
-    if (data) {
+    if (data && Array.isArray(data)) {
       console.log(data);
       const transformedData: user[] = data.map((item) => ({
         id: item.id,
@@ -34,10 +34,10 @@ export default function Users(): JSX.Element {
         imagem: item.fotoPath,
         status: item.ativo,
         tipo: item.tipo,
+        createdAt: item.data_inclusao,
       }));
       dispatch(clearUsers());
       dispatch(addUsers(transformedData));
-      console.log(transformedData);
     }
   }, [data, dispatch]);
 
