@@ -28,10 +28,13 @@ export const userSlice = createSlice({
     deselectUser: (state) => {
       state.selectedUser = null;
     },
+    clearUsers: (state) => {
+      state.users = [];
+    },
   },
 });
 
-export const { addUser, addUsers, deleteUser, selectUser, deselectUser } = userSlice.actions;
+export const { addUser, addUsers, deleteUser, selectUser, deselectUser, clearUsers } = userSlice.actions;
 
 export const selectUsers = (state: RootState): user[] => state.user.users;
 

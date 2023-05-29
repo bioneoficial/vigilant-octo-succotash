@@ -20,19 +20,15 @@ export const UserItem: React.FC<user> = ({
   0;
   const someDate = new Date(createdAt ?? "");
   const formattedCreatedAt = someDate?.toLocaleDateString();
-
+  console.log(id, nome, email, imagem, status, createdAt, tipo);
   return (
     <tr
       className="border-collapse border  border-slate-300 hover:bg-gray-700 hover:text-white"
       key={id + nome}
     >
       <td>{nome}</td>
-      <td
-        className={` ${
-          status === PrivacyItemStatus.Ativo ? "text-green-600" : "text-red-600"
-        }`}
-      >
-        {status}
+      <td className={` ${status ? "text-green-600" : "text-red-600"}`}>
+        {status ? PrivacyItemStatus.Ativo : PrivacyItemStatus.Inativo}
       </td>
       <td>{formattedCreatedAt}</td>
       <td>{email}</td>
@@ -50,7 +46,8 @@ export const UserItem: React.FC<user> = ({
             className="h-8 w-8 rounded-full"
             width={32}
             height={32}
-            src={imagem}
+            // src={imagem ?? ""} esperando o bucket
+            src={"https://www.gravatar.com/avatar/000?d=mp&f=y"}
             alt="User Item Picture"
           />
         )}

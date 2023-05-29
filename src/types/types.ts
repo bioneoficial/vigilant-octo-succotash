@@ -91,12 +91,14 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   id: number;
   nome: string;
   email: string;
-  status: boolean | PrivacyItemStatus;
-  imagem: string;
-  tipo: UserRole;
+  status?: boolean;
+  imagem?: string;
+  tipo?: UserRole;
   createdAt?:  string;
   cpf?: string | null;
   isSubscriber?: boolean;
+  descricao?: string;
+  fotoPath?: string;
 }
 
 export interface BannerSelectionProps {
@@ -210,4 +212,32 @@ export interface Stamps{ // that can be series/conteudo too?
 
 export interface SelosItemProps {
   Selos: Stamps[];
+}
+
+export interface MyError {
+  message: string;
+}
+
+export interface getAllUsersResponse {
+  data_inclusao: string;
+  id: number;
+  nome: string;
+  descricao: string;
+  email: string;
+  fotoPath: string;
+  ativo: boolean;
+  tipo: UserRole;
+}
+
+export interface postUser {
+  id?: number;
+ nome: string;
+ descricao: string;
+ email: string;
+ senha: string;
+}
+
+export interface updatePhoto {
+  id: number;
+  foto: File;
 }
