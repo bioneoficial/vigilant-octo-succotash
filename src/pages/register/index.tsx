@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
+import Image from "next/image";
 
 function LoginPage(): JSX.Element {
   const [name, setName] = useState("");
@@ -6,7 +7,7 @@ function LoginPage(): JSX.Element {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (event: any): void => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     // You would handle form submission here
   };
@@ -14,11 +15,18 @@ function LoginPage(): JSX.Element {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-full max-w-xs">
-        <div className="text-center mb-4">
-          <img src="./images/logo.png" alt="logo" className="mx-auto" />
+        <div className="text-center">
+          <Image
+            src={"/images/logo-funktoon.svg"}
+            width={200}
+            height={200}
+            alt="logo"
+            className="h-160 w-160 rounded-sm mx-auto"
+            quality={100}
+          />
         </div>
 
-        <h6 className="mb-4 text-center">Crie sua conta</h6>
+        <h6 className="mb-4">Crie sua conta</h6>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <div className="mb-4">
@@ -36,7 +44,7 @@ function LoginPage(): JSX.Element {
                 value={name}
                 required
                 autoComplete="name"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e): void => setName(e.target.value)}
               />
             </div>
 
@@ -55,7 +63,7 @@ function LoginPage(): JSX.Element {
                 value={email}
                 required
                 autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e): void => setEmail(e.target.value)}
               />
             </div>
 
@@ -74,7 +82,7 @@ function LoginPage(): JSX.Element {
                 value={password}
                 required
                 autoComplete="new-password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e): void => setPassword(e.target.value)}
               />
             </div>
 
@@ -93,7 +101,7 @@ function LoginPage(): JSX.Element {
                 value={confirmPassword}
                 required
                 autoComplete="new-password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e): void => setConfirmPassword(e.target.value)}
               />
             </div>
           </div>
