@@ -1,8 +1,8 @@
 import React from "react";
 import LoginTemplate from "@/components/templates/LoginTemplate/LoginTemplate";
 
-function RegisterPage(): JSX.Element {
+function LoginPage(): JSX.Element {
   return <LoginTemplate />;
 }
 
-export default RegisterPage;
+export default LoginPage;
