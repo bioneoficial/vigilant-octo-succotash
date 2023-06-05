@@ -30,8 +30,7 @@ function RegisterPage(): JSX.Element {
             quality={100}
           />
         </div>
-
-        <h6 className="mb-4 font-bold">Crie sua conta</h6>
+        <h6 className="mb-4">Crie sua conta</h6>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <div className="mb-4">
