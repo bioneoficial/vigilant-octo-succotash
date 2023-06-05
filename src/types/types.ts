@@ -217,14 +217,6 @@ export interface getAllUsersResponse {
   tipo: UserRole;
 }
 
-export interface postUser {
-  id?: number;
- nome: string;
- descricao: string;
- email: string;
- senha: string;
-}
-
 export interface updatePhoto {
   id: number;
   foto: File;
@@ -252,12 +244,6 @@ export interface CreateUser {
   nome: string;
   email: string;
   senha: string;
-  ativo: number;
-  data_validade_assinatura: string;
-  id_usuario_operacao: number;
-  data_alteracao: string;
-  data_exclusao: string;
-  data_inclusao: string;
 }
 
 export interface CreateUserResponse { // ESPERANDO FIX DO AUTH
