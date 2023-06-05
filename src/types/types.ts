@@ -148,18 +148,6 @@ export interface MyAppProps {
   Component: React.ComponentType<AppProps>;
   pageProps: AppProps["pageProps"];
 }
-
-// export interface Denounce {
-//   id: number;
-//   denounceOptionId: number;
-//   userId: number;
-//   comicId: number;
-//   details: string;
-// }
-
-// export interface DenounceType {
-//   "Conteúdo ofensivo ou impróprio"
-// }
 export interface DenounceItemProps {
   id: number;
   denouncerId: number;
@@ -240,4 +228,9 @@ export interface postUser {
 export interface updatePhoto {
   id: number;
   foto: File;
+}
+
+export interface PostLogin {
+  email: string;
+  password: string;
 }
