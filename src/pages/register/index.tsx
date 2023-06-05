@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 
-function LoginPage(): JSX.Element {
+function RegisterPage(): JSX.Element {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,10 +11,15 @@ function LoginPage(): JSX.Element {
     event.preventDefault();
     // You would handle form submission here
   };
-
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-xs">
+    <div className="min-h-screen flex items-center">
+      <div
+        className="hidden md:block w-1/2 min-h-screen bg-no-repeat bg-clip-border bg-origin-border bg-cover"
+        style={{
+          backgroundImage: "url('/images/TeladeLogin.png')",
+        }}
+      ></div>
+      <div className="w-1/2 max-w-xs mx-auto">
         <div className="text-center">
           <Image
             src={"/images/logo-funktoon.svg"}
@@ -129,4 +134,4 @@ function LoginPage(): JSX.Element {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
