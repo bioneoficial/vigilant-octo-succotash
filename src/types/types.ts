@@ -247,3 +247,20 @@ export interface LoginResponse{
     data_validade_assinatura: string;
   }
 }
+
+export interface CreateUser {
+  nome: string;
+  email: string;
+  senha: string;
+  ativo: number;
+  data_validade_assinatura: string;
+  id_usuario_operacao: number;
+  data_alteracao: string;
+  data_exclusao: string;
+  data_inclusao: string;
+}
+
+export interface CreateUserResponse { // ESPERANDO FIX DO AUTH
+  id: number;
+  nome: string;
+}

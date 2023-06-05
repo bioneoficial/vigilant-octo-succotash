@@ -23,6 +23,7 @@ function Login(): JSX.Element {
       ) {
         router.push("/dashboard");
       } else {
+        // melhorar essa camada aqui rapaz
         router.push("/");
       }
     },
