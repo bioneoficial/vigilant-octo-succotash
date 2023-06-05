@@ -19,13 +19,13 @@ function Register(): JSX.Element {
   ];
   return (
     <div className="w-1/2 max-w-xs mx-auto">
-      <div className="text-center">
+      <div>
         <Image
           src={"/images/logo-funktoon.svg"}
           width={250}
           height={200}
           alt="logo"
-          className="h-160 w-160 rounded-sm mx-auto"
+          className="h-160 w-160 rounded-sm"
           quality={100}
         />
       </div>
