@@ -3,11 +3,10 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 
-function Register(): JSX.Element {
-  const [name, setName] = useState("");
+function Login(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [stayConnected, setStayConnected] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -29,21 +28,9 @@ function Register(): JSX.Element {
           quality={100}
         />
       </div>
-      <h6 className="mb-4">Crie sua conta</h6>
+      <h6 className="mb-4">Faça login para continuar</h6>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <div className="mb-4">
-            <InputField
-              id="name"
-              label="Seu nome"
-              name="name"
-              initialValue={name}
-              required
-              onChange={(e): void => setName(e.target.value)}
-              classNameInput={commonInputClass}
-            />
-          </div>
-
           <div className="mb-4">
             <InputField
               id="email"
@@ -69,36 +56,42 @@ function Register(): JSX.Element {
               classNameInput={commonInputClass}
             />
           </div>
-
-          <div className="mb-4">
-            <InputField
-              id="password-confirm"
-              type="password"
-              label="Confirmação de senha"
-              name="password_confirmation"
-              initialValue={confirmPassword}
-              required
-              onChange={(e): void => setConfirmPassword(e.target.value)}
-              classNameInput={commonInputClass}
-            />
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center">
+              <InputField
+                id="stayConnected"
+                label="Manter conectado"
+                name="stayConnected"
+                type="checkbox"
+                initialValue={stayConnected ? "true" : "false"}
+                onChange={(e): void => setStayConnected(e.target.checked)}
+                classNameInput={["mr-2", "w-4", "h-4"]}
+              />
+            </div>
+            <Link
+              href="/password/reset"
+              className=" text-blue-600 hover:text-blue-800  text-sm"
+            >
+              Recuperar Senha
+            </Link>
           </div>
         </div>
 
         <div className="mb-0">
           <button
-            className="bg-[#FF55F1] hover:bg-[#F115F9] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center"
+            className="bg-[#FF55F1] hover:bg-[#F115F9] text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center"
             type="submit"
           >
-            Registre-se
+            Entrar
           </button>
         </div>
 
         <div className="mt-5 text-center">
           <Link
-            className="inline-block align-baseline font-bold text-sm text-[#FF55F1] hover:text-[#F115F9]"
-            href="/login"
+            className="inline-block align-baseline text-sm text-[#FF55F1] hover:text-[#F115F9]"
+            href="/register"
           >
-            Fazer Login
+            Criar conta
           </Link>
         </div>
       </form>
@@ -106,4 +99,4 @@ function Register(): JSX.Element {
   );
 }
 
-export default Register;
+export default Login;
