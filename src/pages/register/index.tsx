@@ -31,12 +31,12 @@ function RegisterPage(): JSX.Element {
           />
         </div>
 
-        <h6 className="mb-4">Crie sua conta</h6>
+        <h6 className="mb-4 font-bold">Crie sua conta</h6>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="name"
               >
                 Seu nome
@@ -44,7 +44,7 @@ function RegisterPage(): JSX.Element {
               <input
                 id="name"
                 type="text"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border border-neutral-950 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 name="name"
                 value={name}
                 required
@@ -55,15 +55,15 @@ function RegisterPage(): JSX.Element {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="email"
               >
-                Email Address
+                Email
               </label>
               <input
                 id="email"
                 type="email"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded border-neutral-950 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 name="email"
                 value={email}
                 required
@@ -74,7 +74,7 @@ function RegisterPage(): JSX.Element {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Senha
@@ -82,7 +82,7 @@ function RegisterPage(): JSX.Element {
               <input
                 id="password"
                 type="password"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded border-neutral-950 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 name="password"
                 value={password}
                 required
@@ -93,7 +93,7 @@ function RegisterPage(): JSX.Element {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-black text-sm font-bold mb-2"
                 htmlFor="password-confirm"
               >
                 Confirmação de senha
@@ -101,7 +101,7 @@ function RegisterPage(): JSX.Element {
               <input
                 id="password-confirm"
                 type="password"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border border-neutral-950 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 name="password_confirmation"
                 value={confirmPassword}
                 required
@@ -113,7 +113,7 @@ function RegisterPage(): JSX.Element {
 
           <div className="mb-0">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center"
+              className="bg-[#FF55F1] hover:bg-[#F115F9] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center"
               type="submit"
             >
               Registre-se
@@ -122,7 +122,7 @@ function RegisterPage(): JSX.Element {
 
           <div className="mt-5 text-center">
             <a
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              className="inline-block align-baseline font-bold text-sm text-[#FF55F1] hover:text-[#F115F9]"
               href="/login"
             >
               Fazer Login

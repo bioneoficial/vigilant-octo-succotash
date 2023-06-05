@@ -1,11 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
 
+@font-face {
+	font-family: 'Eurostile';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Eurostile'), url('/fonts/eurostile.woff') format('woff');
+  }
+  
+  @font-face {
+	font-family: 'EuroStyleNormal';
+	font-style: normal;
+	font-weight: normal;
+	src: local('EuroStyleNormal'), url('/fonts/EuroStyleNormal.woff') format('woff');
+  }
+
+  
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -23,8 +34,10 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	font-family: 'Eurostile', sans-serif;
 	vertical-align: baseline;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
