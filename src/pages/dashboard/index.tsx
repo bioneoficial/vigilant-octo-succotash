@@ -5,7 +5,7 @@ import { fetchPing } from "@/api/ping";
 
 export default function DashboardPage(): JSX.Element {
   const { isLoading, error, data } = useQuery<string, MyError>(
-    "getAllUsers",
+    "fetchPing",
     fetchPing
   );
 

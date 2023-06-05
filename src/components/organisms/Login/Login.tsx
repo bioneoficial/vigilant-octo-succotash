@@ -2,15 +2,38 @@ import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useMutation } from "react-query";
+import { loginUser } from "@/api/auth";
+import { LoginResponse } from "@/types/types";
+import { UserRole } from "@/utils/enums";
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [stayConnected, setStayConnected] = useState(false);
+  const router = useRouter();
+
+  const loginMutation = useMutation(loginUser, {
+    onSuccess: (data: LoginResponse) => {
+      sessionStorage.setItem("token", data.token);
+      if (
+        data.user.role === UserRole.admin ||
+        data.user.role === UserRole.root
+      ) {
+        router.push("/dashboard");
+      } else {
+        router.push("/");
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // You would handle form submission here
+    loginMutation.mutate({ email, password });
   };
 
   const commonInputClass = [

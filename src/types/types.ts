@@ -234,3 +234,16 @@ export interface PostLogin {
   email: string;
   password: string;
 }
+
+export interface LoginResponse{
+  token: string;
+  user: {
+    id: number;
+    nome: string;
+    email: string;
+    role: UserRole;
+    fotoPath: string;
+    ativo: number;
+    data_validade_assinatura: string;
+  }
+}
