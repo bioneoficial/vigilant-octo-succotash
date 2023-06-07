@@ -3,6 +3,7 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { createUser } from "@/api/usuario";
+import { clearStringState } from "@/utils/utils";
 function Register(): JSX.Element {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -12,34 +13,37 @@ function Register(): JSX.Element {
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
 
-  const clearErrorMessages = (): void => {
-    setNameErrorMessage("");
-    setEmailErrorMessage("");
-    setPasswordErrorMessage("");
-  };
-
-  const clearInputFields = (): void => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-  };
-
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
-    clearErrorMessages();
+    clearStringState(
+      setNameErrorMessage,
+      setEmailErrorMessage,
+      setPasswordErrorMessage
+    );
     event.preventDefault();
-    const flag = false;
-    if (confirmPassword === "")
+    let flag = 0;
+    if (confirmPassword === "") {
       setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20");
-    if (name === "") setNameErrorMessage("Nome não pode ser vazio");
-    if (email === "") setEmailErrorMessage("Email não pode ser vazio");
-    if (password === "")
+      flag = 1;
+    }
+    if (name.length < 3) {
+      setNameErrorMessage("Nome não pode ser vazio");
+      flag = 1;
+    }
+    if (email === "") {
+      setEmailErrorMessage("Email não pode ser vazio");
+      flag = 1;
+    }
+    if (password === "") {
       setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20");
-    if (password !== confirmPassword)
+      flag = 1;
+    }
+    if (password !== confirmPassword) {
       setPasswordErrorMessage("Senhas não coincidem");
-    if (flag) {
+      flag = 1;
+    }
+    if (flag === 1) {
       return;
     } else {
       await createUser({
@@ -47,7 +51,7 @@ function Register(): JSX.Element {
         email,
         senha: password,
       });
-      clearInputFields();
+      clearStringState(setName, setEmail, setPassword, setConfirmPassword);
     }
   };
 

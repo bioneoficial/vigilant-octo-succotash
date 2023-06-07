@@ -1,10 +1,12 @@
 import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
-import { PrivacyItem, cupom, user } from "@/types/types";
+import { PrivacyItem, user } from "@/types/types";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { modalTypeEnum } from "./enums";
 import {  selectUser } from "@/Redux/Reducers/userSlice";
+import {  SetStateAction } from 'react';
+
 
 export const classNames = (...classes: string[]): string => {
   return classes.filter(Boolean).join(" ");
@@ -72,4 +74,8 @@ export const handleEditUser = (
     router.push(`/dashboard/usuarios/${user.id}`);
 
   }
+};
+
+export const clearStringState = (...stateActions: Array<React.Dispatch<SetStateAction<string>>>): void => {
+  stateActions.forEach((setStateAction) => setStateAction(''));
 };
