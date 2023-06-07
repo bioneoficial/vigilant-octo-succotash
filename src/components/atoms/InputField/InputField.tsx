@@ -121,7 +121,7 @@ const InputFieldComponent: React.FC<Props> = ({
         id={id}
         ref={inputRef}
       />
-      {!!errorMessage && <div>{errorMessage}</div>}
+      {!!errorMessage && <div className="  text-red-600">{errorMessage}</div>}
     </label>
   );
 };

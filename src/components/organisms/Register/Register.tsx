@@ -4,6 +4,10 @@ import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { createUser } from "@/api/usuario";
 import { clearStringState } from "@/utils/utils";
+import { commonInputClass } from "@/utils/const";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Register(): JSX.Element {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -31,8 +35,8 @@ function Register(): JSX.Element {
       setNameErrorMessage("Nome não pode ser vazio");
       flag = 1;
     }
-    if (email === "") {
-      setEmailErrorMessage("Email não pode ser vazio");
+    if (email.length < 3) {
+      setEmailErrorMessage("Email não valido");
       flag = 1;
     }
     if (password === "") {
@@ -46,18 +50,26 @@ function Register(): JSX.Element {
     if (flag === 1) {
       return;
     } else {
-      await createUser({
+      const respo = await createUser({
         nome: name,
         email,
         senha: password,
       });
+      toast.success("Usuario criado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(respo);
       clearStringState(setName, setEmail, setPassword, setConfirmPassword);
     }
   };
 
-  const commonInputClass = [
-    "shadow appearance-none border border-neutral-950 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-  ];
   return (
     <div className="w-1/2 max-w-xs mx-auto">
       <div>
@@ -147,6 +159,18 @@ function Register(): JSX.Element {
           </Link>
         </div>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
