@@ -2,8 +2,6 @@ import axios from 'axios';
 import { apiConfig } from './apiConfig';
 import { CreateUser, CreateUserResponse, getAllUsersResponse, updatePhoto } from '@/types/types';
 
-
-
 export async function getAllUsers(): Promise<Array<getAllUsersResponse>> {
     const response = await axios.get(apiConfig.userApiUrl);
     return response.data;
@@ -14,14 +12,9 @@ export async function getAllUsers(): Promise<Array<getAllUsersResponse>> {
     return response.data;
   }
 
-
   export async function createUser(user: CreateUser): Promise<CreateUserResponse> {
-    try{
     const response = await axios.post(apiConfig.userApiUrl, user);
     return response.data;
-  }catch(error){
-    throw new Error((error as any).response.data.message);
-  }
   }
 
   // export async function updateUser(user: postUser): Promise<postUser> {

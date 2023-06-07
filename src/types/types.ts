@@ -250,3 +250,22 @@ export interface CreateUserResponse { // ESPERANDO FIX DO AUTH
   id: number;
   nome: string;
 }
+
+export interface RegisterFormFields {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface RegisterFormErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface ToastService {
+  success: (message: string) => void;
+  error: (message?: string) => void;
+  // Add other toast methods like warn(), info(), etc. if needed
+}

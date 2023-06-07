@@ -1,6 +1,6 @@
 import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
-import { PrivacyItem, user } from "@/types/types";
+import { PrivacyItem, RegisterFormErrors, RegisterFormFields, ToastService, user } from "@/types/types";
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { modalTypeEnum } from "./enums";
@@ -80,23 +80,10 @@ export const clearStringState = (...stateActions: Array<React.Dispatch<SetStateA
   stateActions.forEach((setStateAction) => setStateAction(''));
 };
 
-
-interface FormFields {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
-interface FormErrors {
-  name?: string;
-  email?: string;
-  password?: string;
-}
-export function validateForm({ name, email, password, confirmPassword }: FormFields): FormErrors | null {
-  const errors: FormErrors = {};
+export function validateForm({ name, email, password, confirmPassword }: RegisterFormFields): RegisterFormErrors | null {
+  const errors: RegisterFormErrors = {};
   
-  if (confirmPassword === "") {
+  if (confirmPassword.length < 6 || confirmPassword.length > 20) {
     errors.password = "Senha com no mínimo 6 caracteres e máximo 20";
   }
   if (name.length < 3) {
@@ -105,7 +92,7 @@ export function validateForm({ name, email, password, confirmPassword }: FormFie
   if (email.length < 3) {
     errors.email = "Email não valido";
   }
-  if (password === "") {
+  if (password.length < 6 || password.length > 20) {
     errors.password = "Senha com no mínimo 6 caracteres e máximo 20";
   }
   if (password !== confirmPassword) {
@@ -113,4 +100,26 @@ export function validateForm({ name, email, password, confirmPassword }: FormFie
   }
 
   return Object.keys(errors).length > 0 ? errors : null;
+}
+
+
+export const handleAxiosError = ( err: any, 
+  toastService: ToastService, 
+  setEmailErrorMessage: (errorMessage: string) => void): void => {
+    console.log(err)
+  switch(err.code){
+    case 'ERR_NETWORK':
+      toastService.error(`Network error: ${err.message}`);
+      break;
+    case 'ERR_BAD_RESPONSE':
+      if(err.response.data.message === 'Email já cadastrado'){
+        toastService.error(`Email error: ${err.response.data.message}`);
+      setEmailErrorMessage(err.message);
+      } else {
+        toastService.error(`Bad response error: ${err.message}`);
+      }
+      break;
+    default:
+      toastService.error(`Unknown error: ${err.message}`);
+  }
 }

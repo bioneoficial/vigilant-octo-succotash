@@ -1,12 +1,8 @@
 // import { Dispatch } from 'redux';
+import { ToastService } from '@/types/types';
 import { ToastOptions, toast } from 'react-toastify';
 // import { setToastSuccess } from '@/Redux/Reducers/toastSuccessReducer';
 
-interface ToastService {
-    success: (message: string) => void;
-    error: (message?: string) => void;
-    // Add other toast methods like warn(), info(), etc. if needed
-  }
 
 export default function toastService(): ToastService {
     const options: ToastOptions = {

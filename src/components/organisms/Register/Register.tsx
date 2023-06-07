@@ -3,7 +3,11 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { createUser } from "@/api/usuario";
-import { clearStringState, validateForm } from "@/utils/utils";
+import {
+  clearStringState,
+  handleAxiosError,
+  validateForm,
+} from "@/utils/utils";
 import { commonInputClass } from "@/utils/const";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +22,7 @@ function Register(): JSX.Element {
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
 
-  const { success, error } = toastService();
+  const { success } = toastService();
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
@@ -45,11 +49,7 @@ function Register(): JSX.Element {
         success("Usuario criado com sucesso!");
         clearStringState(setName, setEmail, setPassword, setConfirmPassword);
       } catch (err: any) {
-        if (err.response) {
-          error(`Error creating user: ${err.response.data.message}`);
-        } else {
-          error(`Error creating user: ${err.message}`);
-        }
+        handleAxiosError(err, toastService(), setEmailErrorMessage);
       }
     }
   };
@@ -104,7 +104,9 @@ function Register(): JSX.Element {
               name="password"
               initialValue={password}
               required
-              onChange={(e): void => setPassword(e.target.value)}
+              onChange={(e): void =>
+                setPassword(e.target.value.replace(/\s/g, ""))
+              }
               classNameInput={commonInputClass}
               errorMessage={passwordErrorMessage}
             />
@@ -118,7 +120,9 @@ function Register(): JSX.Element {
               name="password_confirmation"
               initialValue={confirmPassword}
               required
-              onChange={(e): void => setConfirmPassword(e.target.value)}
+              onChange={(e): void =>
+                setConfirmPassword(e.target.value.replace(/\s/g, ""))
+              }
               classNameInput={commonInputClass}
               errorMessage={passwordErrorMessage}
             />
