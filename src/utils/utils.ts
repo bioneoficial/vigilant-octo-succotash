@@ -82,14 +82,14 @@ export const clearStringState = (...stateActions: Array<React.Dispatch<SetStateA
 
 export function validateForm({ name, email, password, confirmPassword }: RegisterFormFields): RegisterFormErrors | null {
   const errors: RegisterFormErrors = {};
-  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (confirmPassword.length < 6 || confirmPassword.length > 20) {
     errors.password = "Senha com no mínimo 6 caracteres e máximo 20";
   }
   if (name.length < 3) {
     errors.name = "Nome não pode ser vazio";
   }
-  if (email.length < 3) {
+  if (!emailRegex.test(email))  {
     errors.email = "Email não valido";
   }
   if (password.length < 6 || password.length > 20) {
@@ -114,7 +114,7 @@ export const handleAxiosError = ( err: any,
     case 'ERR_BAD_RESPONSE':
       if(err.response.data.message === 'Email já cadastrado'){
         toastService.error(`Email error: ${err.response.data.message}`);
-      setEmailErrorMessage(err.message);
+      setEmailErrorMessage(err.response.data.message);
       } else {
         toastService.error(`Bad response error: ${err.message}`);
       }
