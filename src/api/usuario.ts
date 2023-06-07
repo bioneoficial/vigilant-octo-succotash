@@ -17,7 +17,6 @@ export async function getAllUsers(): Promise<Array<getAllUsersResponse>> {
 
   export async function createUser(user: CreateUser): Promise<CreateUserResponse> {
     const response = await axios.post(apiConfig.userApiUrl, user);
-    console.log(response)
     return response.data;
   }
 

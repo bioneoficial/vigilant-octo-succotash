@@ -62,10 +62,11 @@ function Register(): JSX.Element {
         success("Usuario criado com sucesso!");
         clearStringState(setName, setEmail, setPassword, setConfirmPassword);
       } catch (err: any) {
-        error(`Error creating user: ${err.message}`);
-        setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20"); // mudar usuario ja existe
-        setEmailErrorMessage("Email não valido");
-        setNameErrorMessage("Nome não pode ser vazio");
+        if (err.response) {
+          error(`Error creating user: ${err.response.data.message}`);
+        } else {
+          error(`Error creating user: ${err.message}`);
+        }
       }
     }
   };
