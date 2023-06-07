@@ -5,8 +5,9 @@ import Link from "next/link";
 import { createUser } from "@/api/usuario";
 import { clearStringState } from "@/utils/utils";
 import { commonInputClass } from "@/utils/const";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import toastService from "@/utils/toastService";
 
 function Register(): JSX.Element {
   const [name, setName] = useState<string>("");
@@ -16,6 +17,8 @@ function Register(): JSX.Element {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
+
+  const { success, error } = toastService();
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
@@ -50,23 +53,20 @@ function Register(): JSX.Element {
     if (flag === 1) {
       return;
     } else {
-      const respo = await createUser({
-        nome: name,
-        email,
-        senha: password,
-      });
-      toast.success("Usuario criado com sucesso!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      console.log(respo);
-      clearStringState(setName, setEmail, setPassword, setConfirmPassword);
+      try {
+        await createUser({
+          nome: name,
+          email,
+          senha: password,
+        });
+        success("Usuario criado com sucesso!");
+        clearStringState(setName, setEmail, setPassword, setConfirmPassword);
+      } catch (err: any) {
+        error(`Error creating user: ${err.message}`);
+        setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20"); // mudar usuario ja existe
+        setEmailErrorMessage("Email não valido");
+        setNameErrorMessage("Nome não pode ser vazio");
+      }
     }
   };
 
