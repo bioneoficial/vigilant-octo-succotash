@@ -4,22 +4,50 @@ import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { createUser } from "@/api/usuario";
 function Register(): JSX.Element {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
+  const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  const clearErrorMessages = (): void => {
+    setNameErrorMessage("");
+    setEmailErrorMessage("");
+    setPasswordErrorMessage("");
+  };
+
+  const clearInputFields = (): void => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    clearErrorMessages();
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Senhas não coincidem"); // ajeitar validacao
+    const flag = false;
+    if (confirmPassword === "")
+      setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20");
+    if (name === "") setNameErrorMessage("Nome não pode ser vazio");
+    if (email === "") setEmailErrorMessage("Email não pode ser vazio");
+    if (password === "")
+      setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20");
+    if (password !== confirmPassword)
+      setPasswordErrorMessage("Senhas não coincidem");
+    if (flag) {
       return;
     } else {
-      createUser({
+      await createUser({
         nome: name,
         email,
         senha: password,
       });
+      clearInputFields();
     }
   };
 
@@ -50,6 +78,7 @@ function Register(): JSX.Element {
               required
               onChange={(e): void => setName(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={nameErrorMessage}
             />
           </div>
 
@@ -63,6 +92,7 @@ function Register(): JSX.Element {
               required
               onChange={(e): void => setEmail(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={emailErrorMessage}
             />
           </div>
 
@@ -76,6 +106,7 @@ function Register(): JSX.Element {
               required
               onChange={(e): void => setPassword(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={passwordErrorMessage}
             />
           </div>
 
@@ -89,6 +120,7 @@ function Register(): JSX.Element {
               required
               onChange={(e): void => setConfirmPassword(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={passwordErrorMessage}
             />
           </div>
         </div>
