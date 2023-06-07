@@ -3,7 +3,7 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { createUser } from "@/api/usuario";
-import { clearStringState } from "@/utils/utils";
+import { clearStringState, validateForm } from "@/utils/utils";
 import { commonInputClass } from "@/utils/const";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,28 +29,11 @@ function Register(): JSX.Element {
       setPasswordErrorMessage
     );
     event.preventDefault();
-    let flag = 0;
-    if (confirmPassword === "") {
-      setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20");
-      flag = 1;
-    }
-    if (name.length < 3) {
-      setNameErrorMessage("Nome não pode ser vazio");
-      flag = 1;
-    }
-    if (email.length < 3) {
-      setEmailErrorMessage("Email não valido");
-      flag = 1;
-    }
-    if (password === "") {
-      setPasswordErrorMessage("Senha com no mínimo 6 caracteres e máximo 20");
-      flag = 1;
-    }
-    if (password !== confirmPassword) {
-      setPasswordErrorMessage("Senhas não coincidem");
-      flag = 1;
-    }
-    if (flag === 1) {
+    const errors = validateForm({ name, email, password, confirmPassword });
+    if (errors) {
+      setNameErrorMessage(errors.name as string);
+      setEmailErrorMessage(errors.email as string);
+      setPasswordErrorMessage(errors.password as string);
       return;
     } else {
       try {

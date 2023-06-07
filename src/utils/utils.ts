@@ -79,3 +79,38 @@ export const handleEditUser = (
 export const clearStringState = (...stateActions: Array<React.Dispatch<SetStateAction<string>>>): void => {
   stateActions.forEach((setStateAction) => setStateAction(''));
 };
+
+
+interface FormFields {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+export function validateForm({ name, email, password, confirmPassword }: FormFields): FormErrors | null {
+  const errors: FormErrors = {};
+  
+  if (confirmPassword === "") {
+    errors.password = "Senha com no mínimo 6 caracteres e máximo 20";
+  }
+  if (name.length < 3) {
+    errors.name = "Nome não pode ser vazio";
+  }
+  if (email.length < 3) {
+    errors.email = "Email não valido";
+  }
+  if (password === "") {
+    errors.password = "Senha com no mínimo 6 caracteres e máximo 20";
+  }
+  if (password !== confirmPassword) {
+    errors.password = "Senhas não coincidem";
+  }
+
+  return Object.keys(errors).length > 0 ? errors : null;
+}
