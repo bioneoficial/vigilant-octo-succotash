@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
@@ -16,21 +16,30 @@ function Login(): JSX.Element {
 
   const loginMutation = useMutation(loginUser, {
     onSuccess: (data: LoginResponse) => {
-      sessionStorage.setItem("token", data.token);
-      if (
-        data.user.role === UserRole.admin ||
-        data.user.role === UserRole.root
-      ) {
-        router.push("/dashboard");
-      } else {
-        // melhorar essa camada aqui rapaz
-        router.push("/");
-      }
+      stayConnected
+        ? localStorage.setItem("funktoonToken", JSON.stringify(data))
+        : sessionStorage.setItem("funktoonToken", JSON.stringify(data));
+
+      data.user.role === UserRole.admin || data.user.role === UserRole.root
+        ? router.push("/dashboard")
+        : router.push("/");
     },
     onError: (error) => {
       console.error(error);
     },
   });
+
+  useEffect(() => {
+    const storedData =
+      localStorage.getItem("funktoonToken") ||
+      sessionStorage.getItem("funktoonToken");
+    const userData = storedData && JSON.parse(storedData);
+    if (userData?.token) {
+      userData.role === UserRole.admin || userData.role === UserRole.root
+        ? router.push("/dashboard")
+        : router.push("/");
+    }
+  }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
