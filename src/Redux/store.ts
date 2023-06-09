@@ -9,6 +9,7 @@ import userReducer from "@/Redux/Reducers/userSlice";
 import couponReducer from "@/Redux/Reducers/couponSlice";
 import stampReducer from "@/Redux/Reducers/stampSlice";
 import toastSuccessReducer from './Reducers/toastSuccessReducer';
+import sessionSliceReducer from './Reducers/sessionSlice';
 
 import mySaga from '../../sagas'; 
 
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   coupon: couponReducer,
   stamp: stampReducer,
-      toastSuccess: toastSuccessReducer,
+  toastSuccess: toastSuccessReducer,
+  sessionManagement: sessionSliceReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

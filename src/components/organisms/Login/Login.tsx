@@ -3,14 +3,13 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMutation } from "react-query";
-import { loginUser } from "@/api/auth";
 import { LoginResponse } from "@/types/types";
 import { UserRole } from "@/utils/enums";
 import { handleAxiosError } from "@/utils/utils";
 import toastService from "@/utils/toastService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useLogin from "@/customHooks/useLogin";
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState<string>("");
@@ -18,9 +17,8 @@ function Login(): JSX.Element {
   const [stayConnected, setStayConnected] = useState<boolean>(false);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const loginMutation = useMutation(loginUser, {
-    onSuccess: (data: LoginResponse) => {
+  const { mutate } = useLogin(
+    (data: LoginResponse) => {
       if (!data.token) {
         setErrorMessage("Usuário não encontrado ou senha inválida");
         return;
@@ -32,11 +30,11 @@ function Login(): JSX.Element {
         ? router.push("/dashboard")
         : router.push("/");
     },
-    onError: (err) => {
+    (err: unknown) => {
       handleAxiosError(err, toastService(), setErrorMessage);
       console.error(err);
-    },
-  });
+    }
+  );
 
   useEffect(() => {
     const storedData =
@@ -48,11 +46,11 @@ function Login(): JSX.Element {
         ? router.push("/dashboard")
         : router.push("/");
     }
-  }, []);
+  }, [router]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    loginMutation.mutate({ email, password });
+    mutate({ email, password });
   };
 
   const commonInputClass = [

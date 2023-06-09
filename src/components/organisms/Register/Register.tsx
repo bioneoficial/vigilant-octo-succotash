@@ -48,7 +48,7 @@ function Register(): JSX.Element {
         });
         success("Usuario criado com sucesso!");
         clearStringState(setName, setEmail, setPassword, setConfirmPassword);
-      } catch (err: any) {
+      } catch (err: unknown) {
         handleAxiosError(err, toastService(), setEmailErrorMessage);
       }
     }
