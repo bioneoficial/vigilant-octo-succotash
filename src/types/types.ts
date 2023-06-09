@@ -25,6 +25,7 @@ export type SideMenuItemData = MenuItemData & {
 export type profileMenuItemData = MenuItemData & {
   icon: React.ReactNode;
   alt: string;
+  onClick?: () => void;
 };
 
 export interface buttonProps {

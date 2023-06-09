@@ -27,10 +27,16 @@ const sessionSlice = createSlice({
         sessionStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
       }
     },
+    logout(state) {
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem('funktoonToken');
+        sessionStorage.removeItem('funktoonToken');
+      },
     // Add other reducers as per your needs
   },
 });
 
-export const { loginSuccess } = sessionSlice.actions;
+export const { loginSuccess, logout } = sessionSlice.actions;
 
 export default sessionSlice.reducer;
