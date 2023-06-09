@@ -7,25 +7,34 @@ import { useMutation } from "react-query";
 import { loginUser } from "@/api/auth";
 import { LoginResponse } from "@/types/types";
 import { UserRole } from "@/utils/enums";
+import { handleAxiosError } from "@/utils/utils";
+import toastService from "@/utils/toastService";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login(): JSX.Element {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [stayConnected, setStayConnected] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [stayConnected, setStayConnected] = useState<boolean>(false);
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const loginMutation = useMutation(loginUser, {
     onSuccess: (data: LoginResponse) => {
+      if (!data.token) {
+        setErrorMessage("Usuário não encontrado ou senha inválida");
+        return;
+      }
       stayConnected
         ? localStorage.setItem("funktoonToken", JSON.stringify(data))
         : sessionStorage.setItem("funktoonToken", JSON.stringify(data));
-
       data.user.role === UserRole.admin || data.user.role === UserRole.root
         ? router.push("/dashboard")
         : router.push("/");
     },
-    onError: (error) => {
-      console.error(error);
+    onError: (err) => {
+      handleAxiosError(err, toastService(), setErrorMessage);
+      console.error(err);
     },
   });
 
@@ -74,6 +83,7 @@ function Login(): JSX.Element {
               required
               onChange={(e): void => setEmail(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={errorMessage}
             />
           </div>
 
@@ -87,6 +97,7 @@ function Login(): JSX.Element {
               required
               onChange={(e): void => setPassword(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={errorMessage}
             />
           </div>
           <div className="flex justify-between items-center mb-4">
@@ -128,6 +139,18 @@ function Login(): JSX.Element {
           </Link>
         </div>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
