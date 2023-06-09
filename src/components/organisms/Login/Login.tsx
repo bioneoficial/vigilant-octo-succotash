@@ -17,24 +17,7 @@ function Login(): JSX.Element {
   const [stayConnected, setStayConnected] = useState<boolean>(false);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const { mutate } = useLogin(
-    (data: LoginResponse) => {
-      if (!data.token) {
-        setErrorMessage("Usuário não encontrado ou senha inválida");
-        return;
-      }
-      stayConnected
-        ? localStorage.setItem("funktoonToken", JSON.stringify(data))
-        : sessionStorage.setItem("funktoonToken", JSON.stringify(data));
-      data.user.role === UserRole.admin || data.user.role === UserRole.root
-        ? router.push("/dashboard")
-        : router.push("/");
-    },
-    (err: unknown) => {
-      handleAxiosError(err, toastService(), setErrorMessage);
-      console.error(err);
-    }
-  );
+  const { mutate } = useLogin();
 
   useEffect(() => {
     const storedData =
@@ -50,7 +33,25 @@ function Login(): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    mutate({ email, password });
+    mutate(
+      { email, password, stayConnected },
+      {
+        onSuccess: (data: LoginResponse) => {
+          if (!data.token) {
+            setErrorMessage("Usuário não encontrado ou senha inválida");
+            return;
+          }
+
+          data.user.role === UserRole.admin || data.user.role === UserRole.root
+            ? router.push("/dashboard")
+            : router.push("/");
+        },
+        onError: (err: unknown) => {
+          handleAxiosError(err, toastService(), setErrorMessage);
+          console.error(err);
+        },
+      }
+    );
   };
 
   const commonInputClass = [

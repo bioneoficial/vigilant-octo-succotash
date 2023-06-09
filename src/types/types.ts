@@ -238,6 +238,7 @@ export interface LoginResponse{
     ativo: number;
     data_validade_assinatura: string;
   }
+  stayConnected?: boolean;
 }
 
 export interface CreateUser {
