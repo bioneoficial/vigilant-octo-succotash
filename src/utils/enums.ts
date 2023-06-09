@@ -61,6 +61,7 @@ export enum UserRole {
   assinante = "ASSINANTE",
   root = "ROOT",
   gratuito = "GRATUITO",
+  empty = "",
 }
 
 export enum HEAD_TABLE_DENOUNCE {

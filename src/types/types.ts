@@ -101,7 +101,15 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   descricao?: string;
   fotoPath?: string;
 }
-
+export interface User {
+  id: number;
+  nome: string;
+  email: string;
+  role: UserRole;
+  fotoPath: string;
+  ativo: number;
+  data_validade_assinatura: string;
+}
 export interface BannerSelectionProps {
   urlImageBannerSelection: string;
   setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
@@ -230,15 +238,7 @@ export interface PostLogin {
 
 export interface LoginResponse{
   token: string;
-  user: {
-    id: number;
-    nome: string;
-    email: string;
-    role: UserRole;
-    fotoPath: string;
-    ativo: number;
-    data_validade_assinatura: string;
-  }
+  user: User;
   stayConnected?: boolean;
 }
 

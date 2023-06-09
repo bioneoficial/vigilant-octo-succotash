@@ -1,14 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LoginResponse } from '@/types/types';
+import { LoginResponse, User } from '@/types/types';
+import { UserRole } from '@/utils/enums';
 
 type SessionState = {
-  user: null | object,
+  user: User,
   token: null | string,
 };
 
 const initialState: SessionState = {
-  user: null,
-  token: null,
+    token: null,
+    user: {
+      id: 0,
+      nome: '',
+      email: '',
+      role: UserRole.empty,
+      fotoPath: '',
+      ativo: 0,
+      data_validade_assinatura: '',
+    }
 };
 
 const sessionSlice = createSlice({
@@ -28,7 +37,7 @@ const sessionSlice = createSlice({
       }
     },
     logout(state) {
-        state.user = null;
+        state.user = initialState.user;
         state.token = null;
         localStorage.removeItem('funktoonToken');
         sessionStorage.removeItem('funktoonToken');
