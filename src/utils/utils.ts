@@ -123,3 +123,27 @@ export const handleAxiosError = ( err: any,
       toastService.error(`Unknown error: ${err.message}`);
   }
 }
+
+export const handleEmailError = (err: any, toastService: ToastService, setEmailErrorMessage: (errorMessage: string) => void):void => {
+  console.log(err)
+  if(err.response.data.message === 'Email já cadastrado'){
+    toastService.error(`Email error: ${err.response.data.message}`);
+    setEmailErrorMessage(err.response.data.message);
+  } else {
+    toastService.error(`Unknown error: ${err.message}`);
+  }
+}
+
+export const handlePasswordResetError= (err: any, toastService: ToastService): void => {
+  console.log(err)
+  // handle password reset specific errors here
+  toastService.error(`Unknown error: ${err.message}`);
+}
+
+export  const withErrorHandler = async(apiFunc: (...args: unknown[]) => Promise<unknown>, errorHandler: (...args: any[]) => void): Promise<unknown> => {
+  try {
+    return await apiFunc();
+  } catch(err) {
+    errorHandler(err);
+  }
+}

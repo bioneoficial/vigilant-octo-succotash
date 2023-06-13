@@ -3,6 +3,7 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { resetPassword } from "@/api/password";
+import { handlePasswordResetError, withErrorHandler } from "@/utils/utils";
 
 function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -11,7 +12,10 @@ function ResetPassword(): JSX.Element {
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    const resetPasswordResponse = await resetPassword({ email });
+    const resetPasswordResponse = await withErrorHandler(
+      () => resetPassword({ email }),
+      handlePasswordResetError
+    );
     console.log(resetPasswordResponse);
   };
 
