@@ -271,3 +271,10 @@ export interface ToastService {
   error: (message?: string) => void;
   // Add other toast methods like warn(), info(), etc. if needed
 }
+
+export interface ResetPasswordResponse {
+  sucess: boolean;
+  token: string;
+  email: string;
+  message: string;
+}

@@ -2,13 +2,17 @@ import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
+import { resetPassword } from "@/api/password";
 
 function ResetPassword(): JSX.Element {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
-    // You would handle form submission here
+    const resetPasswordResponse = await resetPassword({ email });
+    console.log(resetPasswordResponse);
   };
 
   const commonInputClass = [
