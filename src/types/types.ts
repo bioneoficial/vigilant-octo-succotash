@@ -272,9 +272,16 @@ export interface ToastService {
   // Add other toast methods like warn(), info(), etc. if needed
 }
 
-export interface ResetPasswordResponse {
+export interface Response {
+  message: string;
   sucess: boolean;
+}
+export type ResetPasswordResponse = Response & {
   token: string;
   email: string;
-  message: string;
 }
+
+export interface ResetPasswordProps {
+  onSuccess: () => void;
+}
+

@@ -155,3 +155,8 @@ export  const withErrorHandler = async(apiFunc: (...args: unknown[]) => Promise<
     errorHandler(err);
   }
 }
+
+export const validatePassword = (password: string): boolean => {
+  const passwordRegex = /^[^\s]{6,20}$/;
+  return passwordRegex.test(password);
+}
