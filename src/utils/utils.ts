@@ -106,7 +106,7 @@ export function validateForm({ name, email, password, confirmPassword }: Registe
 export const handleAxiosError = ( err: any, 
   toastService: ToastService, 
   setEmailErrorMessage: (errorMessage: string) => void): void => {
-    console.log(err)
+    console.error(err)
   switch(err.code){
     case 'ERR_NETWORK':
       toastService.error(`Network error: ${err.message}`);
@@ -135,9 +135,17 @@ export const handleEmailError = (err: any, toastService: ToastService, setEmailE
 }
 
 export const handlePasswordResetError= (err: any, toastService: ToastService): void => {
-  console.log(err)
-  // handle password reset specific errors here
-  toastService.error(`Unknown error: ${err.message}`);
+  console.error(err)
+  switch(err.code){
+    case 'ERR_NETWORK':
+      toastService.error(`Network error: ${err.message}`);
+      break;
+    case 'ERR_BAD_RESPONSE':
+        toastService.error(`Bad response error: ${err.message}`);
+      break;
+    default:
+      toastService.error(`Unknown error: ${err.message}`);
+  }
 }
 
 export  const withErrorHandler = async(apiFunc: (...args: unknown[]) => Promise<unknown>, errorHandler: (...args: any[]) => void): Promise<unknown> => {

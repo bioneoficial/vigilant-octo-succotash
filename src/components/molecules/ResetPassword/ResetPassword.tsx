@@ -3,20 +3,41 @@ import Image from "next/image";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import { resetPassword } from "@/api/password";
-import { handlePasswordResetError, withErrorHandler } from "@/utils/utils";
+import { handlePasswordResetError } from "@/utils/utils";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import toastService from "@/utils/toastService";
 
 function ResetPassword(): JSX.Element {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const validateEmail = (email: string): boolean => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    const resetPasswordResponse = await withErrorHandler(
-      () => resetPassword({ email }),
-      handlePasswordResetError
-    );
-    console.log(resetPasswordResponse);
+
+    if (!validateEmail(email)) {
+      setErrorMessage("Email inválido");
+      return;
+    }
+
+    try {
+      const resetPasswordResponse = await resetPassword({ email });
+      sessionStorage.setItem("resetPasswordToken", resetPasswordResponse.token);
+      setErrorMessage("");
+      const { success } = toastService();
+      success("Email enviado com sucesso");
+    } catch (err: unknown) {
+      handlePasswordResetError(err, toastService());
+      setErrorMessage("Erro no envio");
+    }
   };
 
   const commonInputClass = [
@@ -49,6 +70,7 @@ function ResetPassword(): JSX.Element {
               required
               onChange={(e): void => setEmail(e.target.value)}
               classNameInput={commonInputClass}
+              errorMessage={errorMessage}
             />
           </div>
         </div>
@@ -71,6 +93,18 @@ function ResetPassword(): JSX.Element {
           </Link>
         </div>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
