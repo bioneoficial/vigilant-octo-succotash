@@ -1,13 +1,14 @@
 import React, { FormEvent, useState } from "react";
 import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
-import { resetPassword } from "@/api/password";
+import { updatePassword } from "@/api/password";
 import { handlePasswordResetError, validatePassword } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
 
 function ResetPasswordThirdStep(): JSX.Element {
   const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (
@@ -18,11 +19,14 @@ function ResetPasswordThirdStep(): JSX.Element {
     if (!validatePassword(newPassword)) {
       setErrorMessage("Senha inválida");
       return;
+    } else if (newPassword !== confirmPassword) {
+      setErrorMessage("Senhas não conferem");
+      return;
     }
 
     try {
-      const resetPasswordResponse = await resetPassword({ newPassword });
-      sessionStorage.setItem("resetPasswordToken", resetPasswordResponse.token);
+      await updatePassword({ newPassword });
+      sessionStorage.removeItem("resetPasswordToken");
       setErrorMessage("");
       const { success } = toastService();
       success("Senha alterada com sucesso");
@@ -50,11 +54,29 @@ function ResetPasswordThirdStep(): JSX.Element {
               name="newPassword"
               initialValue={newPassword}
               required
-              onChange={(e): void => setNewPassword(e.target.value)}
+              onChange={(e): void =>
+                setNewPassword(e.target.value.replace(/\s/g, ""))
+              }
               classNameInput={commonInputClass}
               errorMessage={errorMessage}
             />
           </div>
+        </div>
+
+        <div className="mb-4">
+          <InputField
+            id="password-confirm"
+            type="password"
+            label="Confirmação de senha"
+            name="password_confirmation"
+            initialValue={confirmPassword}
+            required
+            onChange={(e): void =>
+              setConfirmPassword(e.target.value.replace(/\s/g, ""))
+            }
+            classNameInput={commonInputClass}
+            errorMessage={errorMessage}
+          />
         </div>
 
         <div className="mb-0">
@@ -62,7 +84,7 @@ function ResetPasswordThirdStep(): JSX.Element {
             className="bg-[#FF55F1] hover:bg-[#F115F9] text-white text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center"
             type="submit"
           >
-            Enviar link para redefinir senha
+            Enviar nova senha
           </button>
         </div>
         <div className="mt-5 text-center">
