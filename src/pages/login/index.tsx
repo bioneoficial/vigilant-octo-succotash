@@ -1,13 +1,13 @@
 import React from "react";
 import LoginTemplate from "@/components/templates/LoginTemplate/LoginTemplate";
-import Register from "@/components/organisms/Register/Register";
+import Login from "@/components/organisms/Login/Login";
 
-function RegisterPage(): JSX.Element {
+function LoginPage(): JSX.Element {
   return (
     <LoginTemplate>
-      <Register />
+      <Login />
     </LoginTemplate>
   );
 }
 
-export default RegisterPage;
+export default LoginPage;

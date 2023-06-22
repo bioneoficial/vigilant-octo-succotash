@@ -414,3 +414,7 @@ export const DenounceMock: DenounceItemProps[] = [
   denouceData: "2021-10-02",
 }
 ];
+
+export const commonInputClass = [
+  "shadow appearance-none border border-neutral-950 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+];

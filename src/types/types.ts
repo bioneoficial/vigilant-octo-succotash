@@ -25,6 +25,7 @@ export type SideMenuItemData = MenuItemData & {
 export type profileMenuItemData = MenuItemData & {
   icon: React.ReactNode;
   alt: string;
+  onClick?: () => void;
 };
 
 export interface buttonProps {
@@ -100,7 +101,15 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   descricao?: string;
   fotoPath?: string;
 }
-
+export interface User {
+  id: number;
+  nome: string;
+  email: string;
+  role: UserRole;
+  fotoPath: string;
+  ativo: number;
+  data_validade_assinatura: string;
+}
 export interface BannerSelectionProps {
   urlImageBannerSelection: string;
   setUrlImageBannerSelection: React.Dispatch<React.SetStateAction<string>>;
@@ -148,18 +157,6 @@ export interface MyAppProps {
   Component: React.ComponentType<AppProps>;
   pageProps: AppProps["pageProps"];
 }
-
-// export interface Denounce {
-//   id: number;
-//   denounceOptionId: number;
-//   userId: number;
-//   comicId: number;
-//   details: string;
-// }
-
-// export interface DenounceType {
-//   "Conteúdo ofensivo ou impróprio"
-// }
 export interface DenounceItemProps {
   id: number;
   denouncerId: number;
@@ -229,15 +226,62 @@ export interface getAllUsersResponse {
   tipo: UserRole;
 }
 
-export interface postUser {
-  id?: number;
- nome: string;
- descricao: string;
- email: string;
- senha: string;
-}
-
 export interface updatePhoto {
   id: number;
   foto: File;
 }
+
+export interface PostLogin {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse{
+  token: string;
+  user: User;
+  stayConnected?: boolean;
+}
+
+export interface CreateUser {
+  nome: string;
+  email: string;
+  senha: string;
+}
+
+export interface CreateUserResponse { // ESPERANDO FIX DO AUTH
+  id: number;
+  nome: string;
+}
+
+export interface RegisterFormFields {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface RegisterFormErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface ToastService {
+  success: (message: string) => void;
+  error: (message?: string) => void;
+  // Add other toast methods like warn(), info(), etc. if needed
+}
+
+export interface Response {
+  message: string;
+  sucess: boolean;
+}
+export type ResetPasswordResponse = Response & {
+  token: string;
+  email: string;
+}
+
+export interface ResetPasswordProps {
+  onSuccess: () => void;
+}
+
