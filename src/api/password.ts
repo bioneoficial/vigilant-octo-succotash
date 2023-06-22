@@ -18,7 +18,7 @@ export async function resetPassword({email}: ResetPasswordRequest): Promise<Rese
     return response.data;
   }
 
-  export async function updatePassword(token: string, id: string): Promise<ResetPasswordResponse> {
-    const response = await axios.post(`${apiConfig.passwordApiUrl}/${id}`, { headers: { 'Authorization': `Bearer ${token}` }});
+  export async function updatePassword(token: string, newPassword: string): Promise<ResetPasswordResponse> {
+    const response = await axios.put(`${apiConfig.passwordApiUrl}/update`, {newPassword}, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }

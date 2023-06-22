@@ -56,7 +56,7 @@ const ResetPasswordSecondStep: React.FC<ResetPasswordProps> = ({
             <InputField
               id="code"
               type="number"
-              label="Codigo aqui"
+              label="Insira o seu Codigo aqui"
               name="code"
               initialValue={code}
               required

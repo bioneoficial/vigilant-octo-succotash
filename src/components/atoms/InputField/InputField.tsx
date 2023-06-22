@@ -24,6 +24,7 @@ type Props = {
   className?: string[];
   classNameInput?: string[];
   inputRef?: React.RefObject<HTMLInputElement>;
+  errorMessageFontSize?: string;
 };
 
 const InputFieldComponent: React.FC<Props> = ({
@@ -40,6 +41,7 @@ const InputFieldComponent: React.FC<Props> = ({
   className = [],
   classNameInput = [],
   inputRef,
+  errorMessageFontSize,
 }: Props) => {
   if (type === "file") {
     return (
@@ -57,7 +59,11 @@ const InputFieldComponent: React.FC<Props> = ({
           accept="image/*"
           ref={inputRef}
         />
-        {!!errorMessage && <div>{errorMessage}</div>}
+        {!!errorMessage && (
+          <div className={`${errorMessageFontSize} text-red-600`}>
+            {errorMessage}
+          </div>
+        )}
       </label>
     );
   } else if (
@@ -83,7 +89,9 @@ const InputFieldComponent: React.FC<Props> = ({
   } else if (
     type === "number" &&
     (typeof initialValue === "number" || typeof initialValue === null)
-  ) {
+  )
+    errorMessage = errorMessage?.toLowerCase();
+  {
     return (
       <label className={classNames(...className)} htmlFor={id}>
         {label}
@@ -100,7 +108,11 @@ const InputFieldComponent: React.FC<Props> = ({
           id={id}
           ref={inputRef}
         />
-        {!!errorMessage && <div>{errorMessage}</div>}
+        {!!errorMessage && (
+          <div className={`${errorMessageFontSize} text-red-600`}>
+            {errorMessage}
+          </div>
+        )}
       </label>
     );
   }
@@ -121,7 +133,11 @@ const InputFieldComponent: React.FC<Props> = ({
         id={id}
         ref={inputRef}
       />
-      {!!errorMessage && <div className="  text-red-600">{errorMessage}</div>}
+      {!!errorMessage && (
+        <div className={`${errorMessageFontSize} text-red-600`}>
+          {errorMessage}
+        </div>
+      )}
     </label>
   );
 };

@@ -5,11 +5,13 @@ import { updatePassword } from "@/api/password";
 import { handlePasswordResetError, validatePassword } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
+import { useRouter } from "next/router";
 
 function ResetPasswordThirdStep(): JSX.Element {
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const router = useRouter();
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
@@ -25,11 +27,15 @@ function ResetPasswordThirdStep(): JSX.Element {
     }
 
     try {
-      await updatePassword({ newPassword });
+      const token = sessionStorage.getItem("resetPasswordToken");
+      await updatePassword(token as string, newPassword);
       sessionStorage.removeItem("resetPasswordToken");
       setErrorMessage("");
       const { success } = toastService();
       success("Senha alterada com sucesso");
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
     } catch (err: unknown) {
       handlePasswordResetError(err, toastService());
       setErrorMessage("Erro no envio");
@@ -41,15 +47,13 @@ function ResetPasswordThirdStep(): JSX.Element {
   ];
   return (
     <>
-      <h6 className="mb-4 text-sm">
-        Digite seu e-mail para iniciar o processo
-      </h6>
+      <h6 className="mb-4 text-sm">Digite sua nova senha</h6>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <div className="mb-4">
             <InputField
               id="newPassword"
-              type="text"
+              type="password"
               label="Nova senha"
               name="newPassword"
               initialValue={newPassword}

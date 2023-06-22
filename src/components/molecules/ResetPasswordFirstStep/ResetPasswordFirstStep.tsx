@@ -63,6 +63,7 @@ const ResetPasswordFirstStep: React.FC<ResetPasswordProps> = ({
               onChange={(e): void => setEmail(e.target.value)}
               classNameInput={commonInputClass}
               errorMessage={errorMessage}
+              errorMessageFontSize="text-base"
             />
           </div>
         </div>
