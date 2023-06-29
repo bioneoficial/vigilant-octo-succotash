@@ -9,11 +9,11 @@ SwiperCore.use([Navigation, Pagination]);
 
 const mockToRemove = [
   {
-    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-7370/serie-579/banner.jpg",
+    src: "/images/logo-funktoon.svg",
     alt: "ImgNet",
   },
   {
-    src: "/images/logo-funktoon.svg",
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-7370/serie-579/banner.jpg",
     alt: "ImgNet",
   },
   {
@@ -80,7 +80,7 @@ export default function Home(): JSX.Element {
           ))}
         </Swiper>
       </div>
-      <div className="bg-[faixa-1]">ae</div>
+      <div className="bg-faixa-1 bg-cover bg-center h-40 w-full">ae</div>
       <div>
         <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
           Bombando

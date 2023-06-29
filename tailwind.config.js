@@ -19,6 +19,8 @@ module.exports = {
           "linear-gradient(var(--tw-gradient-angle,180deg), var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "faixa-1": "url('/images/Faixa-1.svg')",
+          "faixa-2": "url('/images/Faixa-2.svg')",
       },
       fontFamily: {
         'eurostile': ['Eurostile', 'sans-serif'],
