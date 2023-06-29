@@ -2,14 +2,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 
 SwiperCore.use([Navigation, Pagination]);
 
 const mockToRemove = [
   {
-    src: "/images/logo-funktoon.svg",
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-35/serie-20/banner.jpg",
     alt: "ImgNet",
   },
   {
@@ -26,43 +25,49 @@ const mockToRemove = [
   },
 ];
 export default function Home(): JSX.Element {
-  const [screenWidth, setScreenWidth] = useState(0);
+  // const [screenWidth, setScreenWidth] = useState(0);
 
-  useEffect(() => {
-    setScreenWidth(window.innerWidth);
+  // useEffect(() => {
+  //   setScreenWidth(window.innerWidth);
 
-    const handleResize = (): void => {
-      setScreenWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   const handleResize = (): void => {
+  //     setScreenWidth(window.innerWidth);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
-  let swiperHeight = "h-96";
+  // let swiperHeight = "h-96";
 
-  if (screenWidth >= 1300) {
-    swiperHeight = "h-72";
-  } else if (screenWidth >= 1200) {
-    swiperHeight = "h-64";
-  } else if (screenWidth >= 1100) {
-    swiperHeight = "h-60";
-  } else if (screenWidth >= 1000) {
-    swiperHeight = "h-56";
-  } else {
-    swiperHeight = "h-52";
-  }
+  // if (screenWidth >= 1300) {
+  //   swiperHeight = "h-72";
+  // } else if (screenWidth >= 1200) {
+  //   swiperHeight = "h-64";
+  // } else if (screenWidth >= 1100) {
+  //   swiperHeight = "h-60";
+  // } else if (screenWidth >= 1000) {
+  //   swiperHeight = "h-56";
+  // } else {
+  //   swiperHeight = "h-52";
+  // }
 
   return (
     <div className="flex flex-col">
       <HeaderHome />
-      <div className={`relative w-full ${swiperHeight}`}>
+      <div className={` relative w-full h-96`}>
         <Swiper
           navigation
           pagination={{ clickable: true }}
           slidesPerView={1}
           breakpoints={{
-            767: {
+            768: {
+              slidesPerView: 2,
+            },
+            1250: {
               slidesPerView: 3,
+            },
+            1600: {
+              slidesPerView: 4,
             },
           }}
           className="w-full  h-full"
@@ -74,13 +79,36 @@ export default function Home(): JSX.Element {
                 alt={item.alt}
                 fill
                 quality={100}
-                style={{ objectFit: "fill" }}
+                style={{ objectFit: "scale-down" }}
               />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div className="bg-faixa-1 bg-cover bg-center h-40 w-full">ae</div>
+      <div className="relative bg-faixa-1 bg-cover  bg-center h-40 w-full flex flex-row-reverse justify-around">
+        {/* <div className="relative bg-FKTN  bg-cover bg-center w-1/6 h-full"></div>
+        <div className=" relative bg-leia-quadrinhos bg-cover bg-center w-1/6 h-full "></div> */}
+        <div className="relative w-1/6 h-full">
+          <Image
+            src="/images/FKTN.svg"
+            fill
+            style={{ objectFit: "cover" }}
+            quality={100}
+            alt="FKTN image"
+            className=" overflow-visible"
+          />
+        </div>
+        <div className="relative w-1/6 h-full">
+          <Image
+            src="/images/leia-quadrinhos.svg"
+            style={{ objectFit: "cover" }}
+            fill
+            quality={100}
+            alt="Leia Quadrinhos image"
+            className=" overflow-visible"
+          />
+        </div>
+      </div>
       <div>
         <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
           Bombando

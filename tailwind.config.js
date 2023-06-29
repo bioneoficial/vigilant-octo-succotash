@@ -21,6 +21,8 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
           "faixa-1": "url('/images/Faixa-1.svg')",
           "faixa-2": "url('/images/Faixa-2.svg')",
+          "FKTN": "url('/images/FKTN.svg')",
+          "leia-quadrinhos": "url('/images/leia-quadrinhos.svg')",
       },
       fontFamily: {
         'eurostile': ['Eurostile', 'sans-serif'],
