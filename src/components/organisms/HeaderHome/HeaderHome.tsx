@@ -1,7 +1,7 @@
 import React, { SetStateAction, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
-import Link from "next/link";
+import { LinkButton } from "@/components/molecules/LinkButton";
 
 const links = [
   { href: "/agenda", title: "AGENDA" },
@@ -10,37 +10,8 @@ const links = [
   { href: "/login", title: "LOGIN" },
 ];
 
-interface LinkButtonProp {
-  href: string;
-  title: string;
-  className: string;
-  isBlock?: boolean;
-}
-const LinkButton: React.FC<LinkButtonProp> = ({
-  href,
-  title,
-  className,
-  isBlock,
-}): JSX.Element => (
-  <Link href={href}>
-    <Button
-      title={title}
-      status={true}
-      className={[
-        className,
-        "font-medium",
-        "text-[#8b00d1]",
-        "uppercase",
-        "hover:bg-purple-500",
-        "hover:text-white",
-        isBlock ? "block" : "",
-      ]}
-    />
-  </Link>
-);
-
 export const HeaderHome: React.FC = (): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false); // For mobile dropdown menu
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header
