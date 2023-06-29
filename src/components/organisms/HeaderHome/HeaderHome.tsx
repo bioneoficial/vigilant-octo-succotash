@@ -2,6 +2,7 @@ import React, { SetStateAction, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
 import { LinkButton } from "@/components/molecules/LinkButton";
+import Link from "next/link";
 
 const links = [
   { href: "/agenda", title: "AGENDA" },
@@ -46,14 +47,16 @@ export const HeaderHome: React.FC = (): JSX.Element => {
             />
           </div>
           <div className="flex-1 flex items-center justify-start ">
-            <Image
-              src={"/images/logo-funktoon.svg"}
-              width={250}
-              height={200}
-              alt="logo"
-              className="h-160 w-160 rounded-sm"
-              quality={100}
-            />
+            <Link href="/">
+              <Image
+                src={"/images/logo-funktoon.svg"}
+                width={250}
+                height={200}
+                alt="logo"
+                className="h-160 w-160 rounded-sm"
+                quality={100}
+              />
+            </Link>
           </div>
           <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
             {links.map((link) => (
