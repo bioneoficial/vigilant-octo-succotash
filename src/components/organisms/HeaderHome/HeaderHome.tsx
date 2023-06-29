@@ -3,6 +3,42 @@ import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
 import Link from "next/link";
 
+const links = [
+  { href: "/agenda", title: "AGENDA" },
+  { href: "/selos", title: "SELOS" },
+  { href: "/colecoes", title: "COLEÇÕES" },
+  { href: "/login", title: "LOGIN" },
+];
+
+interface LinkButtonProp {
+  href: string;
+  title: string;
+  className: string;
+  isBlock?: boolean;
+}
+const LinkButton: React.FC<LinkButtonProp> = ({
+  href,
+  title,
+  className,
+  isBlock,
+}): JSX.Element => (
+  <Link href={href}>
+    <Button
+      title={title}
+      status={true}
+      className={[
+        className,
+        "font-medium",
+        "text-[#8b00d1]",
+        "uppercase",
+        "hover:bg-purple-500",
+        "hover:text-white",
+        isBlock ? "block" : "",
+      ]}
+    />
+  </Link>
+);
+
 export const HeaderHome: React.FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false); // For mobile dropdown menu
 
@@ -49,138 +85,25 @@ export const HeaderHome: React.FC = (): JSX.Element => {
             />
           </div>
           <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-            <Link href={"/agenda"}>
-              <Button
-                title="AGENDA"
-                status={true}
-                className={[
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />
-            </Link>
-            <Link href={"/selos"}>
-              <Button
-                title="SELOS"
-                status={true}
-                className={[
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />{" "}
-            </Link>
-            <Link href={"/colecoes"}>
-              <Button
-                title="COLEÇÕES"
-                status={true}
-                className={[
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />
-            </Link>
-            <Link href={"/login"}>
-              <Button
-                title="LOGIN"
-                status={true}
-                className={[
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />
-            </Link>
+            {links.map((link) => (
+              <LinkButton key={link.href} {...link} className={""} />
+            ))}
           </div>
         </div>
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } absolute top-16 right-0 md:hidden bg-white shadow-lg rounded-md `}
+          } absolute top-16 right-0 md:hidden bg-white shadow-lg rounded-md`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link href={"/agenda"}>
-              <Button
-                title="AGENDA"
-                status={true}
-                className={[
-                  "block",
-                  "px-3",
-                  "py-2",
-                  "rounded-md",
-                  "text-base",
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
+            {links.map((link) => (
+              <LinkButton
+                key={link.href}
+                {...link}
+                className={"px-3 py-2 rounded-md text-base"}
+                isBlock={true}
               />
-            </Link>
-            <Link href={"/selos"}>
-              <Button
-                title="SELOS"
-                status={true}
-                className={[
-                  "block",
-                  "px-3",
-                  "py-2",
-                  "rounded-md",
-                  "text-base",
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />{" "}
-            </Link>
-            <Link href={"/colecoes"}>
-              <Button
-                title="COLEÇÕES"
-                status={true}
-                className={[
-                  "block",
-                  "px-3",
-                  "py-2",
-                  "rounded-md",
-                  "text-base",
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />
-            </Link>
-            <Link href={"/login"}>
-              <Button
-                title="LOGIN"
-                status={true}
-                className={[
-                  "block",
-                  "px-3",
-                  "py-2",
-                  "rounded-md",
-                  "text-base",
-                  "font-medium",
-                  "text-[#8b00d1]",
-                  "uppercase",
-                  "hover:bg-purple-500",
-                  "hover:text-white",
-                ]}
-              />
-            </Link>
+            ))}
           </div>
         </div>
       </div>
