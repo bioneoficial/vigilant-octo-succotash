@@ -1,15 +1,30 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
-
-// Import Swiper styles
 import "swiper/swiper-bundle.css";
 import Image from "next/image";
-import { HeaderHome } from "@/components/organisms/HeaderHome/HeaderHome";
 import { useEffect, useState } from "react";
+import { HeaderHome } from "@/components/organisms/HeaderHome";
 
-// install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
+const mockToRemove = [
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-7370/serie-579/banner.jpg",
+    alt: "ImgNet",
+  },
+  {
+    src: "/images/logo-funktoon.svg",
+    alt: "ImgNet",
+  },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-300/banner.jpg",
+    alt: "ImgNet",
+  },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-50/banner.jpg",
+    alt: "ImgNet",
+  },
+];
 export default function Home(): JSX.Element {
   const [screenWidth, setScreenWidth] = useState(0);
 
@@ -23,11 +38,9 @@ export default function Home(): JSX.Element {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  let swiperHeight = "h-96"; // Default height
+  let swiperHeight = "h-96";
 
   if (screenWidth >= 1300) {
-    swiperHeight = "h-80";
-  } else if (screenWidth >= 1280) {
     swiperHeight = "h-72";
   } else if (screenWidth >= 1200) {
     swiperHeight = "h-64";
@@ -54,41 +67,17 @@ export default function Home(): JSX.Element {
           }}
           className="w-full  h-full"
         >
-          <SwiperSlide className="w-full h-full">
-            <Image
-              src="https://d34oo2ynf8ecvf.cloudfront.net/production/author-7370/serie-579/banner.jpg"
-              alt="ImgNet"
-              fill={true}
-              quality={100}
-              style={{ objectFit: "fill" }}
-            />
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-full">
-            <Image
-              src="/images/logo-funktoon.svg"
-              alt="ImgNet"
-              fill={true}
-              quality={100}
-              style={{ objectFit: "fill" }}
-            />
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-full">
-            <Image
-              src="https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-300/banner.jpg"
-              alt="ImgNet"
-              fill={true}
-              quality={100}
-              style={{ objectFit: "fill" }}
-            />
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-full">
-            <Image
-              src="https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-50/banner.jpg"
-              alt="ImgNet"
-              fill={true}
-              style={{ objectFit: "fill" }}
-            />
-          </SwiperSlide>
+          {mockToRemove.map((item, index) => (
+            <SwiperSlide key={index} className="w-full h-full">
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                quality={100}
+                style={{ objectFit: "fill" }}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <div>
