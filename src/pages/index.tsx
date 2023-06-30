@@ -66,9 +66,6 @@ export default function Home(): JSX.Element {
             1250: {
               slidesPerView: 3,
             },
-            1600: {
-              slidesPerView: 4,
-            },
           }}
           className="w-full  h-full"
         >
@@ -85,10 +82,8 @@ export default function Home(): JSX.Element {
           ))}
         </Swiper>
       </div>
-      <div className="relative bg-faixa-1 bg-cover  bg-center h-40 w-full flex flex-row-reverse justify-around">
-        {/* <div className="relative bg-FKTN  bg-cover bg-center w-1/6 h-full"></div>
-        <div className=" relative bg-leia-quadrinhos bg-cover bg-center w-1/6 h-full "></div> */}
-        <div className="relative w-1/6 h-full">
+      <div className="relative bg-faixa-1 bg-cover  bg-center h-32 lg:max-2xlh-40 md:h-36 sm:h-32 fold:h-24 w-full flex flex-row-reverse justify-around ">
+        <div className="relative w-1/6 h-auto">
           <Image
             src="/images/FKTN.svg"
             fill
@@ -98,7 +93,7 @@ export default function Home(): JSX.Element {
             className=" overflow-visible"
           />
         </div>
-        <div className="relative w-1/6 h-full">
+        <div className="relative w-1/6 h-auto">
           <Image
             src="/images/leia-quadrinhos.svg"
             style={{ objectFit: "cover" }}

@@ -53,7 +53,7 @@ export const HeaderHome: React.FC = (): JSX.Element => {
                 width={250}
                 height={200}
                 alt="logo"
-                className="h-160 w-160 rounded-sm"
+                className="h-full w-full rounded-sm fold:max-sm:w-32 fold:max-sm:h-40"
                 quality={100}
               />
             </Link>

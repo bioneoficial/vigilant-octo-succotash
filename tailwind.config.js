@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'fold': '200px',
+      },
       boxShadow: {
         custom: "0 0 30px rgba(200,208,216,.3)",
       },
