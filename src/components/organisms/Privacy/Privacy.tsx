@@ -1,18 +1,31 @@
+import { selectPrivacyItem } from "@/Redux/Reducers/privacySlice";
+import { PrivacyItem } from "@/types/types";
 import { PrivacyItems } from "@/utils/const";
 import { PrivacyItemStatus } from "@/utils/enums";
+import { handleDeletePrivacy, handleEditPrivacy } from "@/utils/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Privacy: React.FC = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const privacyItem = useSelector(selectPrivacyItem);
 
-  const handleEdit = (id: number): void => {
-    router.push(`/dashboard/privacy/${id}`);
-  };
+  const [PrivacyItemsMock, setPrivacyItemsMock] =
+    useState<PrivacyItem[]>(PrivacyItems);
+  const [previousPrivacyItem, setPreviousPrivacyItem] =
+    useState<PrivacyItem | null>(null);
 
-  const handleDelete = (id: number): void => {
-    console.log(id);
-  };
+  useEffect(() => {
+    if (!privacyItem && previousPrivacyItem) {
+      setPrivacyItemsMock((currentItems) =>
+        currentItems.filter((item) => item.id !== previousPrivacyItem.id)
+      );
+    }
+    setPreviousPrivacyItem(privacyItem);
+  }, [privacyItem, previousPrivacyItem]);
 
   return (
     <section className="p-4">
@@ -44,7 +57,7 @@ export const Privacy: React.FC = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {PrivacyItems.map((item) => (
+              {PrivacyItemsMock.map((item) => (
                 <tr
                   className="border-b border-gray-200 hover:bg-gray-100"
                   key={item.id + item.name}
@@ -65,7 +78,9 @@ export const Privacy: React.FC = () => {
                   <td className="py-3 px-6 text-center">
                     <div className="flex item-center justify-center">
                       <button
-                        onClick={(): void => handleEdit(item.id)}
+                        onClick={(): void =>
+                          handleEditPrivacy(item, dispatch, router)
+                        }
                         className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                       >
                         <Image
@@ -76,7 +91,9 @@ export const Privacy: React.FC = () => {
                         />
                       </button>
                       <button
-                        onClick={(): void => handleDelete(item.id)}
+                        onClick={(): void =>
+                          handleDeletePrivacy(item, dispatch)
+                        }
                         className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
                       >
                         <Image
