@@ -8,37 +8,43 @@ import { NotificationIcon } from "@/components/atoms/NotificationIcon";
 import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
 import { abrirSite, classNames } from "@/utils/utils";
-
-export const profileMenuItems: profileMenuItemData[] = [
-  {
-    name: "Notificações",
-    href: "#notifications",
-    icon: <NotificationIcon />,
-    alt: "Notificações",
-  },
-  {
-    name: "Perfil",
-    href: "#profile",
-    icon: <SettingsIcon />,
-    alt: "Perfil",
-  },
-  {
-    name: "Sair",
-    href: "#logout",
-    icon: <LogoutIcon />,
-    alt: "Sair",
-  },
-];
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { logout } from "@/Redux/Reducers/sessionSlice";
 
 export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
   open,
   toggleMenu,
 }): JSX.Element => {
+  const profileMenuItems: profileMenuItemData[] = [
+    {
+      name: "Notificações",
+      href: "#notifications",
+      icon: <NotificationIcon />,
+      alt: "Notificações",
+    },
+    {
+      name: "Perfil",
+      href: "/dashboard/meu-perfil",
+      icon: <SettingsIcon />,
+      alt: "Perfil",
+    },
+    {
+      name: "Sair",
+      href: "/",
+      icon: <LogoutIcon />,
+      alt: "Sair",
+      onClick: (): void => {
+        dispatch(logout());
+      },
+    },
+  ];
+  const dispatch = useDispatch();
   return (
     <header
       className={`bg-[#fff] shadow-md transform transition-all ease-out duration-300 ${
         open ? "translate-x-60" : "translate-x-0"
-      } z-50`}
+      } z-10`}
     >
       <div className={`absolute top-2 left-0 flex items-center`}>
         <button
@@ -108,16 +114,17 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
                   {profileMenuItems.map((item) => (
                     <Menu.Item key={item.name}>
                       {({ active }): JSX.Element => (
-                        <a
+                        <Link
                           href={item.href}
                           className={classNames(
                             active ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700 hover:bg-[#4a6cf70d] hover:text-[#8b00d1]"
                           )}
+                          onClick={item.onClick}
                         >
                           {item.icon}
                           {item.name}
-                        </a>
+                        </Link>
                       )}
                     </Menu.Item>
                   ))}

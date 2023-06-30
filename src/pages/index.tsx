@@ -1,113 +1,377 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
+import "swiper/swiper-bundle.css";
 import Image from "next/image";
+import { HeaderHome } from "@/components/organisms/HeaderHome";
 
+SwiperCore.use([Navigation, Pagination, Autoplay]);
+
+const mockToRemove = [
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-35/serie-20/banner.jpg",
+    alt: "ImgNet",
+  },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-7370/serie-579/banner.jpg",
+    alt: "ImgNet",
+  },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-300/banner.jpg",
+    alt: "ImgNet",
+  },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-50/banner.jpg",
+    alt: "ImgNet",
+  },
+];
 export default function Home(): JSX.Element {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className=" w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="flex flex-col">
+      <HeaderHome />
+      <div className=" relative w-full h-96">
+        <Swiper
+          navigation
+          pagination={{ clickable: true, dynamicBullets: true }}
+          slidesPerView={1}
+          rewind={true}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          breakpoints={{
+            768: {
+              slidesPerView: 2,
+            },
+            1250: {
+              slidesPerView: 3,
+            },
+          }}
+          className="w-full  h-full"
+        >
+          {mockToRemove.map((item, index) => (
+            <SwiperSlide key={index} className="w-full h-full">
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                quality={100}
+                style={{ objectFit: "scale-down" }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="relative bg-faixa-1 bg-cover  bg-center h-32 lg:max-2xl:h-40 md:h-36 sm:h-32 fold:h-24 w-full flex flex-row-reverse justify-around ">
+        <div className="relative w-1/6 h-auto">
+          <Image
+            src="/images/FKTN.svg"
+            fill
+            style={{ objectFit: "cover" }}
+            quality={100}
+            alt="FKTN image"
+            className=" overflow-visible"
+          />
+        </div>
+        <div className="relative w-1/6 h-auto">
+          <Image
+            src="/images/leia-quadrinhos.svg"
+            style={{ objectFit: "cover" }}
+            fill
+            quality={100}
+            alt="Leia Quadrinhos image"
+            className=" overflow-visible"
+          />
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div
+        id="contentContainer"
+        className=" mx-auto space-y-4 md:space-y-8 lg:space-y-12 xl:space-y-16 w-full md:w-2/3 lg:w-1/2 xl:w-1/3"
+      >
+        <div
+          id="bombandoContainer"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-36"
+        >
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            Bombando
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div
+          id="originaisContainer"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-36"
+        >
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            ORIGINAIS
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div
+          id="premiumContainer"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-36"
+        >
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            PREMIUM
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div id="mesContainer" className="fold:h-20 sm:h-24 md:h-32 lg:h-36">
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            MÊS DO ORGULHO
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div id="inkoContainer" className="fold:h-20 sm:h-24 md:h-32 lg:h-36">
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            INKO
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div id="bannerSecundarioContainer" className="relative h-36">
+          <Image
+            src={"https://i.imgur.com/i3IT94k.png"}
+            alt="Banner-Secundario"
+            fill
+            quality={100}
+            style={{ objectFit: "scale-down" }}
+          />
+        </div>
+        <div
+          id="selecoesContainer"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-36"
+        >
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            SELEÇÕES
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div
+          id="independentesContainer"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-36"
+        >
+          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+            INDEPENDENTES
+          </h4>
+          <Swiper
+            navigation
+            pagination={{ clickable: true, dynamicBullets: true }}
+            slidesPerView={1}
+            rewind={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1250: {
+                slidesPerView: 3,
+              },
+            }}
+            className="w-full  h-full"
+          >
+            {mockToRemove.map((item, index) => (
+              <SwiperSlide key={index} className="w-full h-full">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  quality={100}
+                  style={{ objectFit: "scale-down" }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
