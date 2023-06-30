@@ -1,10 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import Image from "next/image";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 const mockToRemove = [
   {
@@ -25,40 +25,20 @@ const mockToRemove = [
   },
 ];
 export default function Home(): JSX.Element {
-  // const [screenWidth, setScreenWidth] = useState(0);
-
-  // useEffect(() => {
-  //   setScreenWidth(window.innerWidth);
-
-  //   const handleResize = (): void => {
-  //     setScreenWidth(window.innerWidth);
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  // let swiperHeight = "h-96";
-
-  // if (screenWidth >= 1300) {
-  //   swiperHeight = "h-72";
-  // } else if (screenWidth >= 1200) {
-  //   swiperHeight = "h-64";
-  // } else if (screenWidth >= 1100) {
-  //   swiperHeight = "h-60";
-  // } else if (screenWidth >= 1000) {
-  //   swiperHeight = "h-56";
-  // } else {
-  //   swiperHeight = "h-52";
-  // }
-
   return (
     <div className="flex flex-col">
       <HeaderHome />
       <div className={` relative w-full h-96`}>
         <Swiper
           navigation
-          pagination={{ clickable: true }}
+          pagination={{ clickable: true, dynamicBullets: true }}
           slidesPerView={1}
+          rewind={true}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
           breakpoints={{
             768: {
               slidesPerView: 2,
@@ -107,6 +87,37 @@ export default function Home(): JSX.Element {
       <div>
         <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
           Bombando
+        </h4>
+      </div>
+      <div>
+        <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+          ORIGINAIS
+        </h4>
+      </div>
+      <div>
+        <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+          PREMIUM
+        </h4>
+      </div>
+      <div>
+        <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+          MÊS DO ORGULHO
+        </h4>
+      </div>
+      <div>
+        <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+          INKO
+        </h4>
+      </div>
+      <div>Banner</div>
+      <div>
+        <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+          SELEÇÕES
+        </h4>
+      </div>
+      <div>
+        <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
+          INDEPENDENTES
         </h4>
       </div>
     </div>
