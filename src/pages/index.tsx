@@ -23,6 +23,14 @@ const mockToRemove = [
     src: "https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-50/banner.jpg",
     alt: "ImgNet",
   },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/author-18889/serie-730/banner.jpg",
+    alt: "ImgNet",
+  },
+  {
+    src: "https://d34oo2ynf8ecvf.cloudfront.net/production/funktoon/serie-13/banner.jpg",
+    alt: "ImgNet",
+  },
 ];
 export default function Home(): JSX.Element {
   return (
@@ -31,9 +39,11 @@ export default function Home(): JSX.Element {
       <div className=" relative w-full h-96">
         <Swiper
           navigation
-          pagination={{ clickable: true, dynamicBullets: true }}
-          slidesPerView={1}
-          rewind={true}
+          pagination={{ clickable: true }}
+          centeredSlides={true}
+          slidesPerView={5}
+          spaceBetween={1}
+          grabCursor={true}
           autoplay={{
             delay: 4000,
             disableOnInteraction: false,
@@ -47,7 +57,7 @@ export default function Home(): JSX.Element {
               slidesPerView: 3,
             },
           }}
-          className="w-full  h-full"
+          className="w-full  h-full sm:h-96 fold:h-80"
         >
           {mockToRemove.map((item, index) => (
             <SwiperSlide key={index} className="w-full h-full">
@@ -98,20 +108,12 @@ export default function Home(): JSX.Element {
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={1}
-            rewind={true}
+            slidesPerView={5}
+            centeredSlides={true}
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
-            }}
-            breakpoints={{
-              768: {
-                slidesPerView: 2,
-              },
-              1250: {
-                slidesPerView: 3,
-              },
             }}
             className="w-full  h-full"
           >
