@@ -62,3 +62,21 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+.swiper .swiper-button-next, .swiper .swiper-button-prev{
+    color: #a201f3 !important; 
+
+}
+
+@media (max-width: 640px) {
+	.swiper-button-prev::after, .swiper-button-next::after {
+	  font-size: 1.5rem !important;
+	}
+  }
+  
+  @media (min-width: 641px) and (max-width: 768px) {
+	.swiper-button-prev::after, .swiper-button-next::after {
+	  font-size: 2rem !important;
+	}
+  }
+  
