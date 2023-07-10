@@ -80,7 +80,7 @@ export default function Home(): JSX.Element {
           navigation
           pagination={{ clickable: true }}
           centeredSlides={true}
-          slidesPerView={5}
+          slidesPerView={1}
           spaceBetween={1}
           loop={true}
           grabCursor={true}
@@ -136,26 +136,27 @@ export default function Home(): JSX.Element {
       </div>
       <div
         id="contentContainer"
-        className=" mx-auto space-y-4 md:space-y-8 lg:space-y-12 xl:space-y-16 w-2/3"
+        className=" mx-auto  md:space-y-16 lg:space-y-12 xl:space-y-16 fold:space-y-12 w-2/3"
       >
         <div
           id="bombandoContainer"
-          className="fold:h-20 sm:h-24 md:h-32 lg:h-44"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-44 "
         >
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            Bombando
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold "> BOMBANDO</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
+            slidesPerView={4}
             grabCursor={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
             className="w-full  h-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 4,
+              },
+              820: {
+                slidesPerView: 5,
+              },
+            }}
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
@@ -177,20 +178,20 @@ export default function Home(): JSX.Element {
           id="originaisContainer"
           className="fold:h-20 sm:h-24 md:h-32 lg:h-44"
         >
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            ORIGINAIS
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold">ORIGINAIS</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
-            rewind={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            slidesPerView={4}
             className="w-full  h-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 4,
+              },
+              820: {
+                slidesPerView: 5,
+              },
+            }}
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
@@ -209,28 +210,20 @@ export default function Home(): JSX.Element {
           id="premiumContainer"
           className="fold:h-20 sm:h-24 md:h-32 lg:h-44"
         >
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            PREMIUM
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold ">PREMIUM</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
-            rewind={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            slidesPerView={4}
+            className="w-full  h-full"
             breakpoints={{
               768: {
-                slidesPerView: 2,
+                slidesPerView: 4,
               },
-              1250: {
+              820: {
                 slidesPerView: 5,
               },
             }}
-            className="w-full  h-full"
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
@@ -246,20 +239,20 @@ export default function Home(): JSX.Element {
           </Swiper>
         </div>
         <div id="mesContainer" className="fold:h-20 sm:h-24 md:h-32 lg:h-44">
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            MÊS DO ORGULHO
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold ">MÊS DO ORGULHO</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
-            rewind={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            slidesPerView={4}
             className="w-full  h-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 4,
+              },
+              820: {
+                slidesPerView: 5,
+              },
+            }}
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
@@ -275,20 +268,20 @@ export default function Home(): JSX.Element {
           </Swiper>
         </div>
         <div id="inkoContainer" className="fold:h-20 sm:h-24 md:h-32 lg:h-44">
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            INKO
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold ">INKO</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
-            rewind={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            slidesPerView={4}
             className="w-full  h-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 4,
+              },
+              820: {
+                slidesPerView: 5,
+              },
+            }}
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
@@ -303,7 +296,7 @@ export default function Home(): JSX.Element {
             ))}
           </Swiper>
         </div>
-        <div id="bannerSecundarioContainer" className="relative h-36">
+        <div id="bannerSecundarioContainer" className="relative h-36 fold:w-60">
           <Image
             src={"https://i.imgur.com/i3IT94k.png"}
             alt="Banner-Secundario"
@@ -316,20 +309,20 @@ export default function Home(): JSX.Element {
           id="selecoesContainer"
           className="fold:h-20 sm:h-24 md:h-32 lg:h-44"
         >
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            SELEÇÕES
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold ">SELEÇÕES</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
-            rewind={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            slidesPerView={4}
             className="w-full  h-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 4,
+              },
+              820: {
+                slidesPerView: 5,
+              },
+            }}
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
@@ -348,20 +341,20 @@ export default function Home(): JSX.Element {
           id="independentesContainer"
           className="fold:h-20 sm:h-24 md:h-32 lg:h-44"
         >
-          <h4 className="headline-section demi-font mt-3 mb-3 font-bold uppercase">
-            INDEPENDENTES
-          </h4>
+          <h4 className="mt-3 mb-3 font-bold ">INDEPENDENTES</h4>
           <Swiper
             navigation
             pagination={{ clickable: true, dynamicBullets: true }}
-            slidesPerView={5}
-            rewind={true}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            slidesPerView={4}
             className="w-full  h-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 4,
+              },
+              820: {
+                slidesPerView: 5,
+              },
+            }}
           >
             {mockCoverRemove.map((item, index) => (
               <SwiperSlide key={index} className="w-full h-full">
