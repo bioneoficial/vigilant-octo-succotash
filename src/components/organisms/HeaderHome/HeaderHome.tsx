@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { SetStateAction, useState } from "react";
-import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
 import { LinkButton } from "@/components/molecules/LinkButton";
 import Link from "next/link";
@@ -48,13 +48,10 @@ export const HeaderHome: React.FC = (): JSX.Element => {
           </div>
           <div className="flex-1 flex items-center justify-start ">
             <Link href="/">
-              <Image
+              <img
                 src={"/images/logo-funktoon.svg"}
-                width={250}
-                height={200}
                 alt="logo"
-                className="h-full w-full rounded-sm fold:max-sm:w-32 fold:max-sm:h-40"
-                quality={100}
+                className=" fold:w-32 sm:w-36 md:w-52 lg:w-56 xl:w-64 2xl:w-96"
               />
             </Link>
           </div>

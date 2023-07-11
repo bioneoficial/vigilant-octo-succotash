@@ -33,11 +33,12 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-family: 'Eurostile', sans-serif;
 	vertical-align: baseline;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -68,6 +69,14 @@ table {
 
 }
 
+* {
+	box-sizing: border-box;
+}
+
+img{
+	width: 100%;
+	width: -webkit-fill-available;
+}
 @media (max-width: 640px) {
 	.swiper-button-prev::after, .swiper-button-next::after {
 	  font-size: 1.5rem !important;
