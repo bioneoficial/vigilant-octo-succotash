@@ -73,9 +73,9 @@ const mockCoverRemove = [
 
 export default function Home(): JSX.Element {
   return (
-    <div className="flex flex-col fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
+    <div className="grid  grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
       <HeaderHome />
-      <div className="h-96">
+      <div>
         <Swiper
           navigation
           pagination={{ clickable: true }}
@@ -97,10 +97,10 @@ export default function Home(): JSX.Element {
               slidesPerView: 3,
             },
           }}
-          className="  h-full sm:h-96 fold:h-80"
+          className="sm:h-96 fold:h-80"
         >
           {mockToRemove.map((item, index) => (
-            <SwiperSlide key={index} className="h-full">
+            <SwiperSlide key={index}>
               <Image
                 src={item.src}
                 alt={item.alt}
@@ -113,7 +113,7 @@ export default function Home(): JSX.Element {
         </Swiper>
       </div>
       <div className=" bg-faixa-1 bg-cover  bg-center lg:max-2xl:h-40 md:h-36 sm:h-32 fold:h-24  flex flex-row-reverse justify-around ">
-        <div className="relative w-1/6 h-auto">
+        <div className="relative w-1/6 ">
           <Image
             src="/images/FKTN.svg"
             fill
@@ -123,7 +123,7 @@ export default function Home(): JSX.Element {
             className=" overflow-visible"
           />
         </div>
-        <div className="relative w-1/6 h-auto">
+        <div className="relative w-1/6">
           <Image
             src="/images/leia-quadrinhos.svg"
             style={{ objectFit: "cover" }}
@@ -159,7 +159,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className="h-full">
+              <SwiperSlide key={index}>
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -240,7 +240,7 @@ export default function Home(): JSX.Element {
         </div>
         <div
           id="mesContainer"
-          className="fold:h-20 sm:h-24 md:h-32 lg:h-44 xl:h-56 2xl:h-72 xl:h-56 2xl:h-72"
+          className="fold:h-20 sm:h-24 md:h-32 lg:h-44 xl:h-56 2xl:h-72"
         >
           <h4 className=" font-bold ">MÊS DO ORGULHO</h4>
           <Swiper
@@ -306,7 +306,7 @@ export default function Home(): JSX.Element {
           id="bannerSecundarioContainer"
           className="fold:h-16 sm:h-28 md:h-32 h- lg:h-36 xl:h-52 2xl:h-64"
         >
-          <div className="relative h-full ">
+          <div className="relative h-full">
             <Image
               src={"https://i.imgur.com/i3IT94k.png"}
               alt="Banner-Secundario"
@@ -336,7 +336,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className=" h-full">
+              <SwiperSlide key={index}>
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -368,7 +368,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className=" h-full">
+              <SwiperSlide key={index}>
                 <Image
                   src={item.src}
                   alt={item.alt}
