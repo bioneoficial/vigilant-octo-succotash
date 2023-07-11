@@ -79,4 +79,10 @@ table {
 	  font-size: 2rem !important;
 	}
   }
+
+  @media (min-width: 1600px) {
+	h4, button {
+	  font-size: 1.8rem !important;
+  }
+}
   
