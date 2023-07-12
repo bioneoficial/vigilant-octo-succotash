@@ -74,10 +74,6 @@ table {
 	box-sizing: border-box;
 }
 
-img{
-	width: 100%;
-	width: -webkit-fill-available;
-}
 @media (max-width: 640px) {
 	.swiper-button-prev::after, .swiper-button-next::after {
 	  font-size: 2rem !important;
