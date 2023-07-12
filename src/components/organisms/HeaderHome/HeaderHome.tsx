@@ -46,12 +46,12 @@ export const HeaderHome: React.FC = (): JSX.Element => {
               onClick={(): SetStateAction<void> => setIsOpen(!isOpen)}
             />
           </div>
-          <div className="flex-1 flex items-center justify-start ">
+          <div className="flex flex-1 items-center justify-start ">
             <Link href="/">
               <img
                 src={"/images/logo-funktoon.svg"}
                 alt="logo"
-                className=" fold:w-32 sm:w-36 md:w-52 lg:w-56 xl:w-64 2xl:w-96"
+                className=" fold:w-32 sm:w-36 md:w-52 lg:w-56 xl:w-64 2xl:w-92"
               />
             </Link>
           </div>
