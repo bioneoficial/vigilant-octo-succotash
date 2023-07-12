@@ -80,19 +80,22 @@ img{
 }
 @media (max-width: 640px) {
 	.swiper-button-prev::after, .swiper-button-next::after {
-	  font-size: 1.5rem !important;
+	  font-size: 2rem !important;
 	}
   }
   
   @media (min-width: 641px) and (max-width: 768px) {
 	.swiper-button-prev::after, .swiper-button-next::after {
-	  font-size: 2rem !important;
+	  font-size: 2.25rem !important;
 	}
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: 1400px) {
 	h4, button {
 	  font-size: 1.8rem !important;
+  }
+  .swiper-button-prev::after, .swiper-button-next::after {
+	font-size: 3rem !important;
   }
 }
   

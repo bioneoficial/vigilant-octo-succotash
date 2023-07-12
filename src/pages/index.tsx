@@ -101,7 +101,7 @@ export default function Home(): JSX.Element {
           className="sm:h-96 fold:h-80"
         >
           {mockToRemove.map((item, index) => (
-            <SwiperSlide key={index} lazy={true}>
+            <SwiperSlide key={index}>
               <Image
                 src={item.src}
                 alt={item.alt}
@@ -160,14 +160,14 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} lazy={true}>
+              <SwiperSlide key={index}>
                 <Image
                   src={item.src}
                   alt={item.alt}
                   fill
                   quality={100}
                   style={{
-                    objectFit: "scale-down",
+                    objectFit: "contain",
                   }}
                 />
               </SwiperSlide>
@@ -194,7 +194,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className="h-full" lazy={true}>
+              <SwiperSlide key={index} className="h-full">
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -226,7 +226,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className="h-full" lazy={true}>
+              <SwiperSlide key={index} className="h-full">
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -258,7 +258,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className=" h-full" lazy={true}>
+              <SwiperSlide key={index} className=" h-full">
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -290,7 +290,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} className="h-full" lazy={true}>
+              <SwiperSlide key={index} className="h-full">
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -304,7 +304,7 @@ export default function Home(): JSX.Element {
         </div>
         <div
           id="bannerSecundarioContainer"
-          className="fold:h-16 sm:h-28 md:h-32 h- lg:h-36 xl:h-52 2xl:h-64"
+          className="fold:h-24 sm:h-32 md:h-40 lg:h-48 xl:h-60 2xl:h-64"
         >
           <div className="relative h-full">
             <Image
@@ -312,7 +312,7 @@ export default function Home(): JSX.Element {
               alt="Banner-Secundario"
               fill
               quality={100}
-              style={{ objectFit: "scale-down" }}
+              style={{ objectFit: "contain" }}
             />
           </div>
         </div>
@@ -336,7 +336,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} lazy={true}>
+              <SwiperSlide key={index}>
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -368,7 +368,7 @@ export default function Home(): JSX.Element {
             }}
           >
             {mockCoverRemove.map((item, index) => (
-              <SwiperSlide key={index} lazy={true}>
+              <SwiperSlide key={index}>
                 <Image
                   src={item.src}
                   alt={item.alt}
