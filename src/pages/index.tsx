@@ -382,59 +382,57 @@ export default function Home(): JSX.Element {
           </Swiper>
         </div>
       </div>
-      <footer className="py-10 px-6 bg-gray-200 mt-10">
-        <>
-          <div className="flex flex-col items-center justify-center">
-            <div className="text-center">
-              <h2 className="font-semibold text-3xl">
-                Quer publicar seu quadrinho no{" "}
-                <span className="text-purple-600 font-extrabold text-4xl">
-                  FUNKTOON?
-                </span>
-              </h2>
-              <p className="mt-2">
-                Se você também gosta de contar suas histórias, o{" "}
-                <span className="uppercase text-purple-600">Funktoon</span> é o
-                lugar perfeito para você estourar! Já pensou ficar famoso com
-                seu quadrinho?
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-between">
-            <div className="text-center md:text-left">
-              <h1 className="font-semibold uppercase">
-                Baixe o Aplicativo e leia as histórias onde quiser
-              </h1>
-              <div className="flex justify-center md:justify-start mt-4 space-x-2 items-center">
-                <Link
-                  href="https://apps.apple.com/us/app/funktoon/id6444811852"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/images/apple.svg"
-                    alt="Baixar funktoon na apple"
-                    width={150}
-                    height={45}
-                  />
-                </Link>
-                <Link
-                  href="https://play.google.com/store/apps/details?id=com.funktoon"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/images/google.png"
-                    alt="Baixar funktoon no Google"
-                    width={150}
-                    height={45}
-                  />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </>
+      <footer className="py-10 px-6 bg-gray-200 mt-10 ">
         <div className="flex flex-col items-center justify-center">
+          <div className="text-center">
+            <h2 className="font-semibold text-3xl">
+              Quer publicar seu quadrinho no{" "}
+              <span className="text-purple-600 font-extrabold text-4xl">
+                FUNKTOON?
+              </span>
+            </h2>
+            <p className="mt-2">
+              Se você também gosta de contar suas histórias, o{" "}
+              <span className="uppercase text-purple-600">Funktoon</span> é o
+              lugar perfeito para você estourar! Já pensou ficar famoso com seu
+              quadrinho?
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-between mt-2">
+          <div className="text-center md:text-left">
+            <h1 className="font-semibold uppercase">
+              Baixe o Aplicativo e leia as histórias onde quiser
+            </h1>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex justify-center md:justify-start mt-4 space-x-2 items-center">
+            <Link
+              href="https://apps.apple.com/us/app/funktoon/id6444811852"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/apple.svg"
+                alt="Baixar funktoon na apple"
+                width={150}
+                height={45}
+              />
+            </Link>
+            <Link
+              href="https://play.google.com/store/apps/details?id=com.funktoon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/google.png"
+                alt="Baixar funktoon no Google"
+                width={150}
+                height={45}
+              />
+            </Link>
+          </div>
           <Image
             src="/images/logo-funktoon.svg"
             alt="Funktoon"
