@@ -4,6 +4,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import Image from "next/image";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
+import Link from "next/link";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -381,38 +382,138 @@ export default function Home(): JSX.Element {
           </Swiper>
         </div>
       </div>
-      <div className="mt-10 bg-faixa-1 bg-cover bg-center flex flex-row justify-around fold:h-32 sm:h-44 mb-10 fold:max-sm:mb-1">
-        <div className="flex flex-row w-full h-48 fold:max-sm:h-4/6 md:max-2xl:h-full translate-y-2 fold:max-sm:translate-y-5 md:translate-y-0 lg:translate-y-0">
-          <img
-            src="/images/baixe.svg"
-            style={{ objectFit: "scale-down" }}
-            alt="baixe aqui o app"
-            className=" overflow-visible"
-          />
-          <img
-            src="/images/botoes_app_store_android.svg"
-            style={{ objectFit: "scale-down" }}
-            alt="Playstore"
-            className=" overflow-visible"
-          />
-          <img
-            src="/images/botoes_app_store_ios.svg"
-            style={{ objectFit: "scale-down" }}
-            alt="AppleStore"
-            className=" overflow-visible"
-          />
-        </div>
-        <div className="relative w-full fold:max-sm:h-4/6  md:h-40 lg:h-44 xl:h-44 2xl:h-48 translate-y-2 fold:max-sm:translate-y-5 md:max-2xl:translate-y-0 ">
+      <footer className="py-10 px-6 bg-gray-200 mt-10">
+        <>
+          <div className="flex flex-col items-center justify-center">
+            <div className="text-center">
+              <h2 className="font-semibold text-3xl">
+                Quer publicar seu quadrinho no{" "}
+                <span className="text-purple-600 font-extrabold text-4xl">
+                  FUNKTOON?
+                </span>
+              </h2>
+              <p className="mt-2">
+                Se você também gosta de contar suas histórias, o{" "}
+                <span className="uppercase text-purple-600">Funktoon</span> é o
+                lugar perfeito para você estourar! Já pensou ficar famoso com
+                seu quadrinho?
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-between">
+            <div className="text-center md:text-left">
+              <h1 className="font-semibold uppercase">
+                Baixe o Aplicativo e leia as histórias onde quiser
+              </h1>
+              <div className="flex justify-center md:justify-start mt-4 space-x-2 items-center">
+                <Link
+                  href="https://apps.apple.com/us/app/funktoon/id6444811852"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/apple.svg"
+                    alt="Baixar funktoon na apple"
+                    width={150}
+                    height={45}
+                  />
+                </Link>
+                <Link
+                  href="https://play.google.com/store/apps/details?id=com.funktoon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/google.png"
+                    alt="Baixar funktoon no Google"
+                    width={150}
+                    height={45}
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </>
+        <div className="flex flex-col items-center justify-center">
           <Image
-            src="/images/faca-parte.svg"
-            style={{ objectFit: "fill" }}
-            fill
-            quality={100}
-            alt="Faca parte da comunidade"
-            className=" overflow-visible"
+            src="/images/logo-funktoon.svg"
+            alt="Funktoon"
+            width={300}
+            height={100}
           />
+          <div id="socialMediaContainer" className="flex flex-row gap-1">
+            <Link
+              href="https://www.facebook.com/funktoonapp/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/facebook.svg"
+                alt="Funktoon"
+                width={50}
+                height={50}
+              />
+            </Link>
+            <Link
+              href="https://www.facebook.com/funktoonapp/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/logo-guara.svg"
+                alt="Funktoon"
+                width={60}
+                height={50}
+                style={{ objectFit: "scale-down", aspectRatio: "1.1" }}
+              />
+            </Link>
+            <Link
+              href="https://www.linkedin.com/company/universo-guara/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/linkedin.svg"
+                alt="Funktoon"
+                width={50}
+                height={50}
+              />
+            </Link>
+            <Link
+              href="https://twitter.com/funktoonapp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/twitter.svg"
+                alt="Funktoon"
+                width={50}
+                height={50}
+              />
+            </Link>
+            <Link
+              href="https://www.instagram.com/funktoonapp/?hl=pt"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/instagram.svg"
+                alt="Funktoon"
+                width={50}
+                height={50}
+              />
+            </Link>
+          </div>
+          <div className="mt-6 space-y-1.5 underline flex flex-col">
+            <Link href="https://funktoon.com/termos-e-privacidade?type=policy">
+              Política de privacidade e Cookies
+            </Link>
+            <Link href="https://funktoon.com/termos-e-privacidade?type=terms">
+              Termos de Uso
+            </Link>
+          </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }
