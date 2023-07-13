@@ -453,7 +453,7 @@ export default function Home(): JSX.Element {
               />
             </Link>
             <Link
-              href="https://www.facebook.com/funktoonapp/"
+              href="https://www.universoguara.com.br/"
               target="_blank"
               rel="noopener noreferrer"
             >
