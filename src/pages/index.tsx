@@ -6,6 +6,7 @@ import FooterHomePage from "@/components/organisms/FooterHomePage/FooterHomePage
 import Faixa1 from "@/components/molecules/Faixa1/Faixa1";
 import { HomepageSecaoContainer } from "@/components/organisms/HomepageSecaoContainer";
 import PrincipalBanner from "@/components/organisms/PrincipalBanner/PrincipalBanner";
+import BarNotificationStores from "@/components/organisms/BarNotificationStores/BarNotificationStores";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -28,6 +29,7 @@ export default function Home(): JSX.Element {
         <HomepageSecaoContainer sectionTitle="INDEPENDENTES" />
       </div>
       <FooterHomePage />
+      <BarNotificationStores />
     </div>
   );
 }
