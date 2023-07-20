@@ -6,11 +6,9 @@ import { HeaderHome } from "@/components/organisms/HeaderHome";
 import FooterHomePage from "@/components/organisms/FooterHomePage/FooterHomePage";
 import Faixa1 from "@/components/molecules/Faixa1/Faixa1";
 import { HomepageSecaoContainer } from "@/components/organisms/HomepageSecaoContainer";
-import PrincipalBanner, {
-  BannerItem,
-} from "@/components/organisms/PrincipalBanner/PrincipalBanner";
+import PrincipalBanner from "@/components/organisms/PrincipalBanner/PrincipalBanner";
 import BarNotificationStores from "@/components/organisms/BarNotificationStores/BarNotificationStores";
-import { ContentHomeResponse, MyError } from "@/types/types";
+import { ContentHomeResponse, HomePageSection, MyError } from "@/types/types";
 import { useQuery } from "react-query";
 import { getContentHome } from "@/api/contentHome";
 import { useEffect, useState } from "react";
@@ -22,7 +20,7 @@ export default function Home(): JSX.Element {
     "getContentHome",
     getContentHome
   );
-  const [bannerItems, setBannerItems] = useState<BannerItem[]>([]);
+  const [bannerItems, setBannerItems] = useState<HomePageSection[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -32,8 +30,10 @@ export default function Home(): JSX.Element {
     }
   }, [data]);
 
-  console.log(data?.BANNER);
-  console.log(typeof data?.BANNER);
+  const filteredEntries =
+    typeof data === "object" && data !== null
+      ? Object.entries(data).filter(([key]) => key !== "BANNER")
+      : [];
   return (
     <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
       <HeaderHome />
@@ -43,13 +43,19 @@ export default function Home(): JSX.Element {
         id="contentContainer"
         className="mx-auto flex flex-col fold:gap-12 md:gap-16 lg:gap-12 xl:gap-16 fold:w-11/12 md:w-11/12"
       >
-        <HomepageSecaoContainer sectionTitle="BOMBANDO" />
-        <HomepageSecaoContainer sectionTitle="ORIGINAIS" />
-        <HomepageSecaoContainer sectionTitle="PREMIUM" />
+        {/* <HomepageSecaoContainer sectionTitle="BOMBANDO" /> */}
+        {filteredEntries.map(([key, value]) => (
+          <HomepageSecaoContainer
+            key={key}
+            sectionTitle={key}
+            sectionItems={value}
+          />
+        ))}
+        {/* <HomepageSecaoContainer sectionTitle="PREMIUM" />
         <HomepageSecaoContainer sectionTitle="MÊS DO ORGULHO" />
         <HomepageSecaoContainer sectionTitle="INKO" />
         <HomepageSecaoContainer sectionTitle="SELEÇÕES" />
-        <HomepageSecaoContainer sectionTitle="INDEPENDENTES" />
+        <HomepageSecaoContainer sectionTitle="INDEPENDENTES" /> */}
       </div>
       <FooterHomePage />
       <BarNotificationStores />
