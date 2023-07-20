@@ -1,8 +1,29 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { mockToRemove } from "@/utils/const";
 
-const PrincipalBanner: React.FC = (): JSX.Element => {
+export interface BannerItem {
+  vitrine_conteudo_id: number;
+  vitrine_conteudo_nome: string;
+  vitrine_conteudo_ordem: number;
+  conteudo_nome: string;
+  conteudo_id: number;
+  imagem_banner: string;
+  imagem_capa: string;
+  cvc_id: number;
+  cvc_ordem: number;
+}
+
+export interface PrincipalBannerProps {
+  bannerItems: BannerItem[];
+}
+
+const PrincipalBanner: React.FC<PrincipalBannerProps> = ({
+  bannerItems,
+}): JSX.Element => {
+  const sortedBannerItems = bannerItems.sort(
+    (a, b) => a.cvc_ordem - b.cvc_ordem
+  );
+
   return (
     <div>
       <Swiper
@@ -28,11 +49,11 @@ const PrincipalBanner: React.FC = (): JSX.Element => {
         }}
         className="sm:h-96 fold:h-80"
       >
-        {mockToRemove.map((item, index) => (
+        {sortedBannerItems.map((item, index) => (
           <SwiperSlide key={index}>
             <Image
-              src={item.src}
-              alt={item.alt}
+              src={item.imagem_banner}
+              alt={item.conteudo_nome}
               fill
               quality={100}
               style={{ objectFit: "contain" }}
