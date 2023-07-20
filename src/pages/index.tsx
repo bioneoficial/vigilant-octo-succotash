@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
@@ -30,35 +29,46 @@ export default function Home(): JSX.Element {
     }
   }, [data]);
 
+  if (error) {
+    return <div>There was an error loading the content: {error.message}</div>;
+  }
+
   const filteredEntries =
     typeof data === "object" && data !== null
-      ? Object.entries(data).filter(([key]) => key !== "BANNER")
+      ? Object.entries(data)
+          .filter(([key]) => key !== "BANNER")
+          .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
       : [];
+
   return (
     <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
       <HeaderHome />
-      <PrincipalBanner bannerItems={bannerItems} />
-      <Faixa1 />
-      <div
-        id="contentContainer"
-        className="mx-auto flex flex-col fold:gap-12 md:gap-16 lg:gap-12 xl:gap-16 fold:w-11/12 md:w-11/12"
-      >
-        {/* <HomepageSecaoContainer sectionTitle="BOMBANDO" /> */}
-        {filteredEntries.map(([key, value]) => (
-          <HomepageSecaoContainer
-            key={key}
-            sectionTitle={key}
-            sectionItems={value}
-          />
-        ))}
-        {/* <HomepageSecaoContainer sectionTitle="PREMIUM" />
+      {!isLoading && !error && (
+        <>
+          <PrincipalBanner bannerItems={bannerItems} />
+          <Faixa1 />
+          <div
+            id="contentContainer"
+            className="mx-auto flex flex-col fold:gap-12 md:gap-16 lg:gap-12 xl:gap-16 fold:w-11/12 md:w-11/12"
+          >
+            {/* <HomepageSecaoContainer sectionTitle="BOMBANDO" /> */}
+            {filteredEntries.map(([key, value]) => (
+              <HomepageSecaoContainer
+                key={key}
+                sectionTitle={key}
+                sectionItems={value}
+              />
+            ))}
+            {/* <HomepageSecaoContainer sectionTitle="PREMIUM" />
         <HomepageSecaoContainer sectionTitle="MÊS DO ORGULHO" />
         <HomepageSecaoContainer sectionTitle="INKO" />
         <HomepageSecaoContainer sectionTitle="SELEÇÕES" />
         <HomepageSecaoContainer sectionTitle="INDEPENDENTES" /> */}
-      </div>
-      <FooterHomePage />
-      <BarNotificationStores />
+          </div>
+          <FooterHomePage />
+          <BarNotificationStores />
+        </>
+      )}
     </div>
   );
 }

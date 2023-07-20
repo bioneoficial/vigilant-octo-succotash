@@ -11,6 +11,9 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
   sectionTitle,
   sectionItems,
 }) => {
+  // const sortedSectionItems = sectionItems.sort(
+  //   (a, b) => a.cvc_ordem - b.cvc_ordem
+  // );
   return (
     <div className="fold:h-32 sm:h-40 md:h-44 lg:h-56 xl:h-60 2xl:h-72">
       <h4 className="font-bold">{sectionTitle}</h4>
