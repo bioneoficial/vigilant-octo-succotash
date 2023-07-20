@@ -1,14 +1,19 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import { mockCoverRemove } from "@/utils/const";
+import { HomePageSection } from "@/types/types";
 
 interface HomepageSecaoContainerProps {
   sectionTitle: string;
+  sectionItems: HomePageSection[];
 }
 
 export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
   sectionTitle,
+  sectionItems,
 }) => {
+  // const sortedSectionItems = sectionItems.sort(
+  //   (a, b) => a.cvc_ordem - b.cvc_ordem
+  // );
   return (
     <div className="fold:h-32 sm:h-40 md:h-44 lg:h-56 xl:h-60 2xl:h-72">
       <h4 className="font-bold">{sectionTitle}</h4>
@@ -26,11 +31,11 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
           },
         }}
       >
-        {mockCoverRemove.map((item, index) => (
+        {sectionItems.map((item, index) => (
           <SwiperSlide key={index}>
             <Image
-              src={item.src}
-              alt={item.alt}
+              src={item.imagem_capa}
+              alt={item.conteudo_nome}
               fill
               quality={100}
               style={{ objectFit: "scale-down" }}

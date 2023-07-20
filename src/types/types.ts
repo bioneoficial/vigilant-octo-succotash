@@ -300,3 +300,15 @@ export interface ContentItem {
 export interface ContentHomeResponse {
   [key: string]: ContentItem[];
 }
+
+export interface HomePageSection {
+  vitrine_conteudo_id: number;
+  vitrine_conteudo_nome: string;
+  vitrine_conteudo_ordem: number;
+  conteudo_nome: string;
+  conteudo_id: number;
+  imagem_banner: string;
+  imagem_capa: string;
+  cvc_id: number;
+  cvc_ordem: number;
+}
