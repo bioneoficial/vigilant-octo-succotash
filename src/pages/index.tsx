@@ -11,6 +11,7 @@ import { ContentHomeResponse, HomePageSection, MyError } from "@/types/types";
 import { useQuery } from "react-query";
 import { getContentHome } from "@/api/contentHome";
 import { useEffect, useState } from "react";
+import CookieBanner from "@/components/organisms/CookieBanner/CookieBanner";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -67,6 +68,7 @@ export default function Home(): JSX.Element {
           </div>
           <FooterHomePage />
           <BarNotificationStores />
+          <CookieBanner />
         </>
       )}
     </div>
