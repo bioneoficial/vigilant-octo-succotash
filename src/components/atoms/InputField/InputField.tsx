@@ -25,6 +25,7 @@ type Props = {
   classNameInput?: string[];
   inputRef?: React.RefObject<HTMLInputElement>;
   errorMessageFontSize?: string;
+  disabled?: boolean;
 };
 
 const InputFieldComponent: React.FC<Props> = ({
@@ -42,6 +43,7 @@ const InputFieldComponent: React.FC<Props> = ({
   classNameInput = [],
   inputRef,
   errorMessageFontSize,
+  disabled = false,
 }: Props) => {
   if (type === "file") {
     return (
@@ -82,6 +84,7 @@ const InputFieldComponent: React.FC<Props> = ({
           id={id}
           ref={inputRef}
           checked={initialValue === "true" ? true : false}
+          disabled={disabled}
         />
         {label}
       </label>

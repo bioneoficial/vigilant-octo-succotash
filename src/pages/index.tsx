@@ -12,23 +12,36 @@ import { useQuery } from "react-query";
 import { getContentHome } from "@/api/contentHome";
 import { useEffect, useState } from "react";
 import CookieBanner from "@/components/organisms/CookieBanner/CookieBanner";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/Redux/store";
+import { setShowBanner } from "@/Redux/Reducers/cookieBannerSlice";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 export default function Home(): JSX.Element {
+  const dispatch = useDispatch();
   const { isLoading, error, data } = useQuery<ContentHomeResponse, MyError>(
     "getContentHome",
     getContentHome
   );
   const [bannerItems, setBannerItems] = useState<HomePageSection[]>([]);
+  const showCookieBanner = useSelector(
+    (state: RootState) => state.cookieBanner.showBanner
+  );
 
   useEffect(() => {
+    const bannerSetting =
+      window.localStorage.getItem("funktoon-cookies-banner") === "false"
+        ? false
+        : true;
+    dispatch(setShowBanner(bannerSetting));
+
     if (data) {
       if (data.BANNER) {
         setBannerItems(data.BANNER);
       }
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   if (error) {
     return <div>There was an error loading the content: {error.message}</div>;
@@ -40,7 +53,6 @@ export default function Home(): JSX.Element {
           .filter(([key]) => key !== "BANNER")
           .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
       : [];
-
   return (
     <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
       <HeaderHome />
@@ -68,7 +80,7 @@ export default function Home(): JSX.Element {
           </div>
           <FooterHomePage />
           <BarNotificationStores />
-          <CookieBanner />
+          {showCookieBanner && <CookieBanner />}
         </>
       )}
     </div>
