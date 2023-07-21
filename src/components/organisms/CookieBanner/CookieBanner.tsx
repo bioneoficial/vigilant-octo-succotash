@@ -39,7 +39,11 @@ const CookieBanner: React.FC<CookieBannerProps> = () => {
           melhorar a navegação no site, analisar o uso do site e auxiliar em
           nossos esforços de marketing.
           <p>
-            <Link href="/politica-de-cookie" className=" text-blue-500">
+            <Link
+              href="/politica-de-cookie"
+              className=" text-blue-500"
+              target="_blank"
+            >
               Política de Cookies.
             </Link>
           </p>
@@ -64,8 +68,9 @@ const CookieBanner: React.FC<CookieBannerProps> = () => {
         <Button
           title="Salvar Configurações"
           status={true}
+          id="btn-salvar-configuracoes-cookies"
           className={[
-            "w-1/3 mb-4 bg-green-500 rounded-md fold:max-md:w-full self-center",
+            "w-1/3 p-1 mb-4 bg-green-500 rounded-md fold:max-md:w-full self-center xl:text-lg",
           ]}
           onClick={handleOnClose}
         />
