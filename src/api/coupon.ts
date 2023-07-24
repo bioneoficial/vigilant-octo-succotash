@@ -18,7 +18,25 @@ interface Coupon {
   
 export type getAllCouponResponse = Coupon[];
 
+export interface UpdateCupomPayload {
+    nome?: string;
+    codigo?: string;
+    limite_uso?: number;
+    qtd_dias?: number;
+    data_validade?: string |Date;
+    ativo?: number;
+    id_usuario_operacao?: number;
+    data_alteracao?: Date;
+    data_exclusao?: Date;
+    qtd_usado?: number;
+  }
+
 export async function getAllCoupon( token: string): Promise<getAllCouponResponse> {
     const response = await axios.get(`${apiConfig.couponApiUrl}`, { headers: { 'Authorization': `Bearer ${token}` }});
+    return response.data;
+  }
+
+export async function updateCoupon( token: string, id:number, coupon: UpdateCupomPayload): Promise<any> {
+    const response = await axios.put(`${apiConfig.couponApiUrl}/${id}`, coupon, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }

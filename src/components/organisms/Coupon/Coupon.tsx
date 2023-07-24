@@ -53,7 +53,6 @@ export default function Coupon(): JSX.Element {
         </thead>
         <tbody className=" border bg-gray-100 border-slate-500">
           {data?.map((cupom) => {
-            console.log(cupom);
             const cupomData: cupom = {
               id: cupom.id,
               nome: cupom.nome,
