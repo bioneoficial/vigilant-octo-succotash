@@ -71,8 +71,9 @@ export const HeaderHome: React.FC = (): JSX.Element => {
               <LinkButton
                 key={link.href}
                 {...link}
-                className={"px-3 py-2 rounded-md text-base"}
+                className={"px-3 py-2 rounded-md fold:text-base 2xl:text-2xl"}
                 isBlock={true}
+                id="ButtonHeaderHome"
               />
             ))}
           </div>

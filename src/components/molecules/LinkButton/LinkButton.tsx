@@ -6,12 +6,14 @@ interface LinkButtonProp {
   title: string;
   className: string;
   isBlock?: boolean;
+  id?: string;
 }
 export const LinkButton: React.FC<LinkButtonProp> = ({
   href,
   title,
   className,
   isBlock,
+  id = "LinkButton",
 }): JSX.Element => (
   <Link href={href}>
     <Button
@@ -26,6 +28,7 @@ export const LinkButton: React.FC<LinkButtonProp> = ({
         "hover:text-white",
         isBlock ? "block" : "",
       ]}
+      id={id}
     />
   </Link>
 );

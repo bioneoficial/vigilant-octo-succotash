@@ -87,7 +87,7 @@ table {
   }
 
   @media (min-width: 1400px) {
-	h4, button:not(#btn-salvar-configuracoes-cookies) {
+	h4, button:not(#btn-salvar-configuracoes-cookies, #LinkButton) {
 	  font-size: 1.8rem !important;
   }
   .swiper-button-prev::after, .swiper-button-next::after {
