@@ -29,11 +29,11 @@ export const handleEditPrivacy = (
 };
 
 export const handleDeletePrivacy = (
-  item: PrivacyItem,
+  privacyItem: PrivacyItem,
   dispatch: Dispatch<AnyAction>
 ): void => {
-  if (item) {
-    dispatch(setPrivacyItem(item));
+  if (privacyItem) {
+    dispatch(setPrivacyItem(privacyItem));
     dispatch(openModal(modalTypeEnum.delete));
   }
 };
