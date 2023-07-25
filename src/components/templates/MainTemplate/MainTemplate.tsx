@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { HeaderDashboard } from "@/components/organisms/HeaderDashboard";
 import { SideMenuDashboard } from "@/components/organisms/SideMenuDashboard";
-import { MainTemplateProps, modelTypeInterface } from "@/types/types";
+import { MainTemplateProps, MyError, modelTypeInterface } from "@/types/types";
 import { Modal } from "@/components/organisms/Modal";
 import {
   ModalState,
@@ -18,7 +18,12 @@ import { Button } from "@/components/atoms/Button";
 import { PrivacyItemStatus, modalTypeEnum } from "@/utils/enums";
 import { InputField } from "@/components/atoms/InputField";
 import { clearCoupon, selectCoupon } from "@/Redux/Reducers/couponSlice";
-import { UpdateCupomPayload, updateCoupon } from "@/api/coupon";
+import {
+  PostCupom,
+  UpdateCupomPayload,
+  createCoupon,
+  updateCoupon,
+} from "@/api/coupon";
 import { useMutation, useQueryClient } from "react-query";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
@@ -59,6 +64,14 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
         ativo: coupon?.status === PrivacyItemStatus.Ativo ? 1 : 0,
         data_alteracao: new Date(),
       });
+    const [createCouponData, setCreateCouponData] = useState<PostCupom>({
+      nome: "",
+      codigo: "",
+      limite_uso: 1,
+      qtd_dias: 1,
+      data_validade: "",
+      ativo: 1,
+    });
 
     const updateCouponMutation = useMutation(
       ({
@@ -73,6 +86,19 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
       {
         onSuccess: (data) => {
           success(data.message);
+          queryClient.invalidateQueries("getAllCoupon");
+        },
+        onError: (error) => {
+          window.alert(error);
+        },
+      }
+    );
+
+    const createCouponMutation = useMutation(
+      (createCouponData: PostCupom) => createCoupon(token, createCouponData),
+      {
+        onSuccess: () => {
+          success("Cupom criado com sucesso!");
           queryClient.invalidateQueries("getAllCoupon");
         },
         onError: (error) => {
@@ -145,6 +171,13 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
               classNameInput={[
                 "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
               ]}
+              initialValue={createCouponData.nome}
+              onChange={(e): void =>
+                setCreateCouponData({
+                  ...createCouponData,
+                  nome: e.target.value,
+                })
+              }
             />
             <InputField
               label="Código:"
@@ -153,24 +186,43 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
               classNameInput={[
                 "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
               ]}
+              initialValue={createCouponData.codigo}
+              onChange={(e): void =>
+                setCreateCouponData({
+                  ...createCouponData,
+                  codigo: e.target.value,
+                })
+              }
             />
             <InputField
               label="Limite de uso"
               name="limiteCreateCoupon"
               type="number"
-              initialValue={1}
               classNameInput={[
                 "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
               ]}
+              initialValue={createCouponData.limite_uso}
+              onChange={(e): void =>
+                setCreateCouponData({
+                  ...createCouponData,
+                  limite_uso: Number(e.target.value),
+                })
+              }
             />
             <InputField
               label="Qtd Dias Premium"
               name="qtdDiasCreateCoupon"
               type="number"
-              initialValue={1}
               classNameInput={[
                 "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
               ]}
+              initialValue={createCouponData.qtd_dias}
+              onChange={(e): void =>
+                setCreateCouponData({
+                  ...createCouponData,
+                  qtd_dias: Number(e.target.value),
+                })
+              }
             />
             <InputField
               label="Validade"
@@ -179,17 +231,34 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
               classNameInput={[
                 "border border-gray-400 p-2 rounded-lg ml-2 mt-4",
               ]}
+              initialValue={String(createCouponData.data_validade)}
+              onChange={(e): void =>
+                setCreateCouponData({
+                  ...createCouponData,
+                  data_validade: e.target.value,
+                })
+              }
             />
             <InputField
               label="Cupom Ativo"
               name="statusCreateCoupon"
               type="checkbox"
               classNameInput={[" w-4 h-4 mt-4 rounded-lg ml-2"]}
+              initialValue={createCouponData.ativo ? "true" : "false"}
+              onChange={(e): void =>
+                setCreateCouponData({
+                  ...createCouponData,
+                  ativo: e.target.checked ? 1 : 0,
+                })
+              }
             />
             <Button
               title="Salvar"
               status={true}
-              onClick={(): unknown => dispatch(closeModal())}
+              onClick={(): void => {
+                createCouponMutation.mutate(createCouponData);
+                dispatch(closeModal());
+              }}
               className={[
                 "flex self-center mt-2 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]",
               ]}
