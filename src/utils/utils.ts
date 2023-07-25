@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { openModal } from "@/Redux/Reducers/modalSlice";
 import { setPrivacyItem } from "@/Redux/Reducers/privacySlice";
 import { PrivacyItem, RegisterFormErrors, RegisterFormFields, ToastService, user } from "@/types/types";

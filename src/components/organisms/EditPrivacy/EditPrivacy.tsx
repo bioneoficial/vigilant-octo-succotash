@@ -24,7 +24,7 @@ export const EditPrivacy: React.FC = () => {
       <h2 className="text-2xl font-semibold mb-4">Editar</h2>
       <div className=" p-2  w-10/12">
         <div className="flex p-2 py-4 bg-white justify-between items-center w-12/12 border-solid border-2 border-gray-200 mb-4">
-          <h3 className="text-lg font-semibold ">{editedItem?.name}</h3>
+          <h3 className="text-lg font-semibold ">{editedItem?.nome}</h3>
           <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 ">
             Salvar
           </button>
@@ -35,8 +35,8 @@ export const EditPrivacy: React.FC = () => {
             name="nameInput"
             placeholder="Nome da política/termo"
             required={true}
-            initialValue={editedItem?.name}
-            id={uuid + editedItem?.name}
+            initialValue={editedItem?.nome}
+            id={uuid + editedItem?.nome}
             classNameInput={[
               "w-full",
               "py-2",
@@ -87,8 +87,8 @@ export const EditPrivacy: React.FC = () => {
             name="versionInput"
             required={true}
             type="number"
-            initialValue={editedItem?.version}
-            id={uuid + editedItem?.version}
+            initialValue={editedItem?.versao}
+            id={uuid + editedItem?.versao}
             classNameInput={[
               "w-full",
               "py-2",
@@ -110,8 +110,8 @@ export const EditPrivacy: React.FC = () => {
             name="publishInput"
             required={true}
             type="checkbox"
-            initialValue={editedItem?.version}
-            id={uuid + editedItem?.version}
+            initialValue={editedItem?.versao}
+            id={uuid + editedItem?.versao}
             classNameInput={["py-2", "px-3 accent-pink-500 mt-auto w-10 h-6"]}
             className={[
               "flex gap-2",
@@ -125,7 +125,7 @@ export const EditPrivacy: React.FC = () => {
         <Editor
           // apiKey={process.env.TINY_API_KEY} ver se em PROD o .env nao acusa warning
           apiKey="elhqxjppa5ipq0e8xb3dfrcs53g78dc00pke776zqeauhywg"
-          initialValue={item?.description}
+          initialValue={item?.descricao}
           init={{
             height: 500,
             menubar: true,

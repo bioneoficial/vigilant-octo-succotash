@@ -1,11 +1,12 @@
 import { selectPrivacyItem } from "@/Redux/Reducers/privacySlice";
-import { PrivacyItem } from "@/types/types";
-import { PrivacyItems } from "@/utils/const";
-import { PrivacyItemStatus } from "@/utils/enums";
+import { getAllPrivacy, getAllPrivacyResponse } from "@/api/privacy";
+import { MyError, PrivacyItem } from "@/types/types";
+import { PrivacyItemType } from "@/utils/enums";
 import { handleDeletePrivacy, handleEditPrivacy } from "@/utils/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Privacy: React.FC = () => {
@@ -13,16 +14,26 @@ export const Privacy: React.FC = () => {
   const dispatch = useDispatch();
   const privacyItem = useSelector(selectPrivacyItem);
 
-  const [PrivacyItemsMock, setPrivacyItemsMock] =
-    useState<PrivacyItem[]>(PrivacyItems);
   const [previousPrivacyItem, setPreviousPrivacyItem] =
     useState<PrivacyItem | null>(null);
 
+  const storedData = JSON.parse(
+    localStorage.getItem("funktoonToken") ||
+      sessionStorage.getItem("funktoonToken") ||
+      "{}"
+  );
+  const token = storedData.token || "";
+  const { data } = useQuery<getAllPrivacyResponse, MyError>(
+    "getAllPrivacy",
+    () => getAllPrivacy(token),
+    { enabled: !!token }
+  );
+
   useEffect(() => {
     if (!privacyItem && previousPrivacyItem) {
-      setPrivacyItemsMock((currentItems) =>
-        currentItems.filter((item) => item.id !== previousPrivacyItem.id)
-      );
+      // setPrivacyItemsMock((currentItems) =>
+      //   currentItems.filter((item) => item.id !== previousPrivacyItem.id)
+      // );
     }
     setPreviousPrivacyItem(privacyItem);
   }, [privacyItem, previousPrivacyItem]);
@@ -57,56 +68,70 @@ export const Privacy: React.FC = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {PrivacyItemsMock.map((item) => (
-                <tr
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                  key={item.id + item.name}
-                >
-                  <td className="py-3 px-6 text-left">{item.name}</td>
-                  <td
-                    className={`py-3 px-6 text-left font-normal ${
-                      item.status === PrivacyItemStatus.Ativo
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }`}
+              {data &&
+                data.map((item) => (
+                  <tr
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                    key={item.id + item.nome}
                   >
-                    {item.status}
-                  </td>
-                  <td className="py-3 px-6 text-left">{item.type}</td>
-                  <td className="py-3 px-6 text-center">{item.version}</td>
-                  <td className="py-3 px-6 text-center">{item.date}</td>
-                  <td className="py-3 px-6 text-center">
-                    <div className="flex item-center justify-center">
-                      <button
-                        onClick={(): void =>
-                          handleEditPrivacy(item, dispatch, router)
+                    <td className="py-3 px-6 text-left">{item.nome}</td>
+                    <td
+                      className={`py-3 px-6 text-left font-normal ${
+                        item.ativo === 1 ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {item.ativo}
+                    </td>
+                    <td className="py-3 px-6 text-left">
+                      {((): string => {
+                        switch (item.id_tipo_politica) {
+                          case 1:
+                            return PrivacyItemType.PoliticaPrivacidade;
+                          case 2:
+                            return PrivacyItemType.TermosUso;
+                          case 3:
+                            return PrivacyItemType.PoliticaTermoAutor;
+                          default:
+                            return "";
                         }
-                        className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                      >
-                        <Image
-                          src="/images/pencil.svg"
-                          width={19}
-                          height={19}
-                          alt="plus"
-                        />
-                      </button>
-                      <button
-                        onClick={(): void =>
-                          handleDeletePrivacy(item, dispatch)
-                        }
-                        className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
-                      >
-                        <Image
-                          src="/images/trash.svg"
-                          width={19}
-                          height={19}
-                          alt="plus"
-                        />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                      })()}
+                    </td>
+                    <td className="py-3 px-6 text-center">{item.versao}</td>
+                    <td className="py-3 px-6 text-center">
+                      {item.data_inclusao}
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <div className="flex item-center justify-center">
+                        <button
+                          onClick={(): void =>
+                            handleEditPrivacy(item, dispatch, router)
+                          }
+                          className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                        >
+                          <Image
+                            src="/images/pencil.svg"
+                            width={19}
+                            height={19}
+                            alt="plus"
+                          />
+                        </button>
+                        <button
+                          onClick={(): void =>
+                            handleDeletePrivacy(item, dispatch)
+                          }
+                          className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
+                        >
+                          <Image
+                            src="/images/trash.svg"
+                            width={19}
+                            height={19}
+                            alt="plus"
+                          />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
