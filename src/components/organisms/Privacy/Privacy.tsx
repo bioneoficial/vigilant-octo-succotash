@@ -1,4 +1,7 @@
-import { selectPrivacyItem } from "@/Redux/Reducers/privacySlice";
+import {
+  selectPrivacyItem,
+  setPrivacyItem,
+} from "@/Redux/Reducers/privacySlice";
 import { getAllPrivacy, getAllPrivacyResponse } from "@/api/privacy";
 import { MyError, PrivacyItem } from "@/types/types";
 import { PrivacyItemType } from "@/utils/enums";
@@ -13,7 +16,6 @@ export const Privacy: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const privacyItem = useSelector(selectPrivacyItem);
-
   const [previousPrivacyItem, setPreviousPrivacyItem] =
     useState<PrivacyItem | null>(null);
 
@@ -30,13 +32,13 @@ export const Privacy: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!privacyItem && previousPrivacyItem) {
-      // setPrivacyItemsMock((currentItems) =>
-      //   currentItems.filter((item) => item.id !== previousPrivacyItem.id)
-      // );
-    }
     setPreviousPrivacyItem(privacyItem);
   }, [privacyItem, previousPrivacyItem]);
+
+  const handleCreatePrivacy = (): Promise<boolean> => {
+    dispatch(setPrivacyItem(null));
+    return router.push("/dashboard/privacy/create");
+  };
 
   return (
     <section className="p-4">
@@ -45,9 +47,7 @@ export const Privacy: React.FC = () => {
           <h2 className="text-2xl font-bold">Políticas e termos</h2>
           <div>
             <button
-              onClick={(): Promise<boolean> =>
-                router.push("/dashboard/privacy/create")
-              }
+              onClick={handleCreatePrivacy}
               className="flex items-center ml-5 py-2 px-4 bg-[#8b00d1] text-white rounded hover:bg-[#8b0099]"
             >
               <Image src="/images/plus.svg" width={19} height={19} alt="plus" />

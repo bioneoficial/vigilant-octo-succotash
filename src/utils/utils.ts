@@ -149,7 +149,7 @@ export const handlePasswordResetError= (err: any, toastService: ToastService): v
   }
 }
 
-export  const withErrorHandler = async(apiFunc: (...args: unknown[]) => Promise<unknown>, errorHandler: (...args: any[]) => void): Promise<unknown> => {
+export const withErrorHandler = async(apiFunc: (...args: unknown[]) => Promise<unknown>, errorHandler: (...args: any[]) => void): Promise<unknown> => {
   try {
     return await apiFunc();
   } catch(err) {
@@ -161,3 +161,13 @@ export const validatePassword = (password: string): boolean => {
   const passwordRegex = /^[^\s]{6,20}$/;
   return passwordRegex.test(password);
 }
+
+export const useAuth = (): string => {
+  const storedData = JSON.parse(
+    localStorage.getItem("funktoonToken") ||
+      sessionStorage.getItem("funktoonToken") ||
+      "{}"
+  );
+  const token = storedData.token || "";
+  return token;
+};
