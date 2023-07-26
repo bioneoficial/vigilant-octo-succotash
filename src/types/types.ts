@@ -58,13 +58,14 @@ export type HeaderDashboardProps = SideMenuDashboardProps & {
 
 export interface PrivacyItem {
   id: number;
-  name: string;
-  status: PrivacyItemStatus;
-  type: PrivacyItemType;
-  version: number;
-  publish: boolean;
-  date: string;
-  description: string;
+  nome: string;
+  tipo?: PrivacyItemType;
+  id_tipo_politica: number;
+  versao: number;
+  ativo: number;
+  data_inclusao: string;
+  data_alteracao?: Date;
+  descricao: string;
 }
 
 export interface modelTypeInterface {

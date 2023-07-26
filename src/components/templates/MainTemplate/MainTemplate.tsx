@@ -28,15 +28,16 @@ import { useMutation, useQueryClient } from "react-query";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
 import { ToastContainer } from "react-toastify";
+import { AppDispatch } from "@/Redux/store";
 
 export const MainTemplate: React.FC<MainTemplateProps> = ({
   children,
 }): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const privacyItem = useSelector(selectPrivacyItem);
   const modalContent: ModalState = useSelector(selectModal);
   const coupon = useSelector(selectCoupon);
-  const { success } = toastService();
+  const { success, error } = toastService();
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
@@ -109,9 +110,12 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
 
     const handleDeleteConfirmation = (): void => {
       if (privacyItem) {
-        console.log("Deleting item with id", privacyItem);
-        dispatch(deletePrivacyItem());
+        dispatch(deletePrivacyItem(token, privacyItem.id, success, error));
         dispatch(closeModal());
+        setTimeout(() => {
+          queryClient.invalidateQueries("getAllPrivacy");
+        }, 2000);
+        // success("Política excluída com sucesso!")
       }
     };
     let title = "";
@@ -129,7 +133,7 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
     switch (modalType) {
       case modalTypeEnum.delete:
         title = "Deletar ?";
-        description = `${privacyItem?.name} será excluida! Deseja continuar?`;
+        description = `${privacyItem?.nome} será excluida! Deseja continuar?`;
         content = (
           <div className="flex justify-between">
             <Button

@@ -21,13 +21,13 @@ export default function toastService(): ToastService {
         toast.success(message, options);
     };
 
-    const error = (message = "Um erro ocorreu, tente novamente."): void => {
+    const errorT = (message = "Um erro ocorreu, tente novamente."): void => {
         // dispatch(setToastSuccess(false));
         toast.error(message, options);
     };
 
     // similarly for warn(), info(), etc.
     
-    return { success, error };
+    return { success, error: errorT };
 }
 

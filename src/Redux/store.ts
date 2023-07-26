@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware, combineReducers, ThunkAction, Action } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from 'redux-persist';
 import sessionStorage from 'redux-persist/lib/storage/session';
 import createSagaMiddleware from 'redux-saga'; // import Saga middleware
@@ -32,12 +32,11 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [...getDefaultMiddleware({serializableCheck: false}), sagaMiddleware], // Add saga middleware
+  middleware: getDefaultMiddleware({thunk: true, serializableCheck: false}).concat(sagaMiddleware),
 });
 
 // then run the saga
@@ -48,3 +47,10 @@ const persistor = persistStore(store);
 export { store, persistor };
 
 export type RootState = ReturnType<typeof rootReducer>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
+export type AppDispatch = typeof store.dispatch;
