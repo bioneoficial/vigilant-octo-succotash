@@ -41,7 +41,6 @@ export async function editPrivacy( token: string, id: number, payload: Partial<P
   }
 
 export async function postPrivacy( token: string, newPrivacy: Partial<PrivacyItem>): Promise<any> {
-  // newPrivacy.data_inclusao = new Date();
     const response = await axios.post(`${apiConfig.privacyApiUrl}`, newPrivacy, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }
