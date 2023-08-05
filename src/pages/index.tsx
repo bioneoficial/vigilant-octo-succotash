@@ -9,7 +9,11 @@ import PrincipalBanner from "@/components/organisms/PrincipalBanner/PrincipalBan
 import BarNotificationStores from "@/components/organisms/BarNotificationStores/BarNotificationStores";
 import { ContentHomeResponse, HomePageSection, MyError } from "@/types/types";
 import { useQuery } from "react-query";
-import { getContentHome } from "@/api/contentHome";
+import {
+  getContentHome,
+  getSelecoes,
+  getVitrineProps,
+} from "@/api/contentHome";
 import { useEffect, useState } from "react";
 import CookieBanner from "@/components/organisms/CookieBanner/CookieBanner";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +32,13 @@ export default function Home(): JSX.Element {
   const showCookieBanner = useSelector(
     (state: RootState) => state.cookieBanner.showBanner
   );
+
+  const getSele = useQuery<getVitrineProps[], MyError>(
+    "getSelecoes",
+    getSelecoes
+  ); // ta funcionando, fazer isso pel osectionTitle direto no HomepageSecaoContainer
+
+  console.log(getSele.data);
 
   useEffect(() => {
     const bannerSetting =

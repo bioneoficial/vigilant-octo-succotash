@@ -19,7 +19,7 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
           onClick={(): void => window.alert(sectionTitle)}
           className="cursor-pointer hover:text-slate-400"
         >
-          Ver mais {sectionItems[0].vitrine_conteudo_id}
+          Ver mais {sectionTitle}
         </span>
       </h4>
       <Swiper
