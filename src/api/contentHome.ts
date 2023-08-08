@@ -14,7 +14,7 @@ export const getByNome = async (): Promise<ContentHomeResponse> => {
 };
 
 export interface getVitrineProps {
-    conteudo_nome: string;
+  conteudo_nome: string;
   conteudo_id: number;
   imagem_banner: string;
   imagem_capa: string;

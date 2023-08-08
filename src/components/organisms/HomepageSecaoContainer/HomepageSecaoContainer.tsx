@@ -11,12 +11,15 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
   sectionTitle,
   sectionItems,
 }) => {
+  const handleShowMore = (): void => {
+    window.location.href = `/vitrine-conteudo/content/${sectionTitle.toLowerCase()}`;
+  };
   return (
     <div className="fold:h-32 sm:h-40 md:h-44 lg:h-56 xl:h-60 2xl:h-72">
       <h4 className="font-bold flex justify-between mb-2 px-6">
         <span>{sectionTitle}</span>
         <span
-          onClick={(): void => window.alert(sectionTitle)}
+          onClick={handleShowMore}
           className="cursor-pointer hover:text-slate-400"
         >
           Ver mais {sectionTitle}
