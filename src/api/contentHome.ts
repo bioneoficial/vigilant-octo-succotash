@@ -2,23 +2,22 @@ import axios from "axios";
 import { apiConfig } from './apiConfig';
 import { ContentHomeResponse } from "@/types/types";
 
+export interface getVitrineProps {
+    conteudo_nome: string;
+    conteudo_id: number;
+    imagem_banner: string;
+    imagem_capa: string;
+  }
+  
 export const getContentHome = async (): Promise<ContentHomeResponse> => {
     const response = await axios.get(`${apiConfig.contentApiUrl}/home`);
     return response.data;
 };
 
-export const getByNome = async (): Promise<ContentHomeResponse> => {
-    const response = await axios.get(`${apiConfig.contentApiUrl}/vitrine`);
-    // reeceber payload com {nome: string}
+export const getByNome = async (nome: string): Promise<getVitrineProps[]> => {
+    const response = await axios.get(`${apiConfig.contentApiUrl}/vitrine`,  { params: { nome } });
     return response.data;
 };
-
-export interface getVitrineProps {
-  conteudo_nome: string;
-  conteudo_id: number;
-  imagem_banner: string;
-  imagem_capa: string;
-}
 
 export const getSelecoes = async (): Promise<getVitrineProps[]> => {
     const response = await axios.get(`${apiConfig.contentApiUrl}/selecoes`);

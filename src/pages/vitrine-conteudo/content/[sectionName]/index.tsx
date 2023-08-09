@@ -1,20 +1,23 @@
-/* eslint-disable @next/next/no-img-element */
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/swiper-bundle.css";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 import FooterHomePage from "@/components/organisms/FooterHomePage/FooterHomePage";
 import { MyError } from "@/types/types";
 import { useQuery } from "react-query";
-import { getIndependentes, getVitrineProps } from "@/api/contentHome";
+import { getByNome, getVitrineProps } from "@/api/contentHome";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 export default function Home(): JSX.Element {
+  const router = useRouter();
+  const { sectionName } = router.query;
   const { isLoading, error, data } = useQuery<getVitrineProps[], MyError>(
-    "getIndependentes",
-    getIndependentes
+    "getByNome",
+    () => getByNome(sectionName as string),
+    { enabled: !!sectionName }
   );
 
   console.log(data);

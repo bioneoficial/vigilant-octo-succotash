@@ -22,7 +22,7 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
           onClick={handleShowMore}
           className="cursor-pointer hover:text-slate-400"
         >
-          Ver mais {sectionTitle}
+          Ver mais
         </span>
       </h4>
       <Swiper
