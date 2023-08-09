@@ -5,11 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-type CookieBannerProps = {
-  // add props here
-};
-
-const CookieBanner: React.FC<CookieBannerProps> = () => {
+const CookieBanner: React.FC = () => {
   const dispatch = useDispatch();
   const [aceitarTodosCookies, setAceitarTodosCookies] =
     useState<boolean>(false);

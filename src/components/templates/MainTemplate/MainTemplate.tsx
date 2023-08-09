@@ -115,7 +115,6 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
         setTimeout(() => {
           queryClient.invalidateQueries("getAllPrivacy");
         }, 2000);
-        // success("Política excluída com sucesso!")
       }
     };
     let title = "";

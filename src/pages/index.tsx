@@ -49,9 +49,7 @@ export default function Home(): JSX.Element {
 
   const filteredEntries =
     typeof data === "object" && data !== null
-      ? Object.entries(data)
-          .filter(([key]) => key !== "BANNER")
-          .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+      ? Object.entries(data).filter(([key]) => key !== "BANNER")
       : [];
   return (
     <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
@@ -64,7 +62,6 @@ export default function Home(): JSX.Element {
             id="contentContainer"
             className="mx-auto flex flex-col fold:gap-12 md:gap-16 lg:gap-12 xl:gap-16 fold:w-11/12 md:w-11/12"
           >
-            {/* <HomepageSecaoContainer sectionTitle="BOMBANDO" /> */}
             {filteredEntries.map(([key, value]) => (
               <HomepageSecaoContainer
                 key={key}
@@ -72,11 +69,6 @@ export default function Home(): JSX.Element {
                 sectionItems={value}
               />
             ))}
-            {/* <HomepageSecaoContainer sectionTitle="PREMIUM" />
-        <HomepageSecaoContainer sectionTitle="MÊS DO ORGULHO" />
-        <HomepageSecaoContainer sectionTitle="INKO" />
-        <HomepageSecaoContainer sectionTitle="SELEÇÕES" />
-        <HomepageSecaoContainer sectionTitle="INDEPENDENTES" /> */}
           </div>
           <FooterHomePage />
           <BarNotificationStores />

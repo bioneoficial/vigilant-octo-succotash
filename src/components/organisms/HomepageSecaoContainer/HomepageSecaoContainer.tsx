@@ -11,12 +11,20 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
   sectionTitle,
   sectionItems,
 }) => {
-  // const sortedSectionItems = sectionItems.sort(
-  //   (a, b) => a.cvc_ordem - b.cvc_ordem
-  // );
+  const handleShowMore = (): void => {
+    window.location.href = `/vitrine-conteudo/content/${sectionTitle.toLowerCase()}`;
+  };
   return (
     <div className="fold:h-32 sm:h-40 md:h-44 lg:h-56 xl:h-60 2xl:h-72">
-      <h4 className="font-bold">{sectionTitle}</h4>
+      <h4 className="font-bold flex justify-between mb-2 px-6">
+        <span>{sectionTitle}</span>
+        <span
+          onClick={handleShowMore}
+          className="cursor-pointer hover:text-slate-400"
+        >
+          Ver mais
+        </span>
+      </h4>
       <Swiper
         navigation
         pagination={{ clickable: true, dynamicBullets: true }}
