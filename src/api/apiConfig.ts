@@ -7,6 +7,8 @@ const passwordRoute = process.env.NEXT_PUBLIC_API_PASSWORD_ROUTE;
 const contentRoute = process.env.NEXT_PUBLIC_API_CONTENTHOME_ROUTE;
 const couponRoute = process.env.NEXT_PUBLIC_API_COUPON_ROUTE;
 const privacyRoute = process.env.NEXT_PUBLIC_API_PRIVACY_ROUTE;
+const conteudoRoute = process.env.NEXT_PUBLIC_API_CONTEUDO_ROUTE;
+const episodioRoute = process.env.NEXT_PUBLIC_API_EPISODIO_ROUTE;
 
 export const apiConfig = {
     pingApiUrl: `${apiUrl}:${apiPort}${pingRoute}`,
@@ -16,4 +18,7 @@ export const apiConfig = {
     contentApiUrl: `${apiUrl}:${apiPort}${contentRoute}`,
     couponApiUrl: `${apiUrl}:${apiPort}${couponRoute}`,
     privacyApiUrl: `${apiUrl}:${apiPort}${privacyRoute}`,
+    conteudoApiUrl: `${apiUrl}:${apiPort}${conteudoRoute}`,
+    episodioApiUrl: `${apiUrl}:${apiPort}${episodioRoute}`,
+
   };

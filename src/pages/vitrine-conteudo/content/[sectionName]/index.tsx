@@ -20,8 +20,6 @@ export default function Home(): JSX.Element {
     { enabled: !!sectionName }
   );
 
-  console.log(data);
-
   if (error) {
     return <div>There was an error loading the content: {error.message}</div>;
   }
