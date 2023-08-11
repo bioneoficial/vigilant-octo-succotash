@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { HomePageSection } from "@/types/types";
+import { handleContentClick } from "@/utils/utils";
+import { useRouter } from "next/router";
 
 interface HomepageSecaoContainerProps {
   sectionTitle: string;
@@ -11,6 +13,8 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
   sectionTitle,
   sectionItems,
 }) => {
+  const router = useRouter();
+
   const handleShowMore = (): void => {
     window.location.href = `/vitrine-conteudo/content/${sectionTitle.toLowerCase()}`;
   };
@@ -46,7 +50,10 @@ export const HomepageSecaoContainer: React.FC<HomepageSecaoContainerProps> = ({
               alt={item.conteudo_nome}
               fill
               quality={100}
-              style={{ objectFit: "scale-down" }}
+              style={{ objectFit: "scale-down", cursor: "pointer" }}
+              onClick={(): Promise<void> =>
+                handleContentClick(router, item.conteudo_id)
+              }
             />
           </SwiperSlide>
         ))}

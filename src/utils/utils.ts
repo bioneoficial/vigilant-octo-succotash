@@ -7,6 +7,8 @@ import { NextRouter } from "next/router";
 import { modalTypeEnum } from "./enums";
 import {  selectUser } from "@/Redux/Reducers/userSlice";
 import {  SetStateAction } from 'react';
+import axios from "axios";
+import { apiConfig } from "@/api/apiConfig";
 
 
 export const classNames = (...classes: string[]): string => {
@@ -170,4 +172,17 @@ export const useAuth = (): string => {
   );
   const token = storedData.token || "";
   return token;
+};
+
+export const handleContentClick = async (router: NextRouter, conteudo_id: number): Promise<void> => {
+  try {
+    const response = await axios.get(
+      `${apiConfig.conteudoApiUrl}/${conteudo_id}`
+    );
+    const slug = response.data.slug;
+    router.push(`/conteudo/${slug}`);
+    sessionStorage.setItem("content", JSON.stringify(response.data));
+  } catch (err) {
+    console.error("Failed to fetch content by ID:", err);
+  }
 };

@@ -1,5 +1,7 @@
 import { HomePageSection } from "@/types/types";
+import { handleContentClick } from "@/utils/utils";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export interface PrincipalBannerProps {
@@ -12,6 +14,7 @@ const PrincipalBanner: React.FC<PrincipalBannerProps> = ({
   const sortedBannerItems = bannerItems.sort(
     (a, b) => a.cvc_ordem - b.cvc_ordem
   );
+  const router = useRouter();
 
   return (
     <div>
@@ -46,6 +49,9 @@ const PrincipalBanner: React.FC<PrincipalBannerProps> = ({
               fill
               quality={100}
               style={{ objectFit: "contain" }}
+              onClick={(): Promise<void> =>
+                handleContentClick(router, item.conteudo_id)
+              }
             />
           </SwiperSlide>
         ))}

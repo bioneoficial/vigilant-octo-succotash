@@ -7,8 +7,7 @@ import { useQuery } from "react-query";
 import { getBombando, getVitrineProps } from "@/api/contentHome";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import axios from "axios";
-import { apiConfig } from "@/api/apiConfig";
+import { handleContentClick } from "@/utils/utils";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -18,19 +17,6 @@ export default function Home(): JSX.Element {
     getBombando
   );
   const router = useRouter();
-
-  const handleContentClick = async (conteudo_id: number): Promise<void> => {
-    try {
-      const response = await axios.get(
-        `${apiConfig.conteudoApiUrl}/${conteudo_id}`
-      );
-      const slug = response.data.slug;
-      router.push(`/conteudo/${slug}`);
-      sessionStorage.setItem("content", JSON.stringify(response.data));
-    } catch (err) {
-      console.error("Failed to fetch content by ID:", err);
-    }
-  };
 
   if (error) {
     return <div>There was an error loading the content: {error.message}</div>;
@@ -48,7 +34,7 @@ export default function Home(): JSX.Element {
             {data?.map((item, index) => (
               <div
                 onClick={(): Promise<void> =>
-                  handleContentClick(item.conteudo_id)
+                  handleContentClick(router, item.conteudo_id)
                 }
                 key={index}
               >
