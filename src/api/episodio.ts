@@ -32,13 +32,20 @@ export interface Comic {
     active: number;
     slug: string | null;
   }
+
+export interface ComicWithImages extends Comic {
+    images: {
+      order: number;
+      url: string;
+    }[];
+  }
   
-export const getAllByConteudoId = async (id: string): Promise<Comic[]> => {
+export const getAllByConteudoId = async (id: number): Promise<Comic[]> => {
     const response = await axios.get(`${apiConfig.episodioApiUrl}/conteudo/${id}`);
     return response.data;
 };
 
-export const getAllImagesByEpisodioId = async (id: string): Promise<Comic[]> => {
+export const getAllImagesByEpisodioId = async (id: number): Promise<ComicWithImages> => {
     const response = await axios.get(`${apiConfig.episodioApiUrl}/${id}`);
     return response.data;
 }
