@@ -8,6 +8,8 @@ import { useQuery } from "react-query";
 import { getIndependentes, getVitrineProps } from "@/api/contentHome";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { handleContentClick } from "@/utils/utils";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -16,8 +18,7 @@ export default function Home(): JSX.Element {
     "getIndependentes",
     getIndependentes
   );
-
-  console.log(data);
+  const router = useRouter();
 
   if (error) {
     return <div>There was an error loading the content: {error.message}</div>;
@@ -44,6 +45,9 @@ export default function Home(): JSX.Element {
                   height={200}
                   quality={100}
                   style={{ objectFit: "scale-down" }}
+                  onClick={(): Promise<void> =>
+                    handleContentClick(router, item.conteudo_id)
+                  }
                 />
               </Link>
             ))}
