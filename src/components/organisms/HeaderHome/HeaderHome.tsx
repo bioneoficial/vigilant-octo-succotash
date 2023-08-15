@@ -3,6 +3,7 @@ import React, { SetStateAction, useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { LinkButton } from "@/components/molecules/LinkButton";
 import Link from "next/link";
+import { UserRole } from "@/utils/enums";
 
 const links = [
   { href: "/agenda", title: "AGENDA" },
@@ -11,8 +12,36 @@ const links = [
   { href: "/login", title: "LOGIN" },
 ];
 
+const userLinks = [
+  { href: "/", title: "INICIO" },
+  { href: "/agenda", title: "AGENDA" },
+  { href: "/seja-autor", title: "SEJA UM AUTOR" },
+  { href: "/minha-conta", title: "MINHA CONTA" },
+];
+
+const authorLinks = [{ href: "/dashboard-author", title: "DASHBOARD" }];
+const adminLinks = [
+  { href: "/", title: "INICIO" },
+  { href: "/dashboard", title: "DASHBOARD" },
+];
+
 export const HeaderHome: React.FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
+  const storedData = JSON.parse(
+    localStorage.getItem("funktoonToken") ||
+      sessionStorage.getItem("funktoonToken") ||
+      "{}"
+  );
+  const role: keyof typeof navigationMap = storedData.user.role || "";
+
+  const navigationMap = {
+    [UserRole.usuario]: userLinks,
+    [UserRole.admin]: adminLinks,
+    [UserRole.root]: adminLinks,
+    [UserRole.autor]: authorLinks,
+  };
+
+  const navigationLinks = navigationMap[role] || links;
 
   return (
     <header
@@ -56,7 +85,7 @@ export const HeaderHome: React.FC = (): JSX.Element => {
             </Link>
           </div>
           <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-            {links.map((link) => (
+            {navigationLinks.map((link) => (
               <LinkButton key={link.href} {...link} className={""} />
             ))}
           </div>
@@ -67,7 +96,7 @@ export const HeaderHome: React.FC = (): JSX.Element => {
           } absolute top-16 right-0 md:hidden bg-white shadow-lg rounded-md`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {links.map((link) => (
+            {navigationLinks.map((link) => (
               <LinkButton
                 key={link.href}
                 {...link}
