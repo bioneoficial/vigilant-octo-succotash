@@ -7,15 +7,15 @@ import { LoginResponse } from '@/types/types';
 interface LoginParams {
     email: string;
     password: string;
-    stayConnected?: boolean;
+    stayConnected: boolean;
   }
   
 const useLogin = (): UseMutationResult<LoginResponse, unknown, LoginParams, unknown> => {
     const dispatch = useDispatch();
   
     return useMutation<LoginResponse, unknown, LoginParams, unknown>(loginUser as MutationFunction<LoginResponse, LoginParams>, {
-        onSuccess: (data: LoginResponse) => {
-          dispatch(loginSuccess(data));
+        onSuccess: (data: LoginResponse, variables: LoginParams) => {
+          dispatch(loginSuccess({ ...data, stayConnected: variables.stayConnected }));
         },
     });
   };

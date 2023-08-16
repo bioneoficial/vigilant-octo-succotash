@@ -240,7 +240,7 @@ export interface PostLogin {
 export interface LoginResponse{
   token: string;
   user: User;
-  stayConnected?: boolean;
+  stayConnected: boolean;
 }
 
 export interface CreateUser {

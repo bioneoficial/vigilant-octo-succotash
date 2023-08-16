@@ -32,16 +32,17 @@ export const HeaderHome: React.FC = (): JSX.Element => {
       sessionStorage.getItem("funktoonToken") ||
       "{}"
   );
-  const role: keyof typeof navigationMap = storedData.user.role || "";
+  const role: keyof typeof navigationMap = storedData?.user?.role || "";
 
   const navigationMap = {
     [UserRole.usuario]: userLinks,
     [UserRole.admin]: adminLinks,
     [UserRole.root]: adminLinks,
     [UserRole.autor]: authorLinks,
+    "": links,
   };
 
-  const navigationLinks = navigationMap[role] || links;
+  const navigationLinks = navigationMap[role];
 
   return (
     <header
