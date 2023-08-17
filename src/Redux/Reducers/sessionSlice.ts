@@ -5,6 +5,7 @@ import { UserRole } from '@/utils/enums';
 type SessionState = {
   user: User,
   token: null | string,
+  stayConnected: boolean,
 };
 
 const initialState: SessionState = {
@@ -17,7 +18,8 @@ const initialState: SessionState = {
       fotoPath: '',
       ativo: 0,
       data_validade_assinatura: '',
-    }
+    },
+    stayConnected: false,
 };
 
 const sessionSlice = createSlice({
@@ -25,10 +27,11 @@ const sessionSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess(state, action: PayloadAction<LoginResponse>) {
-      const { user, token } = action.payload;
+      const { user, token, stayConnected } = action.payload;
 
       state.user = user;
       state.token = token;
+      state.stayConnected = stayConnected;
 
       if (action.payload.stayConnected) {
         localStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
