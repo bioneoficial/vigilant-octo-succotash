@@ -1,5 +1,3 @@
-import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
-import "swiper/swiper-bundle.css";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 import FooterHomePage from "@/components/organisms/FooterHomePage/FooterHomePage";
 import { MyError } from "@/types/types";
@@ -11,8 +9,6 @@ import {
   getAllImagesByEpisodioId,
 } from "@/api/episodio";
 import PlayerContainer from "@/components/organisms/PlayerContainer/PlayerContainer";
-
-SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 export default function Home(): JSX.Element {
   const content = sessionStorage.getItem("content");
@@ -41,20 +37,38 @@ export default function Home(): JSX.Element {
       </div>
     );
   }
+
+  const ContentDetail: React.FC<{ data: Comic[] }> = ({ data }) => (
+    <div className="p-4">
+      <h2 className="text-2xl mb-4 text-center">{parsedContent.nome}</h2>
+      <div
+        className="mx-4 my-2 text-center"
+        dangerouslySetInnerHTML={{ __html: parsedContent.descricao }}
+      ></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {data.map((item, index) => (
+          <div key={index} className="text-center">
+            <img src={item.thumb} alt={item.nome} className="mx-auto mb-2" />
+            <div>{item.nome}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5 overflow-y-auto h-screen">
       <HeaderHome />
-      <div className="text-center">{parsedContent.nome}</div>
-      <div
-        className="mx-4 my-2"
-        dangerouslySetInnerHTML={{ __html: parsedContent.descricao }}
-      ></div>
+
       {!isLoading && !error && data && data.length > 0 && episodeImage && (
-        <PlayerContainer
-          data={{ name: data[0].nome }}
-          isEpisodeLoading={isEpisodeLoading}
-          episodeImage={episodeImage}
-        />
+        <div className="md:grid md:grid-cols-2 gap-4">
+          <PlayerContainer
+            data={{ name: data[0].nome }}
+            isEpisodeLoading={isEpisodeLoading}
+            episodeImage={episodeImage}
+          />
+          <ContentDetail data={data} />
+        </div>
       )}
       <FooterHomePage />
     </div>

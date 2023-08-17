@@ -19,7 +19,6 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
   isEpisodeLoading,
   episodeImage,
 }) => {
-  console.log(episodeImage.images);
   return (
     <div
       id="playerContainer"
