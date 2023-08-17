@@ -14,7 +14,7 @@ export default function Home(): JSX.Element {
   const content = sessionStorage.getItem("content");
   const parsedContent = JSON.parse(content || "{}");
   const { data, isLoading, error } = useQuery<Comic[], MyError>( // todos episodiso aqui
-    "getAllByConteudoId",
+    ["getAllByConteudoId", parsedContent.id],
     () => getAllByConteudoId(Number(parsedContent.id)),
     { enabled: !!parsedContent }
   );
@@ -81,8 +81,9 @@ export default function Home(): JSX.Element {
       <HeaderHome />
 
       {!isLoading && !error && data && data.length > 0 && episodeImage && (
-        <div className="md:grid md:grid-cols-2 gap-4">
+        <div className="md:grid md:grid-cols-3 gap-4">
           <PlayerContainer
+            className="md:col-span-2"
             data={{ name: data[0].nome }}
             isEpisodeLoading={isEpisodeLoading}
             episodeImage={episodeImage}
