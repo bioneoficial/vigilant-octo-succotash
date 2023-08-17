@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface PlayerContainerProps {
   className?: string;
@@ -10,6 +10,7 @@ interface PlayerContainerProps {
       url: string;
     }>;
   };
+  onScroll: (progress: number) => void;
 }
 
 const PlayerContainer: React.FC<PlayerContainerProps> = ({
@@ -17,14 +18,37 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
   isEpisodeLoading,
   episodeImage,
   className,
+  onScroll,
 }) => {
+  useEffect(() => {
+    const handleScroll = (): void => {
+      const container = document.getElementById("playerContainer");
+      if (container) {
+        const { scrollTop, scrollHeight, clientHeight } = container;
+        const scrollProgress =
+          (scrollTop / (scrollHeight - clientHeight)) * 100;
+        onScroll(scrollProgress);
+      }
+    };
+
+    const container = document.getElementById("playerContainer");
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [onScroll]);
+
   return (
     <div
-      id="playerContainer"
       className={`flex flex-col items-center justify-center h-screen ${className}`}
     >
       <h2 className="text-2xl mb-4">{nome}</h2>
-      <div className="h-screen w-full overflow-y-scroll">
+      <div className="h-screen w-full overflow-y-scroll" id="playerContainer">
         {!isEpisodeLoading &&
           episodeImage.images.map((image, index) => (
             <div className="w-full h-full relative mb-4" key={index}>

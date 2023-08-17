@@ -9,7 +9,7 @@ import {
   getAllImagesByEpisodioId,
 } from "@/api/episodio";
 import PlayerContainer from "@/components/organisms/PlayerContainer/PlayerContainer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Home(): JSX.Element {
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(
@@ -36,29 +36,6 @@ export default function Home(): JSX.Element {
     data?.find((episode) => episode.id === selectedEpisodeId) || data?.[0];
 
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = (): void => {
-      const container = document.getElementById("playerContainer");
-      if (container) {
-        const { scrollTop, scrollHeight, clientHeight } = container;
-        const scrollProgress =
-          (scrollTop / (scrollHeight - clientHeight)) * 100;
-        setProgress(scrollProgress);
-      }
-    };
-
-    const container = document.getElementById("playerContainer");
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
 
   if (error || episodeError) {
     return (
@@ -127,8 +104,9 @@ export default function Home(): JSX.Element {
       {!isLoading && !error && data && data.length > 0 && episodeImage && (
         <div className="md:grid md:grid-cols-3 gap-4 ml-8 ">
           <PlayerContainer
+            onScroll={setProgress}
             className="md:col-span-2"
-            nome={currentEpisode?.nome ?? ""}
+            nome={`${parsedContent.nome} - ${currentEpisode?.nome}` ?? ""}
             isEpisodeLoading={isEpisodeLoading}
             episodeImage={episodeImage}
           />
@@ -137,7 +115,7 @@ export default function Home(): JSX.Element {
       )}
       <div className="fixed bottom-0 left-0 h-2.5 w-full bg-slate-950 z-50">
         <div
-          className="h-full bg-blue-500"
+          className="h-full bg-[#8b00d1] z-99"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
