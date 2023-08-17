@@ -40,6 +40,16 @@ export default function Home(): JSX.Element {
 
   const ContentDetail: React.FC<{ data: Comic[] }> = ({ data }) => (
     <div className="p-4">
+      <div
+        className="relative h-64 bg-center bg-cover mb-6 overflow-visible"
+        style={{ backgroundImage: `url(${parsedContent.imagem_banner})` }}
+      >
+        <img
+          src={parsedContent.imagem_capa}
+          alt="Capa"
+          className="absolute bottom-[-10%] left-0 w-1/3 h-[80%] object-contain"
+        />
+      </div>
       <h2 className="text-2xl mb-4 text-center font-bold">
         {parsedContent.nome}
       </h2>
@@ -81,7 +91,7 @@ export default function Home(): JSX.Element {
       <HeaderHome />
 
       {!isLoading && !error && data && data.length > 0 && episodeImage && (
-        <div className="md:grid md:grid-cols-3 gap-4">
+        <div className="md:grid md:grid-cols-3 gap-4 ml-8">
           <PlayerContainer
             className="md:col-span-2"
             data={{ name: data[0].nome }}

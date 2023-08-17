@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 interface PlayerContainerProps {
   className?: string;
@@ -31,12 +30,10 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
         {!isEpisodeLoading &&
           episodeImage.images.map((image, index) => (
             <div className="w-full h-full relative mb-4" key={index}>
-              <Image
+              <img
                 src={image.url}
                 alt={data.name}
-                fill
-                style={{ objectFit: "contain" }}
-                quality={100}
+                style={{ objectFit: "scale-down" }}
               />
             </div>
           ))}
