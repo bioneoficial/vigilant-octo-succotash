@@ -9,8 +9,12 @@ import {
   getAllImagesByEpisodioId,
 } from "@/api/episodio";
 import PlayerContainer from "@/components/organisms/PlayerContainer/PlayerContainer";
+import { useState } from "react";
 
 export default function Home(): JSX.Element {
+  const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(
+    null
+  );
   const content = sessionStorage.getItem("content");
   const parsedContent = JSON.parse(content || "{}");
   const { data, isLoading, error } = useQuery<Comic[], MyError>( // todos episodiso aqui
@@ -24,10 +28,12 @@ export default function Home(): JSX.Element {
     isLoading: isEpisodeLoading,
     error: episodeError,
   } = useQuery<ComicWithImages, MyError>(
-    ["getAllImagesByEpisodioId", data?.[0]?.id],
-    () => getAllImagesByEpisodioId(data?.[0]?.id || 0),
-    { enabled: !!data?.[0].id }
+    ["getAllImagesByEpisodioId", selectedEpisodeId || data?.[0]?.id],
+    () => getAllImagesByEpisodioId(selectedEpisodeId || data?.[0]?.id || 0),
+    { enabled: !!selectedEpisodeId || !!data?.[0].id }
   );
+  const currentEpisode =
+    data?.find((episode) => episode.id === selectedEpisodeId) || data?.[0];
 
   if (error || episodeError) {
     return (
@@ -60,7 +66,11 @@ export default function Home(): JSX.Element {
       <div className="h-[500px]  overflow-y-scroll custom-scrollbar">
         <h4 className="font-bold text-center mb-2">Episódios</h4>
         {data.map((item, index) => (
-          <div key={index} className="text-center mb-4">
+          <div
+            key={index}
+            className="text-center mb-4 cursor-pointer"
+            onClick={(): void => setSelectedEpisodeId(item.id)}
+          >
             <h4>{item.nome}</h4>
             <img src={item.thumb} alt={item.nome} className="mx-auto" />
           </div>
@@ -87,14 +97,14 @@ export default function Home(): JSX.Element {
   );
 
   return (
-    <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5 overflow-y-auto h-screen">
+    <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5 overflow-y-auto h-full">
       <HeaderHome />
 
       {!isLoading && !error && data && data.length > 0 && episodeImage && (
-        <div className="md:grid md:grid-cols-3 gap-4 ml-8">
+        <div className="md:grid md:grid-cols-3 gap-4 ml-8 ">
           <PlayerContainer
             className="md:col-span-2"
-            data={{ name: data[0].nome }}
+            nome={currentEpisode?.nome ?? ""}
             isEpisodeLoading={isEpisodeLoading}
             episodeImage={episodeImage}
           />

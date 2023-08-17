@@ -2,9 +2,7 @@ import React from "react";
 
 interface PlayerContainerProps {
   className?: string;
-  data: {
-    name: string;
-  };
+  nome: string;
   isEpisodeLoading: boolean;
   episodeImage: {
     images: Array<{
@@ -15,7 +13,7 @@ interface PlayerContainerProps {
 }
 
 const PlayerContainer: React.FC<PlayerContainerProps> = ({
-  data,
+  nome,
   isEpisodeLoading,
   episodeImage,
   className,
@@ -25,14 +23,14 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
       id="playerContainer"
       className={`flex flex-col items-center justify-center h-screen ${className}`}
     >
-      <h2 className="text-2xl mb-4">{data.name}</h2>
+      <h2 className="text-2xl mb-4">{nome}</h2>
       <div className="h-screen w-full overflow-y-scroll">
         {!isEpisodeLoading &&
           episodeImage.images.map((image, index) => (
             <div className="w-full h-full relative mb-4" key={index}>
               <img
                 src={image.url}
-                alt={data.name}
+                alt={nome}
                 style={{ objectFit: "scale-down" }}
               />
             </div>
