@@ -40,19 +40,39 @@ export default function Home(): JSX.Element {
 
   const ContentDetail: React.FC<{ data: Comic[] }> = ({ data }) => (
     <div className="p-4">
-      <h2 className="text-2xl mb-4 text-center">{parsedContent.nome}</h2>
+      <h2 className="text-2xl mb-4 text-center font-bold">
+        {parsedContent.nome}
+      </h2>
       <div
         className="mx-4 my-2 text-center"
         dangerouslySetInnerHTML={{ __html: parsedContent.descricao }}
       ></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="h-[500px]  overflow-y-scroll custom-scrollbar">
+        <h4 className="font-bold text-center mb-2">Episódios</h4>
         {data.map((item, index) => (
-          <div key={index} className="text-center">
-            <img src={item.thumb} alt={item.nome} className="mx-auto mb-2" />
-            <div>{item.nome}</div>
+          <div key={index} className="text-center mb-4">
+            <h4>{item.nome}</h4>
+            <img src={item.thumb} alt={item.nome} className="mx-auto" />
           </div>
         ))}
       </div>
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: #9ca3af;
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background-color: #f3f4f6;
+          border-radius: 4px;
+        }
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #9ca3af #f3f4f6;
+        }
+      `}</style>
     </div>
   );
 
