@@ -113,9 +113,12 @@ export default function Home(): JSX.Element {
           <ContentDetail data={data} />
         </div>
       )}
-      <div className="fixed bottom-0 left-0 h-2.5 w-full bg-slate-950 z-50">
+      <div className="fixed bottom-0 left-0 h-4 w-full bg-slate-950 z-40 flex text-center">
+        <span className="fixed bottom-0 h-4 w-full  z-99  text-white">
+          {progress.toFixed(1)}% completo
+        </span>
         <div
-          className="h-full bg-[#8b00d1] z-99"
+          className="h-full bg-[#8b00d1] z-50"
           style={{ width: `${progress}%` }}
         ></div>
       </div>

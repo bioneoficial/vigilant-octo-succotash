@@ -51,11 +51,11 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
       <div className="h-screen w-full overflow-y-scroll" id="playerContainer">
         {!isEpisodeLoading &&
           episodeImage.images.map((image, index) => (
-            <div className="w-full h-full relative mb-4" key={index}>
+            <div className="relative mb-4" key={index}>
               <img
                 src={image.url}
                 alt={nome}
-                style={{ objectFit: "scale-down" }}
+                style={{ objectFit: "contain" }}
               />
             </div>
           ))}
