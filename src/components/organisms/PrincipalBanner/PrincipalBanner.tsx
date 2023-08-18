@@ -39,7 +39,7 @@ const PrincipalBanner: React.FC<PrincipalBannerProps> = ({
             slidesPerView: 3,
           },
         }}
-        className="sm:h-96 fold:h-80"
+        className="sm:h-96 fold:h-80 cursor-pointer"
       >
         {sortedBannerItems.map((item, index) => (
           <SwiperSlide key={index}>
