@@ -2,14 +2,21 @@ import { InputField } from "@/components/atoms/InputField";
 import { MainTemplate } from "@/components/templates/MainTemplate";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import toastService from "@/utils/toastService";
+import { updateUser } from "@/api/usuario";
+import { handlePasswordResetError } from "@/utils/utils";
 
 export default function MyProfile(): JSX.Element {
   const [userEmail, serUserEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [token, setToken] = useState<string>("");
+  const [id, setUserId] = useState<number>(0);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(
     "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo"
   );
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -30,13 +37,35 @@ export default function MyProfile(): JSX.Element {
     event.preventDefault();
   };
 
-  const handlePasswordSubmit = (event: {
-    preventDefault: () => void;
-  }): void => {
+  const handlePasswordSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
+    const { success } = toastService();
+
+    if (newPassword && confirmPassword && newPassword === confirmPassword) {
+      try {
+        const response = await updateUser(token, { senha: newPassword, id });
+
+        if (response.success) {
+          success("Password updated successfully!");
+        } else {
+          handlePasswordResetError(response.error, toastService());
+          // window.alert("Failed to update password: " + response.error);
+        }
+      } catch (error) {
+        handlePasswordResetError(error, toastService());
+        // window.alert("An error occurred while updating the password: ");
+      }
+    } else {
+      handlePasswordResetError(
+        { message: "senha não coincide" },
+        toastService()
+      );
+    }
   };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value);
   };
 
@@ -47,9 +76,12 @@ export default function MyProfile(): JSX.Element {
     const token = tokenInLocalStorage || tokenInSessionStorage;
     if (token) {
       const parsedToken = JSON.parse(token);
+
       serUserEmail(parsedToken.user.email);
       setName(parsedToken.user.nome);
       setDescription(parsedToken.user.descricao);
+      setToken(parsedToken.token);
+      setUserId(parsedToken.user.id);
     }
   }, []);
 
@@ -124,6 +156,8 @@ export default function MyProfile(): JSX.Element {
               type="password"
               placeholder="Nova Senha"
               classNameInput={["w-full my-2 p-2 border rounded"]}
+              initialValue={newPassword}
+              onChange={(e): void => setNewPassword(e.target.value)}
             />
             <InputField
               label="Confirmar Senha"
@@ -131,6 +165,8 @@ export default function MyProfile(): JSX.Element {
               type="password"
               placeholder="Confirmar Senha"
               classNameInput={["w-full my-2 p-2 border rounded"]}
+              initialValue={confirmPassword}
+              onChange={(e): void => setConfirmPassword(e.target.value)}
             />
             <button
               type="submit"

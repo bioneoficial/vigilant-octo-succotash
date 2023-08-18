@@ -25,7 +25,6 @@ export default function toastService(): ToastService {
         // dispatch(setToastSuccess(false));
         toast.error(message, options);
     };
-
     // similarly for warn(), info(), etc.
     
     return { success, error: errorT };

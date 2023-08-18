@@ -147,7 +147,7 @@ export const handlePasswordResetError= (err: any, toastService: ToastService): v
         toastService.error(`Bad response error: ${err.message}`);
       break;
     default:
-      toastService.error(`Unknown error: ${err.message}`);
+      toastService.error(`${err.message}`);
   }
 }
 

@@ -89,7 +89,7 @@ export interface cupom {
   createdAt: Date;
 }
 
-export interface user { // ajeitar user com o banco, falta description, assinatura entre outros?
+export interface user {
   id: number;
   nome: string;
   email: string;
@@ -101,6 +101,7 @@ export interface user { // ajeitar user com o banco, falta description, assinatu
   isSubscriber?: boolean;
   descricao?: string;
   fotoPath?: string;
+  password?: string;
 }
 export interface User {
   id: number;
@@ -111,6 +112,18 @@ export interface User {
   ativo: number;
   data_validade_assinatura: string;
   descricao?: string;
+}
+
+export interface UpdateUser {
+  id?: number;
+  nome?: string;
+  email?: string;
+  role?: UserRole;
+  fotoPath?: string;
+  ativo?: number;
+  data_validade_assinatura?: string;
+  descricao?: string;
+  senha?: string;
 }
 export interface BannerSelectionProps {
   urlImageBannerSelection: string;
@@ -275,8 +288,11 @@ export interface ToastService {
 }
 
 export interface Response {
+  success: any;
   message: string;
   sucess: boolean;
+  error?: string;
+  data?: any;
 }
 export type ResetPasswordResponse = Response & {
   token: string;
