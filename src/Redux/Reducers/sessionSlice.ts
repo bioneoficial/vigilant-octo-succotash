@@ -17,6 +17,7 @@ const initialState: SessionState = {
       role: UserRole.empty,
       fotoPath: '',
       ativo: 0,
+      descricao: '',
       data_validade_assinatura: '',
     },
     stayConnected: false,

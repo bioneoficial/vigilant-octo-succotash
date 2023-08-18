@@ -6,10 +6,16 @@ import Image from "next/image";
 export default function MyProfile(): JSX.Element {
   const [userEmail, serUserEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
-
+  const [description, setDescription] = useState<string>("");
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(
     "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo"
   );
+
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    setDescription(e.target.value);
+  };
 
   const handleImageChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -43,6 +49,7 @@ export default function MyProfile(): JSX.Element {
       const parsedToken = JSON.parse(token);
       serUserEmail(parsedToken.user.email);
       setName(parsedToken.user.nome);
+      setDescription(parsedToken.user.descricao);
     }
   }, []);
 
@@ -76,6 +83,8 @@ export default function MyProfile(): JSX.Element {
             <label>
               Sobre
               <textarea
+                value={description}
+                onChange={handleDescriptionChange}
                 placeholder="Biografia"
                 className=" w-full my-2 p-2 border border-gray-400 rounded"
               />

@@ -110,6 +110,7 @@ export interface User {
   fotoPath: string;
   ativo: number;
   data_validade_assinatura: string;
+  descricao?: string;
 }
 export interface BannerSelectionProps {
   urlImageBannerSelection: string;
