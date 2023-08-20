@@ -3,13 +3,18 @@ import { MainTemplate } from "@/components/templates/MainTemplate";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import toastService from "@/utils/toastService";
-import { updateUser } from "@/api/usuario";
-import { handlePasswordResetError } from "@/utils/utils";
+import { updateUser, getUserById } from "@/api/usuario";
+import {
+  handlePasswordResetError,
+  isValidName,
+  isValidPassword,
+} from "@/utils/utils";
+import { useQuery } from "react-query";
 
 export default function MyProfile(): JSX.Element {
-  const [userEmail, serUserEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [nome, setNome] = useState<string>("");
+  const [descricao, setDescricao] = useState<string>("");
   const [token, setToken] = useState<string>("");
   const [id, setUserId] = useState<number>(0);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(
@@ -17,11 +22,20 @@ export default function MyProfile(): JSX.Element {
   );
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const { success } = toastService();
+
+  const { data: userData, isLoading } = useQuery(
+    ["getUserById", id],
+    () => getUserById(id),
+    {
+      enabled: !!id,
+    }
+  );
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ): void => {
-    setDescription(e.target.value);
+    setDescricao(e.target.value);
   };
 
   const handleImageChange = (
@@ -33,15 +47,31 @@ export default function MyProfile(): JSX.Element {
     }
   };
 
-  const handleProfileSubmit = (event: { preventDefault: () => void }): void => {
+  const handleProfileSubmit = async (event: {
+    preventDefault: () => void;
+  }): Promise<void> => {
     event.preventDefault();
+    try {
+      if (!isValidName(nome)) {
+        toastService().error("O nome deve ter entre 2 e 90 caracteres.");
+        return;
+      }
+
+      const response = await updateUser(token, { nome, descricao, id });
+      if (response.sucess) success("Profile updated successfully!");
+    } catch (error) {
+      handlePasswordResetError(error, toastService());
+    }
   };
 
   const handlePasswordSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    const { success } = toastService();
+    if (!isValidPassword(newPassword) || !isValidPassword(confirmPassword)) {
+      toastService().error("A senha deve ter entre 8 e 30 caracteres.");
+      return;
+    }
 
     if (newPassword && confirmPassword && newPassword === confirmPassword) {
       try {
@@ -51,11 +81,9 @@ export default function MyProfile(): JSX.Element {
           success("Password updated successfully!");
         } else {
           handlePasswordResetError(response.error, toastService());
-          // window.alert("Failed to update password: " + response.error);
         }
       } catch (error) {
         handlePasswordResetError(error, toastService());
-        // window.alert("An error occurred while updating the password: ");
       }
     } else {
       handlePasswordResetError(
@@ -66,7 +94,7 @@ export default function MyProfile(): JSX.Element {
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setName(e.target.value);
+    setNome(e.target.value);
   };
 
   useEffect(() => {
@@ -76,14 +104,19 @@ export default function MyProfile(): JSX.Element {
     const token = tokenInLocalStorage || tokenInSessionStorage;
     if (token) {
       const parsedToken = JSON.parse(token);
-
-      serUserEmail(parsedToken.user.email);
-      setName(parsedToken.user.nome);
-      setDescription(parsedToken.user.descricao);
       setToken(parsedToken.token);
       setUserId(parsedToken.user.id);
     }
-  }, []);
+    if (userData) {
+      setUserEmail(userData.email);
+      setNome(userData.nome);
+      setDescricao(userData.descricao);
+    }
+  }, [userData]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <MainTemplate>
@@ -97,8 +130,8 @@ export default function MyProfile(): JSX.Element {
               label="Nome"
               name="Nome"
               placeholder="Nome"
-              initialValue={name}
-              onChange={handleNameChange} // Bind the onChange event
+              initialValue={nome}
+              onChange={handleNameChange}
               classNameInput={["w-full my-2 p-2 border rounded"]}
             />
 
@@ -115,7 +148,7 @@ export default function MyProfile(): JSX.Element {
             <label>
               Sobre
               <textarea
-                value={description}
+                value={descricao}
                 onChange={handleDescriptionChange}
                 placeholder="Biografia"
                 className=" w-full my-2 p-2 border border-gray-400 rounded"

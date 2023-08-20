@@ -117,11 +117,8 @@ export interface User {
 export interface UpdateUser {
   id?: number;
   nome?: string;
-  email?: string;
-  role?: UserRole;
   fotoPath?: string;
   ativo?: number;
-  data_validade_assinatura?: string;
   descricao?: string;
   senha?: string;
 }

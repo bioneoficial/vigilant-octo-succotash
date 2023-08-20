@@ -186,3 +186,11 @@ export const handleContentClick = async (router: NextRouter, conteudo_id: number
     console.error("Failed to fetch content by ID:", err);
   }
 };
+
+export const isValidName = (name: string): boolean => {
+  return name.length >= 2 && name.length <= 90;
+};
+
+export const isValidPassword = (password: string): boolean => {
+  return password.length >= 8 && password.length <= 30;
+};
