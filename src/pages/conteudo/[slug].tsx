@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 import FooterHomePage from "@/components/organisms/FooterHomePage/FooterHomePage";
 import { MyError } from "@/types/types";
@@ -15,6 +16,7 @@ export default function Home(): JSX.Element {
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(
     null
   );
+  const [isOpen, setIsOpen] = useState(true);
   const content = sessionStorage.getItem("content");
   const parsedContent = JSON.parse(content || "{}");
   const { data, isLoading, error } = useQuery<Comic[], MyError>( // todos episodiso aqui
@@ -110,7 +112,27 @@ export default function Home(): JSX.Element {
             isEpisodeLoading={isEpisodeLoading}
             episodeImage={episodeImage}
           />
-          <ContentDetail data={data} />
+          <div
+            style={{
+              transform: `translateX(${isOpen ? "0%" : "90%"})`,
+              transition: "transform 0.3s ease-out",
+            }}
+          >
+            <button
+              className="absolute border-2 border-black rounded-full w-1/12 z-20 left-0 top-1/2 -translate-y-1/2"
+              onClick={(): void => setIsOpen(!isOpen)}
+            >
+              <img
+                src={
+                  isOpen
+                    ? "/images/chevron-double-right.svg"
+                    : "/images/chevron-double-left.svg"
+                }
+                alt={isOpen ? "Close" : "Open"}
+              />
+            </button>
+            <ContentDetail data={data} />
+          </div>
         </div>
       )}
       <div className="fixed bottom-0 left-0 h-4 w-full bg-slate-950 z-40 flex text-center">
