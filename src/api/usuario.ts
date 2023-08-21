@@ -28,6 +28,6 @@ export async function getAllUsers(): Promise<Array<getAllUsersResponse>> {
   // }
 
   export async function updatePhoto(user: updatePhoto): Promise<updatePhoto> {
-    const response = await axios.put(`${apiConfig.userApiUrl}/`, user);
+    const response = await axios.post(`${apiConfig.userApiUrl}/updatePhoto`, user);
     return response.data;
   }

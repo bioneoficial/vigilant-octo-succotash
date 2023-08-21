@@ -17,9 +17,7 @@ export default function MyProfile(): JSX.Element {
   const [descricao, setDescricao] = useState<string>("");
   const [token, setToken] = useState<string>("");
   const [id, setUserId] = useState<number>(0);
-  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(
-    "https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo"
-  );
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { success } = toastService();
@@ -111,7 +109,9 @@ export default function MyProfile(): JSX.Element {
       setUserEmail(userData.email);
       setNome(userData.nome);
       setDescricao(userData.descricao);
+      setPreviewImageUrl(userData.fotoPath);
     }
+    console.log(userData);
   }, [userData]);
 
   if (isLoading) {
