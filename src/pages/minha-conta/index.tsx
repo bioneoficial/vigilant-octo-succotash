@@ -3,7 +3,7 @@ import { MainTemplate } from "@/components/templates/MainTemplate";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import toastService from "@/utils/toastService";
-import { updateUser, getUserById } from "@/api/usuario";
+import { updateUser, getUserById, updatePhoto } from "@/api/usuario";
 import {
   handlePasswordResetError,
   isValidName,
@@ -22,13 +22,13 @@ export default function MyProfile(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { success } = toastService();
 
-  const { data: userData, isLoading } = useQuery(
-    ["getUserById", id],
-    () => getUserById(id),
-    {
-      enabled: !!id,
-    }
-  );
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useQuery(["getUserById", id], () => getUserById(id), {
+    enabled: !!id,
+  });
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -36,12 +36,46 @@ export default function MyProfile(): JSX.Element {
     setDescricao(e.target.value);
   };
 
-  const handleImageChange = (
+  const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  ): Promise<void> => {
     if (event.target.files && event.target.files[0]) {
       const imageUrl = URL.createObjectURL(event.target.files[0]);
       setPreviewImageUrl(imageUrl);
+
+      const formData = new FormData();
+      formData.append("foto", event.target.files[0]);
+      formData.append("id", id.toString());
+
+      try {
+        const response = await updatePhoto(token, formData);
+        if (response.success) {
+          success("Image updated successfully!");
+          await refetch();
+
+          const tokenInLocalStorage = localStorage.getItem("funktoonToken");
+          if (tokenInLocalStorage && userData) {
+            const parsedToken = JSON.parse(tokenInLocalStorage);
+            parsedToken.user.fotoPath = userData.fotoPath;
+            localStorage.setItem("funktoonToken", JSON.stringify(parsedToken));
+          } else {
+            const tokenInSessionStorage =
+              sessionStorage.getItem("funktoonToken");
+            if (tokenInSessionStorage && userData) {
+              const parsedToken = JSON.parse(tokenInSessionStorage);
+              parsedToken.user.fotoPath = userData.fotoPath;
+              sessionStorage.setItem(
+                "funktoonToken",
+                JSON.stringify(parsedToken)
+              );
+            }
+          }
+        } else {
+          throw new Error(response.error || "Failed to update image");
+        }
+      } catch (error) {
+        toastService().error("An error occurred.");
+      }
     }
   };
 

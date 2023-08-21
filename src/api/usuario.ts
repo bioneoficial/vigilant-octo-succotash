@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiConfig } from './apiConfig';
-import { CreateUser, CreateUserResponse, Response, UpdateUser, getAllUsersResponse, updatePhoto } from '@/types/types';
+import { CreateUser, CreateUserResponse, Response, UpdateUser, getAllUsersResponse } from '@/types/types';
 
 export async function getAllUsers(): Promise<Array<getAllUsersResponse>> {
     const response = await axios.get(apiConfig.userApiUrl);
@@ -27,7 +27,7 @@ export async function getAllUsers(): Promise<Array<getAllUsersResponse>> {
   //   return response.data;
   // }
 
-  export async function updatePhoto(user: updatePhoto): Promise<updatePhoto> {
-    const response = await axios.post(`${apiConfig.userApiUrl}/updatePhoto`, user);
+  export async function updatePhoto(token: string, data: FormData): Promise<Response> {
+    const response = await axios.post(`${apiConfig.userApiUrl}/updatePhoto`, data, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }

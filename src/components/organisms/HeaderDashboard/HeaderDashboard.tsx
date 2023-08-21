@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { HeaderDashboardProps, profileMenuItemData } from "@/types/types";
@@ -16,6 +16,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
   open,
   toggleMenu,
 }): JSX.Element => {
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const profileMenuItems: profileMenuItemData[] = [
     {
       name: "Notificações",
@@ -40,6 +41,20 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
     },
   ];
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const tokenInLocalStorage = localStorage.getItem("funktoonToken");
+    const tokenInSessionStorage = sessionStorage.getItem("funktoonToken");
+
+    const token = tokenInLocalStorage || tokenInSessionStorage;
+    if (token) {
+      const parsedToken = JSON.parse(token);
+      if (parsedToken) {
+        setPreviewImageUrl(parsedToken.user.fotoPath);
+      }
+    }
+  }, []);
+
   return (
     <header
       className={`bg-[#fff] shadow-md transform transition-all ease-out duration-300 ${
@@ -90,7 +105,7 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
                     className="h-8 w-8 rounded-full"
                     width={32}
                     height={32}
-                    src="https://media.licdn.com/dms/image/D4D03AQH3XhCLMfcx0w/profile-displayphoto-shrink_400_400/0/1668354197751?e=1689206400&v=beta&t=9jTu05zEYjo6WcK6NtCuCo0tI-deZtdHPS6mUENAduo"
+                    src={previewImageUrl || "/images/profile-photo.svg"}
                     alt="Profile Picture"
                   />
                   <Image

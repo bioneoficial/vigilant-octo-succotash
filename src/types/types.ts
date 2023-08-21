@@ -238,10 +238,6 @@ export interface getAllUsersResponse {
   tipo: UserRole;
 }
 
-export interface updatePhoto {
-  id: number;
-  foto: File;
-}
 
 export interface PostLogin {
   email: string;
