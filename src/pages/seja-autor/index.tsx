@@ -1,8 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import "swiper/swiper-bundle.css";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
-import { useDispatch } from "react-redux";
-
 import { InputField } from "@/components/atoms/InputField";
 import { useEffect, useState } from "react";
 
@@ -79,7 +76,6 @@ const UserDataForm: React.FC = () => {
 };
 
 export default function Home(): JSX.Element {
-  const dispatch = useDispatch();
   const [code, setCode] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
 
