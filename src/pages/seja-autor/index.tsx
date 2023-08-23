@@ -2,6 +2,7 @@ import "swiper/swiper-bundle.css";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 import { InputField } from "@/components/atoms/InputField";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/atoms/Button";
 
 const UserDataForm: React.FC = () => {
   return (
@@ -97,14 +98,21 @@ export default function Home(): JSX.Element {
         Enviamos um email para {userEmail}, digite o codigo do email no campo
         abaixo para confirmar sua conta
       </p>
-      <InputField
-        placeholder="Digite aqui"
-        type="text"
-        name="codigo"
-        label="Codigo: "
-        initialValue={code}
-        onChange={(e): void => setCode(e.target.value)}
-      />
+      <div>
+        <InputField
+          placeholder="Digite aqui"
+          type="text"
+          name="codigo"
+          label="Codigo: "
+          initialValue={code}
+          onChange={(e): void => setCode(e.target.value)}
+        />
+        <Button
+          title="Validar"
+          status
+          onClick={(): void => window.alert(`Validado`)}
+        />
+      </div>
       <UserDataForm />
     </div>
   );

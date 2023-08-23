@@ -1,5 +1,4 @@
 import { InputField } from "@/components/atoms/InputField";
-import { MainTemplate } from "@/components/templates/MainTemplate";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import toastService from "@/utils/toastService";
@@ -10,6 +9,7 @@ import {
   isValidPassword,
 } from "@/utils/utils";
 import { useQuery } from "react-query";
+import { HeaderHome } from "@/components/organisms/HeaderHome";
 
 export default function MyProfile(): JSX.Element {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -153,7 +153,8 @@ export default function MyProfile(): JSX.Element {
   }
 
   return (
-    <MainTemplate>
+    <>
+      <HeaderHome />
       <h2 className=" ml-6 mb-4 text-2xl font-semibold">Perfil</h2>
 
       <div className=" ml-6 mx-auto flex flex-row justify-between items-start">
@@ -244,6 +245,6 @@ export default function MyProfile(): JSX.Element {
           </fieldset>
         </form>
       </div>
-    </MainTemplate>
+    </>
   );
 }
