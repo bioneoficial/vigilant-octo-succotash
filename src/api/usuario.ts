@@ -32,8 +32,8 @@ export async function updatePhoto(token: string, data: FormData): Promise<Respon
     return response.data;
   }
 
-export async function requestEmailCode(token:string): Promise<{success: boolean, code: string}> {
-    const response = await axios.get(`${apiConfig.userApiUrl}/request-email-code`, { headers: { 'Authorization': `Bearer ${token}` }});
+export async function getEmailCode(token:string): Promise<{success: boolean, code: string}> {
+    const response = await axios.post(`${apiConfig.userApiUrl}/request-email-code`,{}, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }
 
