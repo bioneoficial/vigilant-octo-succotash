@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { HeaderDashboard } from "@/components/organisms/HeaderDashboard";
 import { SideMenuDashboard } from "@/components/organisms/SideMenuDashboard";
-import { MainTemplateProps, MyError, modelTypeInterface } from "@/types/types";
+import { MainTemplateProps, modelTypeInterface } from "@/types/types";
 import { Modal } from "@/components/organisms/Modal";
 import {
   ModalState,

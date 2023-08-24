@@ -120,29 +120,29 @@ const InputFieldComponent: React.FC<Props> = ({
     );
   }
 
-  return (
-    <label className={classNames(...className)} htmlFor={id}>
-      {label}
-      <input
-        aria-invalid={!!errorMessage}
-        autoFocus={autoFocus}
-        className={classNames(...classNameInput)}
-        value={initialValue ?? ""}
-        name={name}
-        placeholder={placeholder}
-        onChange={onChange}
-        required={required}
-        type={type}
-        id={id}
-        ref={inputRef}
-      />
-      {!!errorMessage && (
-        <div className={`${errorMessageFontSize} text-red-600`}>
-          {errorMessage}
-        </div>
-      )}
-    </label>
-  );
+  // return (
+  //   <label className={classNames(...className)} htmlFor={id}>
+  //     {label}
+  //     <input
+  //       aria-invalid={!!errorMessage}
+  //       autoFocus={autoFocus}
+  //       className={classNames(...classNameInput)}
+  //       value={initialValue ?? ""}
+  //       name={name}
+  //       placeholder={placeholder}
+  //       onChange={onChange}
+  //       required={required}
+  //       type={type}
+  //       id={id}
+  //       ref={inputRef}
+  //     />
+  //     {!!errorMessage && (
+  //       <div className={`${errorMessageFontSize} text-red-600`}>
+  //         {errorMessage}
+  //       </div>
+  //     )}
+  //   </label>
+  // );
 };
 
 export const InputField = memo(InputFieldComponent);
