@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { HeaderDashboard } from "@/components/organisms/HeaderDashboard";
 import { SideMenuDashboard } from "@/components/organisms/SideMenuDashboard";

@@ -25,8 +25,12 @@ export default function toastService(): ToastService {
         // dispatch(setToastSuccess(false));
         toast.error(message, options);
     };
-    // similarly for warn(), info(), etc.
+
+    const warn = (message: string): void => {
+        toast.warn(message, options);
+    };
+    // similarly for info() etc.
     
-    return { success, error: errorT };
+    return { success, error: errorT, warn };
 }
 

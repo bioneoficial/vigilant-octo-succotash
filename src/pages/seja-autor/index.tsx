@@ -7,6 +7,8 @@ import { getEmailCode, verifyEmailCode } from "@/api/usuario";
 import { useMutation } from "react-query";
 import UserDataForm from "@/components/organisms/UserDataForm/UserDataForm";
 import toastService from "@/utils/toastService";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home(): JSX.Element {
   const [code, setCode] = useState<string>("");
@@ -115,6 +117,18 @@ export default function Home(): JSX.Element {
           <UserDataForm />
         </>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

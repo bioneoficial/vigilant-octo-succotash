@@ -10,6 +10,8 @@ import {
 } from "@/utils/utils";
 import { useQuery } from "react-query";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function MyProfile(): JSX.Element {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -90,7 +92,7 @@ export default function MyProfile(): JSX.Element {
       }
 
       const response = await updateUser(token, { nome, descricao, id });
-      if (response.sucess) success("Profile updated successfully!");
+      if (response.success) success("Profile updated successfully!");
     } catch (error) {
       handlePasswordResetError(error, toastService());
     }
@@ -245,6 +247,18 @@ export default function MyProfile(): JSX.Element {
           </fieldset>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

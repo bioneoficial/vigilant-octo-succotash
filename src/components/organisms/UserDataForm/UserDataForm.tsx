@@ -1,5 +1,6 @@
 import { Button } from "@/components/atoms/Button";
 import { InputField } from "@/components/atoms/InputField";
+import toastService from "@/utils/toastService";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -14,7 +15,16 @@ const UserDataForm: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    let newValue = value;
+    if (name === "cpfOrCnpj") {
+      newValue = value.replace(/\D/g, "");
+      newValue = newValue.replace(/(\d{3})(\d)/, "$1.$2");
+      newValue = newValue.replace(/(\d{3})(\d)/, "$1.$2");
+      newValue = newValue.replace(/(\d{3})(\d{1,2})/, "$1-$2");
+      newValue = newValue.substring(0, 14);
+    }
+
+    setFormData((prevData) => ({ ...prevData, [name]: newValue }));
   };
 
   const handleCheckboxChange = (
@@ -24,8 +34,36 @@ const UserDataForm: React.FC = () => {
     setFormData((prevData) => ({ ...prevData, [name]: checked }));
   };
 
+  const validateForm = (): boolean => {
+    if (
+      !formData.termsOfUse ||
+      !formData.copyright ||
+      !formData.ageConfirmation
+    ) {
+      window.alert("Por favor, confirme todos os termos e condições.");
+      return false;
+    } else if (
+      !formData.fullName.trim() ||
+      formData.fullName.trim().length < 2
+    ) {
+      window.alert("Por favor, insira seu nome completo.");
+      return false;
+    } else if (
+      !formData.cpfOrCnpj.trim() ||
+      formData.cpfOrCnpj.trim().length !== 14
+    ) {
+      toastService().error("Por favor, insira seu CPF ou CNPJ.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleUpdateClick = (): void => {
-    // Validation logic will go here
+    if (!validateForm()) {
+      return;
+    }
+    console.log(formData);
     window.alert("sucesso pai"); // Temporary success alert
   };
   return (

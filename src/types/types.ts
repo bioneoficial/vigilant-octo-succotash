@@ -277,6 +277,7 @@ export interface RegisterFormErrors {
 export interface ToastService {
   success: (message: string) => void;
   error: (message?: string) => void;
+  warn: (message: string) => void;
   // Add other toast methods like warn(), info(), etc. if needed
 }
 
