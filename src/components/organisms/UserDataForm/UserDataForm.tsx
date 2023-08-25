@@ -1,6 +1,7 @@
 import { Button } from "@/components/atoms/Button";
 import { InputField } from "@/components/atoms/InputField";
 import toastService from "@/utils/toastService";
+import { ehUmCPF } from "@/utils/utils";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -53,6 +54,11 @@ const UserDataForm: React.FC = () => {
       formData.cpfOrCnpj.trim().length !== 14
     ) {
       toastService().error("Por favor, insira seu CPF ou CNPJ.");
+      return false;
+    }
+
+    if (!ehUmCPF(formData.cpfOrCnpj.trim())) {
+      toastService().error("CPF inválido.");
       return false;
     }
 
