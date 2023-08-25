@@ -1,11 +1,14 @@
+import { PostUserToAutor } from "@/api/usuario";
 import { Button } from "@/components/atoms/Button";
 import { InputField } from "@/components/atoms/InputField";
 import toastService from "@/utils/toastService";
 import { ehUmCPF } from "@/utils/utils";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMutation } from "react-query";
 
 const UserDataForm: React.FC = () => {
+  const [token, setToken] = useState<string>("");
   const [formData, setFormData] = useState({
     fullName: "",
     cpfOrCnpj: "",
@@ -13,6 +16,17 @@ const UserDataForm: React.FC = () => {
     copyright: false,
     ageConfirmation: false,
   });
+
+  useEffect(() => {
+    const tokenInLocalStorage = localStorage.getItem("funktoonToken");
+    const tokenInSessionStorage = sessionStorage.getItem("funktoonToken");
+
+    const token = tokenInLocalStorage || tokenInSessionStorage;
+    if (token) {
+      const parsedToken = JSON.parse(token);
+      setToken(parsedToken.token);
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -65,12 +79,39 @@ const UserDataForm: React.FC = () => {
     return true;
   };
 
+  const PostUserToAutorMutation = useMutation(
+    (data: {
+      fullName: string;
+      cpfOrCnpj: string;
+      termsOfUse: boolean;
+      copyright: boolean;
+      ageConfirmation: boolean;
+    }) => PostUserToAutor(token, data),
+    {
+      onSuccess: (response) => {
+        if (response?.success) {
+          toastService().success("Success!");
+        } else {
+          toastService().error("Failed to update data.");
+        }
+      },
+      onError: (_error) => {
+        toastService().error("An error occurred while updating data.");
+      },
+    }
+  );
+
   const handleUpdateClick = (): void => {
     if (!validateForm()) {
       return;
     }
-    console.log(formData);
-    window.alert("sucesso pai"); // Temporary success alert
+    PostUserToAutorMutation.mutate({
+      fullName: formData.fullName,
+      cpfOrCnpj: formData.cpfOrCnpj,
+      termsOfUse: formData.termsOfUse,
+      copyright: formData.copyright,
+      ageConfirmation: formData.ageConfirmation,
+    });
   };
   return (
     <div className="flex flex-col mt-3 p-4 space-y-4 bg-white shadow-md rounded-md">
@@ -126,6 +167,7 @@ const UserDataForm: React.FC = () => {
         type="text"
         name="fullName"
         label="Seu Nome completo"
+        placeholder="Nome aqui"
         initialValue={formData.fullName}
         onChange={handleInputChange}
         classNameInput={[
@@ -137,6 +179,7 @@ const UserDataForm: React.FC = () => {
         type="text"
         name="cpfOrCnpj"
         label="CPF ou CNPJ"
+        placeholder="CPF aqui"
         initialValue={formData.cpfOrCnpj}
         onChange={handleInputChange}
         classNameInput={[

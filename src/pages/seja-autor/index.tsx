@@ -105,12 +105,15 @@ export default function Home(): JSX.Element {
           </p>
           <div>
             <InputField
-              placeholder="Digite aqui"
+              placeholder="Codigo aqui"
               type="text"
               name="codigo"
               label="Codigo: "
               initialValue={code}
               onChange={(e): void => setCode(e.target.value)}
+              classNameInput={[
+                "ml-2 border border-gray-500 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+              ]}
             />
             <Button title="Validar" status onClick={handleVerifyClick} />
           </div>

@@ -41,4 +41,15 @@ export async function verifyEmailCode(token:string, code: string): Promise<{succ
     const response = await axios.get(`${apiConfig.userApiUrl}/verify-email-code/${code}`, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }
+
+export async function PostUserToAutor(token: string, data:{
+  fullName: string,
+  cpfOrCnpj: string,
+  termsOfUse: boolean,
+  copyright: boolean,
+  ageConfirmation: boolean,
+}): Promise<Response> {
+    const response = await axios.post(`${apiConfig.userApiUrl}/user-to-autor`, data, { headers: { 'Authorization': `Bearer ${token}` }});
+    return response.data;
+  }
   
