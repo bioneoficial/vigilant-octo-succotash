@@ -177,7 +177,7 @@ export const handleContentClick = async (router: NextRouter, conteudo_id: number
     );
     const slug = response.data.slug;
     router.push(`/conteudo/${slug}`);
-    secureLocalStorage.setItem("content", JSON.stringify(response.data));
+    secureLocalStorage.setItem("content", response.data);
   } catch (err) {
     console.error("Failed to fetch content by ID:", err);
   }

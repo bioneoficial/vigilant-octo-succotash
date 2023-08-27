@@ -13,6 +13,8 @@ import { HeaderHome } from "@/components/organisms/HeaderHome";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import secureLocalStorage from "react-secure-storage";
+import { useDispatch } from "react-redux";
+import { updateFotoPath } from "@/Redux/Reducers/userPhotoSlice";
 
 export default function MyProfile(): JSX.Element {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -24,14 +26,15 @@ export default function MyProfile(): JSX.Element {
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { success } = toastService();
+  const dispatch = useDispatch();
 
-  const {
-    data: userData,
-    isLoading,
-    refetch,
-  } = useQuery(["getUserById", id], () => getUserById(id), {
-    enabled: !!id,
-  });
+  const { data: userData, isLoading } = useQuery(
+    ["getUserById", id],
+    () => getUserById(id),
+    {
+      enabled: !!id,
+    }
+  );
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -53,35 +56,19 @@ export default function MyProfile(): JSX.Element {
       try {
         const response = await updatePhoto(token, formData);
         if (response.success) {
-          success("Image updated successfully!");
-          await refetch();
-
+          success("Imagem carregada com sucesso!");
+          if (response.fotoPath) dispatch(updateFotoPath(response.fotoPath));
           const tokenInLocalStorage: any =
             secureLocalStorage.getItem("funktoonToken");
           if (tokenInLocalStorage && userData) {
-            const parsedToken = tokenInLocalStorage;
-            parsedToken.user.fotoPath = userData.fotoPath;
-            secureLocalStorage.setItem(
-              "funktoonToken",
-              JSON.stringify(parsedToken)
-            );
-          } else {
-            const tokenInSessionStorage =
-              secureLocalStorage.getItem("funktoonToken");
-            if (tokenInSessionStorage && userData) {
-              const parsedToken: any = tokenInSessionStorage;
-              parsedToken.user.fotoPath = userData.fotoPath;
-              secureLocalStorage.setItem(
-                "funktoonToken",
-                JSON.stringify(parsedToken)
-              );
-            }
+            tokenInLocalStorage.user.fotoPath = userData.fotoPath;
+            secureLocalStorage.setItem("funktoonToken", tokenInLocalStorage);
           }
         } else {
-          throw new Error(response.error || "Failed to update image");
+          throw new Error(response.error || "Falha ao subir imagem");
         }
       } catch (error) {
-        toastService().error("An error occurred.");
+        toastService().error("Ocorreu um erro");
       }
     }
   };
@@ -185,6 +172,7 @@ export default function MyProfile(): JSX.Element {
               initialValue={userEmail}
               classNameInput={["w-full my-2 p-2 border rounded"]}
               disabled
+              readOnly
             />
 
             <label>

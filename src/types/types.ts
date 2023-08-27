@@ -287,6 +287,7 @@ export interface Response {
   sucess: boolean;
   error?: string;
   data?: any;
+  fotoPath?: string;
 }
 export type ResetPasswordResponse = Response & {
   token: string;

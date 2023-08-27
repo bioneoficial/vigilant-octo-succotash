@@ -26,6 +26,7 @@ type Props = {
   inputRef?: React.RefObject<HTMLInputElement>;
   errorMessageFontSize?: string;
   disabled?: boolean;
+  readOnly?: boolean;
 };
 
 const InputFieldComponent: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const InputFieldComponent: React.FC<Props> = ({
   inputRef,
   errorMessageFontSize,
   disabled = false,
+  readOnly = false,
 }: Props) => {
   if (type === "file") {
     return (
@@ -60,6 +62,7 @@ const InputFieldComponent: React.FC<Props> = ({
           id={id}
           accept="image/*"
           ref={inputRef}
+          readOnly={readOnly}
         />
         {!!errorMessage && (
           <div className={`${errorMessageFontSize} text-red-600`}>
@@ -85,6 +88,7 @@ const InputFieldComponent: React.FC<Props> = ({
           ref={inputRef}
           checked={initialValue === "true" ? true : false}
           disabled={disabled}
+          readOnly={readOnly}
         />
         {label}
       </label>
@@ -110,6 +114,7 @@ const InputFieldComponent: React.FC<Props> = ({
           type={type}
           id={id}
           ref={inputRef}
+          readOnly={readOnly}
         />
         {!!errorMessage && (
           <div className={`${errorMessageFontSize} text-red-600`}>

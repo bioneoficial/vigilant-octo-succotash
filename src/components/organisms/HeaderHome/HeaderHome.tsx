@@ -8,10 +8,11 @@ import { Menu, Transition } from "@headlessui/react";
 import { profileMenuItemData } from "@/types/types";
 import { NotificationIcon } from "@/components/atoms/NotificationIcon";
 import { LogoutIcon } from "@/components/atoms/LogoutIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/Redux/Reducers/sessionSlice";
 import Image from "next/image";
 import secureLocalStorage from "react-secure-storage";
+import { RootState } from "@/Redux/store";
 
 const links = [
   { href: "/agenda", title: "AGENDA" },
@@ -43,15 +44,16 @@ const adminLinks = [
 export const HeaderHome: React.FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
-  const storedData: any = secureLocalStorage.getItem("funktoonToken") || "{}";
+  const storedData: any = secureLocalStorage.getItem("funktoonToken");
   const role: keyof typeof navigationMap = storedData?.user?.role || "";
   const dispatch = useDispatch();
+  const fotoPath = useSelector((state: RootState) => state.userPhoto.fotoPath);
 
   useEffect(() => {
     if (storedData?.token) {
-      setPreviewImageUrl(storedData.user.fotoPath);
+      setPreviewImageUrl(fotoPath ?? storedData.user.fotoPath);
     }
-  }, [storedData?.token, storedData?.user?.fotoPath]);
+  }, [storedData.user.fotoPath, fotoPath, storedData?.token]);
 
   const profileMenuItems: profileMenuItemData[] = [
     {
@@ -126,7 +128,7 @@ export const HeaderHome: React.FC = (): JSX.Element => {
             {navigationLinks.map((link) => (
               <LinkButton key={link.href} {...link} className={""} />
             ))}
-            {storedData.user && (
+            {storedData?.user && (
               <div className="relative inline-block text-left">
                 <Menu as="nav" className="relative">
                   <>

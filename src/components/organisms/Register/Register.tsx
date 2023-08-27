@@ -12,6 +12,7 @@ import { commonInputClass } from "@/utils/const";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
+import { useRouter } from "next/router";
 
 function Register(): JSX.Element {
   const [name, setName] = useState<string>("");
@@ -21,6 +22,7 @@ function Register(): JSX.Element {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [nameErrorMessage, setNameErrorMessage] = useState<string>("");
+  const router = useRouter();
 
   const { success } = toastService();
 
@@ -47,6 +49,10 @@ function Register(): JSX.Element {
           senha: password,
         });
         success("Usuario criado com sucesso!");
+        setTimeout(() => {
+          router.push("/login");
+        }, 2500);
+
         clearStringState(setName, setEmail, setPassword, setConfirmPassword);
       } catch (err: unknown) {
         handleAxiosError(err, toastService(), setEmailErrorMessage);

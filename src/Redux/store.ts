@@ -13,6 +13,7 @@ import sessionSliceReducer from './Reducers/sessionSlice';
 import cookieBannerReducer from "./Reducers/cookieBannerSlice";
 
 import mySaga from '../../sagas'; 
+import userPhotoSlice from "./Reducers/userPhotoSlice";
 
 const persistConfig = {
   key: 'root',
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   toastSuccess: toastSuccessReducer,
   sessionManagement: sessionSliceReducer,
   cookieBanner: cookieBannerReducer,
+  userPhoto: userPhotoSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
