@@ -61,12 +61,11 @@ export default function MyProfile(): JSX.Element {
             parsedToken.user.fotoPath = userData.fotoPath;
             localStorage.setItem("funktoonToken", JSON.stringify(parsedToken));
           } else {
-            const tokenInSessionStorage =
-              sessionStorage.getItem("funktoonToken");
+            const tokenInSessionStorage = localStorage.getItem("funktoonToken");
             if (tokenInSessionStorage && userData) {
               const parsedToken = JSON.parse(tokenInSessionStorage);
               parsedToken.user.fotoPath = userData.fotoPath;
-              sessionStorage.setItem(
+              localStorage.setItem(
                 "funktoonToken",
                 JSON.stringify(parsedToken)
               );

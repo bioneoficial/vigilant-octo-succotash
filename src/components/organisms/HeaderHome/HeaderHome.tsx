@@ -8,20 +8,27 @@ import { UserRole } from "@/utils/enums";
 const links = [
   { href: "/agenda", title: "AGENDA" },
   { href: "/selos", title: "SELOS" },
-  { href: "/colecoes", title: "COLEÇÕES" },
   { href: "/login", title: "LOGIN" },
 ];
 
 const userLinks = [
   { href: "/", title: "INICIO" },
   { href: "/agenda", title: "AGENDA" },
+  { href: "/colecoes", title: "COLEÇÕES" },
   { href: "/seja-autor", title: "SEJA UM AUTOR" },
   { href: "/minha-conta", title: "MINHA CONTA" },
 ];
 
-const authorLinks = [{ href: "/dashboard-author", title: "DASHBOARD" }];
+const authorLinks = [
+  { href: "/agenda", title: "AGENDA" },
+  { href: "/colecoes", title: "COLEÇÕES" },
+  { href: "/minha-conta", title: "MINHA CONTA" },
+  { href: "/dashboard-author", title: "DASHBOARD" },
+];
 const adminLinks = [
   { href: "/", title: "INICIO" },
+  { href: "/agenda", title: "AGENDA" },
+  { href: "/colecoes", title: "COLEÇÕES" },
   { href: "/dashboard", title: "DASHBOARD" },
 ];
 

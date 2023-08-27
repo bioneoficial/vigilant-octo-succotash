@@ -37,14 +37,14 @@ const sessionSlice = createSlice({
       if (action.payload.stayConnected) {
         localStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
       } else {
-        sessionStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
+        localStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
       }
     },
     logout(state) {
         state.user = initialState.user;
         state.token = null;
         localStorage.removeItem('funktoonToken');
-        sessionStorage.removeItem('funktoonToken');
+        localStorage.removeItem('funktoonToken');
       },
     // Add other reducers as per your needs
   },
