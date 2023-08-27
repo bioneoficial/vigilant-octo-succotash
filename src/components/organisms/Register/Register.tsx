@@ -51,7 +51,7 @@ function Register(): JSX.Element {
         success("Usuario criado com sucesso!");
         setTimeout(() => {
           router.push("/login");
-        }, 2500);
+        }, 2900);
 
         clearStringState(setName, setEmail, setPassword, setConfirmPassword);
       } catch (err: unknown) {
