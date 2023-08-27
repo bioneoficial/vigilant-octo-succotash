@@ -6,6 +6,7 @@ import { ehUmCPF } from "@/utils/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
+import secureLocalStorage from "react-secure-storage";
 
 const UserDataForm: React.FC = () => {
   const [token, setToken] = useState<string>("");
@@ -18,12 +19,9 @@ const UserDataForm: React.FC = () => {
   });
 
   useEffect(() => {
-    const tokenInLocalStorage = localStorage.getItem("funktoonToken");
-    const tokenInSessionStorage = sessionStorage.getItem("funktoonToken");
-
-    const token = tokenInLocalStorage || tokenInSessionStorage;
+    const token: any = secureLocalStorage.getItem("funktoonToken");
     if (token) {
-      const parsedToken = JSON.parse(token);
+      const parsedToken = token;
       setToken(parsedToken.token);
     }
   }, []);

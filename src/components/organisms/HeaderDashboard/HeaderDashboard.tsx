@@ -11,6 +11,7 @@ import { abrirSite, classNames } from "@/utils/utils";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { logout } from "@/Redux/Reducers/sessionSlice";
+import secureLocalStorage from "react-secure-storage";
 
 export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
   open,
@@ -43,12 +44,10 @@ export const HeaderDashboard: React.FC<HeaderDashboardProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const tokenInLocalStorage = localStorage.getItem("funktoonToken");
-    const tokenInSessionStorage = sessionStorage.getItem("funktoonToken");
+    const token: any = secureLocalStorage.getItem("funktoonToken");
 
-    const token = tokenInLocalStorage || tokenInSessionStorage;
     if (token) {
-      const parsedToken = JSON.parse(token);
+      const parsedToken = token;
       if (parsedToken) {
         setPreviewImageUrl(parsedToken.user.fotoPath);
       }

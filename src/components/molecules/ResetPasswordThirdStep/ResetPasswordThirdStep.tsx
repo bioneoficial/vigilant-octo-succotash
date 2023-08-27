@@ -6,6 +6,7 @@ import { handlePasswordResetError, validatePassword } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
 import { useRouter } from "next/router";
+import secureLocalStorage from "react-secure-storage";
 
 function ResetPasswordThirdStep(): JSX.Element {
   const [newPassword, setNewPassword] = useState<string>("");
@@ -27,9 +28,9 @@ function ResetPasswordThirdStep(): JSX.Element {
     }
 
     try {
-      const token = sessionStorage.getItem("resetPasswordToken");
+      const token = secureLocalStorage.getItem("resetPasswordToken");
       await updatePassword(token as string, newPassword);
-      sessionStorage.removeItem("resetPasswordToken");
+      secureLocalStorage.removeItem("resetPasswordToken");
       setErrorMessage("");
       const { success } = toastService();
       success("Senha alterada com sucesso");

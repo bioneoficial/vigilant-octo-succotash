@@ -6,6 +6,7 @@ import { handlePasswordResetError } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
 import { ResetPasswordProps } from "@/types/types";
+import secureLocalStorage from "react-secure-storage";
 
 const ResetPasswordSecondStep: React.FC<ResetPasswordProps> = ({
   onSuccess,
@@ -28,12 +29,12 @@ const ResetPasswordSecondStep: React.FC<ResetPasswordProps> = ({
     }
 
     try {
-      const token = sessionStorage.getItem("resetPasswordToken");
+      const token = secureLocalStorage.getItem("resetPasswordToken");
       const resetPasswordResponse = await resetPasswordValidate(
         { code },
         token as string
       );
-      console.log(resetPasswordResponse);
+      console.info(resetPasswordResponse);
       setErrorMessage("");
       const { success } = toastService();
       success("Codigo validado com sucesso");
@@ -72,7 +73,7 @@ const ResetPasswordSecondStep: React.FC<ResetPasswordProps> = ({
             className="bg-[#FF55F1] hover:bg-[#F115F9] text-white text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center"
             type="submit"
           >
-            Enviar link para redefinir senha
+            Enviar Código para redefinir senha
           </button>
         </div>
         <div className="mt-5 text-center">

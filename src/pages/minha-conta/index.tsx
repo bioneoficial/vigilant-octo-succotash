@@ -12,6 +12,7 @@ import { useQuery } from "react-query";
 import { HeaderHome } from "@/components/organisms/HeaderHome";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import secureLocalStorage from "react-secure-storage";
 
 export default function MyProfile(): JSX.Element {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -55,17 +56,22 @@ export default function MyProfile(): JSX.Element {
           success("Image updated successfully!");
           await refetch();
 
-          const tokenInLocalStorage = localStorage.getItem("funktoonToken");
+          const tokenInLocalStorage: any =
+            secureLocalStorage.getItem("funktoonToken");
           if (tokenInLocalStorage && userData) {
-            const parsedToken = JSON.parse(tokenInLocalStorage);
+            const parsedToken = tokenInLocalStorage;
             parsedToken.user.fotoPath = userData.fotoPath;
-            localStorage.setItem("funktoonToken", JSON.stringify(parsedToken));
+            secureLocalStorage.setItem(
+              "funktoonToken",
+              JSON.stringify(parsedToken)
+            );
           } else {
-            const tokenInSessionStorage = localStorage.getItem("funktoonToken");
+            const tokenInSessionStorage =
+              secureLocalStorage.getItem("funktoonToken");
             if (tokenInSessionStorage && userData) {
-              const parsedToken = JSON.parse(tokenInSessionStorage);
+              const parsedToken: any = tokenInSessionStorage;
               parsedToken.user.fotoPath = userData.fotoPath;
-              localStorage.setItem(
+              secureLocalStorage.setItem(
                 "funktoonToken",
                 JSON.stringify(parsedToken)
               );
@@ -131,12 +137,12 @@ export default function MyProfile(): JSX.Element {
   };
 
   useEffect(() => {
-    const tokenInLocalStorage = localStorage.getItem("funktoonToken");
-    const tokenInSessionStorage = sessionStorage.getItem("funktoonToken");
+    const tokenInLocalStorage: any =
+      secureLocalStorage.getItem("funktoonToken");
 
-    const token = tokenInLocalStorage || tokenInSessionStorage;
+    const token = tokenInLocalStorage;
     if (token) {
-      const parsedToken = JSON.parse(token);
+      const parsedToken = token;
       setToken(parsedToken.token);
       setUserId(parsedToken.user.id);
     }

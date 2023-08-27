@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware, combineReducers, ThunkAction, Action } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from 'redux-persist';
-import sessionStorage from 'redux-persist/lib/storage/session';
+import localStorage from 'redux-persist/lib/storage/session';
 import createSagaMiddleware from 'redux-saga'; // import Saga middleware
 
 import privacyReducer from "@/Redux/Reducers/privacySlice";
@@ -16,7 +16,7 @@ import mySaga from '../../sagas';
 
 const persistConfig = {
   key: 'root',
-  storage: sessionStorage,
+  storage: localStorage,
 };
 
 const rootReducer = combineReducers({

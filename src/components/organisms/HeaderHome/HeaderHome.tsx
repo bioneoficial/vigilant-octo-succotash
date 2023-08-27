@@ -11,6 +11,7 @@ import { LogoutIcon } from "@/components/atoms/LogoutIcon";
 import { useDispatch } from "react-redux";
 import { logout } from "@/Redux/Reducers/sessionSlice";
 import Image from "next/image";
+import secureLocalStorage from "react-secure-storage";
 
 const links = [
   { href: "/agenda", title: "AGENDA" },
@@ -42,11 +43,7 @@ const adminLinks = [
 export const HeaderHome: React.FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
-  const storedData = JSON.parse(
-    localStorage.getItem("funktoonToken") ||
-      sessionStorage.getItem("funktoonToken") ||
-      "{}"
-  );
+  const storedData: any = secureLocalStorage.getItem("funktoonToken") || "{}";
   const role: keyof typeof navigationMap = storedData?.user?.role || "";
   const dispatch = useDispatch();
 

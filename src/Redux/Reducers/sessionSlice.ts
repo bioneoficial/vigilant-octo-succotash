@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginResponse, User } from '@/types/types';
 import { UserRole } from '@/utils/enums';
+import secureLocalStorage from 'react-secure-storage';
 
 type SessionState = {
   user: User,
@@ -35,16 +36,16 @@ const sessionSlice = createSlice({
       state.stayConnected = stayConnected;
 
       if (action.payload.stayConnected) {
-        localStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
+        secureLocalStorage.setItem("funktoonToken", { user, token });
       } else {
-        localStorage.setItem("funktoonToken", JSON.stringify({ user, token }));
+        secureLocalStorage.setItem("funktoonToken", { user, token });
       }
     },
     logout(state) {
         state.user = initialState.user;
         state.token = null;
-        localStorage.removeItem('funktoonToken');
-        localStorage.removeItem('funktoonToken');
+        secureLocalStorage.removeItem('funktoonToken');
+        secureLocalStorage.removeItem('funktoonToken');
       },
     // Add other reducers as per your needs
   },

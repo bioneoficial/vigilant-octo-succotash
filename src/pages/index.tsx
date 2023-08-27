@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import CookieBanner from "@/components/organisms/CookieBanner/CookieBanner";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
-import { setShowBanner } from "@/Redux/Reducers/cookieBannerSlice";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -30,12 +29,6 @@ export default function Home(): JSX.Element {
   );
 
   useEffect(() => {
-    const bannerSetting =
-      window.localStorage.getItem("funktoon-cookies-banner") === "false"
-        ? false
-        : true;
-    dispatch(setShowBanner(bannerSetting));
-
     if (data) {
       if (data.BANNER) {
         setBannerItems(data.BANNER);

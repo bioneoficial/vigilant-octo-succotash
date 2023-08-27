@@ -19,7 +19,6 @@ export async function resetPassword({email}: ResetPasswordRequest): Promise<Rese
   }
 
   export async function updatePassword(token: string, newPassword: string): Promise<ResetPasswordResponse> {
-    window.alert(token)
     const response = await axios.put(`${apiConfig.passwordApiUrl}/update`, {newPassword}, { headers: { 'Authorization': `Bearer ${token}` }});
     return response.data;
   }
