@@ -11,14 +11,15 @@ import {
 } from "@/api/episodio";
 import PlayerContainer from "@/components/organisms/PlayerContainer/PlayerContainer";
 import { useState } from "react";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Home(): JSX.Element {
   const [selectedEpisodeId, setSelectedEpisodeId] = useState<number | null>(
     null
   );
   const [isOpen, setIsOpen] = useState(true);
-  const content = sessionStorage.getItem("content");
-  const parsedContent = JSON.parse(content || "{}");
+  const content = secureLocalStorage.getItem("content");
+  const parsedContent: any = content || "{}";
   const { data, isLoading, error } = useQuery<Comic[], MyError>( // todos episodiso aqui
     ["getAllByConteudoId", parsedContent.id],
     () => getAllByConteudoId(Number(parsedContent.id)),

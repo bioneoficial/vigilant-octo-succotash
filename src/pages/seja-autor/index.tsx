@@ -9,6 +9,7 @@ import UserDataForm from "@/components/organisms/UserDataForm/UserDataForm";
 import toastService from "@/utils/toastService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Home(): JSX.Element {
   const [code, setCode] = useState<string>("");
@@ -66,12 +67,10 @@ export default function Home(): JSX.Element {
   };
 
   useEffect(() => {
-    const tokenInLocalStorage = localStorage.getItem("funktoonToken");
-    const tokenInSessionStorage = sessionStorage.getItem("funktoonToken");
+    const token: any = secureLocalStorage.getItem("funktoonToken");
 
-    const token = tokenInLocalStorage || tokenInSessionStorage;
     if (token) {
-      const parsedToken = JSON.parse(token);
+      const parsedToken = token;
       setUserEmail(parsedToken.user.email);
       setToken(parsedToken.token);
     }
@@ -81,7 +80,7 @@ export default function Home(): JSX.Element {
     <div className="grid grid-cols-1 fold:gap-0 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5">
       <HeaderHome />
 
-      {isCodeSent ? ( // MUDAR PARA !isCodeSent ANTES DE TERMINAR
+      {!isCodeSent ? (
         <>
           <p className="text-center">
             Clique no botão abaixo para solicitar o código de validação do seu

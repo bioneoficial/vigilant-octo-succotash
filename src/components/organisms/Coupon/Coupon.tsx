@@ -11,16 +11,13 @@ import {
 import { useId } from "react";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Coupon(): JSX.Element {
   const dispatch = useDispatch();
   const uuidCupom = useId();
 
-  const storedData = JSON.parse(
-    localStorage.getItem("funktoonToken") ||
-      sessionStorage.getItem("funktoonToken") ||
-      "{}"
-  );
+  const storedData: any = secureLocalStorage.getItem("funktoonToken") || "{}";
   const token = storedData.token || "";
   const { data } = useQuery<getAllCouponResponse, MyError>(
     "getAllCoupon",

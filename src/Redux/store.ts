@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware, combineReducers, ThunkAction, Action } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from 'redux-persist';
-import sessionStorage from 'redux-persist/lib/storage/session';
+import localStorage from 'redux-persist/lib/storage/session';
 import createSagaMiddleware from 'redux-saga'; // import Saga middleware
 
 import privacyReducer from "@/Redux/Reducers/privacySlice";
@@ -13,10 +13,11 @@ import sessionSliceReducer from './Reducers/sessionSlice';
 import cookieBannerReducer from "./Reducers/cookieBannerSlice";
 
 import mySaga from '../../sagas'; 
+import userPhotoSlice from "./Reducers/userPhotoSlice";
 
 const persistConfig = {
   key: 'root',
-  storage: sessionStorage,
+  storage: localStorage,
 };
 
 const rootReducer = combineReducers({
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   toastSuccess: toastSuccessReducer,
   sessionManagement: sessionSliceReducer,
   cookieBanner: cookieBannerReducer,
+  userPhoto: userPhotoSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

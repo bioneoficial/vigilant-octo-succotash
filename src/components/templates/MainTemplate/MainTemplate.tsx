@@ -28,6 +28,7 @@ import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
 import { ToastContainer } from "react-toastify";
 import { AppDispatch } from "@/Redux/store";
+import secureLocalStorage from "react-secure-storage";
 
 export const MainTemplate: React.FC<MainTemplateProps> = ({
   children,
@@ -47,11 +48,7 @@ export const MainTemplate: React.FC<MainTemplateProps> = ({
   const ModalContent = ({
     modalType,
   }: modelTypeInterface): JSX.Element | null => {
-    const storedData = JSON.parse(
-      localStorage.getItem("funktoonToken") ||
-        sessionStorage.getItem("funktoonToken") ||
-        "{}"
-    );
+    const storedData: any = secureLocalStorage.getItem("funktoonToken") || "{}";
     const token = storedData.token || "";
     const queryClient = useQueryClient();
     const [updatedCouponData, setUpdatedCouponData] =

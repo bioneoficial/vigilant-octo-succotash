@@ -10,6 +10,7 @@ import toastService from "@/utils/toastService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useLogin from "@/customHooks/useLogin";
+import secureLocalStorage from "react-secure-storage";
 
 function Login(): JSX.Element {
   const [email, setEmail] = useState<string>("");
@@ -20,10 +21,7 @@ function Login(): JSX.Element {
   const { mutate } = useLogin();
 
   useEffect(() => {
-    const storedData =
-      localStorage.getItem("funktoonToken") ||
-      sessionStorage.getItem("funktoonToken");
-    const userData = storedData && JSON.parse(storedData);
+    const userData: any = secureLocalStorage.getItem("funktoonToken");
     if (userData?.token) {
       userData.role === UserRole.admin || userData.role === UserRole.root
         ? router.push("/dashboard")

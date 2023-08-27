@@ -4,6 +4,7 @@ import { InputField } from "@/components/atoms/InputField";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import secureLocalStorage from "react-secure-storage";
 
 const CookieBanner: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const CookieBanner: React.FC = () => {
 
   const handleOnClose = (): void => {
     dispatch(setShowBanner(false));
-    window.localStorage.setItem("funktoon-cookies-banner", "false");
+    secureLocalStorage.setItem("funktoon-cookies-banner", false);
   };
   return (
     <div

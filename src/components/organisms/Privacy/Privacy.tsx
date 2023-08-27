@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
+import secureLocalStorage from "react-secure-storage";
 
 export const Privacy: React.FC = () => {
   const router = useRouter();
@@ -19,11 +20,8 @@ export const Privacy: React.FC = () => {
   const [previousPrivacyItem, setPreviousPrivacyItem] =
     useState<PrivacyItem | null>(null);
 
-  const storedData = JSON.parse(
-    localStorage.getItem("funktoonToken") ||
-      sessionStorage.getItem("funktoonToken") ||
-      "{}"
-  );
+  const storedData: any = secureLocalStorage.getItem("funktoonToken") || "{}";
+
   const token = storedData.token || "";
   const { data } = useQuery<getAllPrivacyResponse, MyError>(
     "getAllPrivacy",

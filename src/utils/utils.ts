@@ -9,6 +9,7 @@ import {  selectUser } from "@/Redux/Reducers/userSlice";
 import {  SetStateAction } from 'react';
 import axios from "axios";
 import { apiConfig } from "@/api/apiConfig";
+import secureLocalStorage from "react-secure-storage";
 
 
 export const classNames = (...classes: string[]): string => {
@@ -165,13 +166,8 @@ export const validatePassword = (password: string): boolean => {
 }
 
 export const useAuth = (): string => {
-  const storedData = JSON.parse(
-    localStorage.getItem("funktoonToken") ||
-      sessionStorage.getItem("funktoonToken") ||
-      "{}"
-  );
-  const token = storedData.token || "";
-  return token;
+  const storedData: any = secureLocalStorage.getItem("funktoonToken");
+    return storedData.token;
 };
 
 export const handleContentClick = async (router: NextRouter, conteudo_id: number): Promise<void> => {
@@ -181,7 +177,7 @@ export const handleContentClick = async (router: NextRouter, conteudo_id: number
     );
     const slug = response.data.slug;
     router.push(`/conteudo/${slug}`);
-    sessionStorage.setItem("content", JSON.stringify(response.data));
+    secureLocalStorage.setItem("content", response.data);
   } catch (err) {
     console.error("Failed to fetch content by ID:", err);
   }

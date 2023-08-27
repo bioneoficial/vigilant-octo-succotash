@@ -6,6 +6,7 @@ import { handlePasswordResetError } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/utils/toastService";
 import { ResetPasswordProps } from "@/types/types";
+import secureLocalStorage from "react-secure-storage";
 
 const ResetPasswordFirstStep: React.FC<ResetPasswordProps> = ({
   onSuccess,
@@ -31,7 +32,10 @@ const ResetPasswordFirstStep: React.FC<ResetPasswordProps> = ({
 
     try {
       const resetPasswordResponse = await resetPassword({ email });
-      sessionStorage.setItem("resetPasswordToken", resetPasswordResponse.token);
+      secureLocalStorage.setItem(
+        "resetPasswordToken",
+        resetPasswordResponse.token
+      );
       setErrorMessage("");
       const { success } = toastService();
       success("Email enviado com sucesso");

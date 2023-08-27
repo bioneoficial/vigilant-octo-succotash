@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
+import secureLocalStorage from "react-secure-storage";
 
 const BarNotificationStores: React.FC = () => {
   const [isClosed, setIsClosed] = useState(false);
 
   const handleOnClose = (): void => {
-    window.sessionStorage.setItem("isBarNotificationClosed", "true");
+    secureLocalStorage.setItem("isBarNotificationClosed", true);
     setIsClosed(true);
   };
 
   useEffect(() => {
-    const isBarNotificationClosed = window.sessionStorage.getItem(
+    const isBarNotificationClosed: boolean = secureLocalStorage.getItem(
       "isBarNotificationClosed"
-    );
+    ) as boolean;
     if (isBarNotificationClosed) {
-      setIsClosed(isBarNotificationClosed === "true");
+      setIsClosed(isBarNotificationClosed);
     }
   }, []);
 
