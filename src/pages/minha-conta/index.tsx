@@ -58,12 +58,6 @@ export default function MyProfile(): JSX.Element {
         if (response.success) {
           success("Imagem carregada com sucesso!");
           if (response.fotoPath) dispatch(updateFotoPath(response.fotoPath));
-          const tokenInLocalStorage: any =
-            secureLocalStorage.getItem("funktoonToken");
-          if (tokenInLocalStorage && userData) {
-            tokenInLocalStorage.user.fotoPath = userData.fotoPath;
-            secureLocalStorage.setItem("funktoonToken", tokenInLocalStorage);
-          }
         } else {
           throw new Error(response.error || "Falha ao subir imagem");
         }
@@ -82,7 +76,6 @@ export default function MyProfile(): JSX.Element {
         toastService().error("O nome deve ter entre 2 e 90 caracteres.");
         return;
       }
-
       const response = await updateUser(token, { nome, descricao, id });
       if (response.success) success("Profile updated successfully!");
     } catch (error) {

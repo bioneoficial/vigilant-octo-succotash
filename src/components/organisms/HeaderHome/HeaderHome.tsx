@@ -53,7 +53,7 @@ export const HeaderHome: React.FC = (): JSX.Element => {
     if (storedData?.token) {
       setPreviewImageUrl(fotoPath ?? storedData.user.fotoPath);
     }
-  }, [storedData.user.fotoPath, fotoPath, storedData?.token]);
+  }, [storedData?.user?.fotoPath, fotoPath, storedData?.token]);
 
   const profileMenuItems: profileMenuItemData[] = [
     {
