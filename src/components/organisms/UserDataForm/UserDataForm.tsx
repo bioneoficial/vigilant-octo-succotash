@@ -105,9 +105,10 @@ const UserDataForm: React.FC = () => {
     if (!validateForm()) {
       return;
     }
+    const sanitizedCpfOrCnpj = formData.cpfOrCnpj.replace(/\D/g, "");
     PostUserToAutorMutation.mutate({
       fullName: formData.fullName,
-      cpfOrCnpj: formData.cpfOrCnpj,
+      cpfOrCnpj: sanitizedCpfOrCnpj,
       termsOfUse: formData.termsOfUse,
       copyright: formData.copyright,
       ageConfirmation: formData.ageConfirmation,
