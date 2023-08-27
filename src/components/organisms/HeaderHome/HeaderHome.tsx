@@ -54,7 +54,7 @@ export const HeaderHome: React.FC = (): JSX.Element => {
     if (storedData?.token) {
       setPreviewImageUrl(storedData.user.fotoPath);
     }
-  }, [storedData?.token, storedData.user.fotoPath]);
+  }, [storedData?.token, storedData?.user?.fotoPath]);
 
   const profileMenuItems: profileMenuItemData[] = [
     {
@@ -129,55 +129,57 @@ export const HeaderHome: React.FC = (): JSX.Element => {
             {navigationLinks.map((link) => (
               <LinkButton key={link.href} {...link} className={""} />
             ))}
-            <div className="relative inline-block text-left">
-              <Menu as="nav" className="relative">
-                <>
-                  <Menu.Button className="flex items-center">
-                    <Image
-                      className="h-8 w-8 rounded-full"
-                      width={32}
-                      height={32}
-                      src={previewImageUrl || "/images/profile-photo.svg"}
-                      alt="Profile Picture"
-                    />
-                    <Image
-                      src="/images/down-arrow.svg"
-                      alt="Dropdown"
-                      height={32}
-                      width={32}
-                    />
-                  </Menu.Button>
-                </>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items className="absolute mt-2 w-40 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none -left-1/2">
-                    {profileMenuItems.map((item) => (
-                      <Menu.Item key={item.name}>
-                        {({ active }): JSX.Element => (
-                          <Link
-                            href={item.href}
-                            className={`
+            {storedData.user && (
+              <div className="relative inline-block text-left">
+                <Menu as="nav" className="relative">
+                  <>
+                    <Menu.Button className="flex items-center">
+                      <Image
+                        className="h-8 w-8 rounded-full"
+                        width={32}
+                        height={32}
+                        src={previewImageUrl || "/images/profile-photo.svg"}
+                        alt="Profile Picture"
+                      />
+                      <Image
+                        src="/images/down-arrow.svg"
+                        alt="Dropdown"
+                        height={32}
+                        width={32}
+                      />
+                    </Menu.Button>
+                  </>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute mt-2 w-40 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none -left-1/2">
+                      {profileMenuItems.map((item) => (
+                        <Menu.Item key={item.name}>
+                          {({ active }): JSX.Element => (
+                            <Link
+                              href={item.href}
+                              className={`
                             ${active ? "bg-gray-100" : ""}
                             block px-4 py-2 text-sm text-gray-700 hover:bg-[#4a6cf70d] hover:text-[#8b00d1]`}
-                            onClick={item.onClick}
-                          >
-                            {item.icon}
-                            {item.name}
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Transition>
-              </Menu>
-            </div>
+                              onClick={item.onClick}
+                            >
+                              {item.icon}
+                              {item.name}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      ))}
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            )}
           </div>
         </div>
         <div
