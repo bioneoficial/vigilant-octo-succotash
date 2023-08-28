@@ -13,8 +13,9 @@ import { HeaderHome } from "@/components/organisms/HeaderHome";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import secureLocalStorage from "react-secure-storage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateFotoPath } from "@/Redux/Reducers/userPhotoSlice";
+import { RootState } from "@/Redux/store";
 
 export default function MyProfile(): JSX.Element {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -27,6 +28,7 @@ export default function MyProfile(): JSX.Element {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const { success } = toastService();
   const dispatch = useDispatch();
+  const fotoPath = useSelector((state: RootState) => state.userPhoto.fotoPath);
 
   const { data: userData, isLoading } = useQuery(
     ["getUserById", id],
@@ -130,10 +132,9 @@ export default function MyProfile(): JSX.Element {
       setUserEmail(userData.email);
       setNome(userData.nome);
       setDescricao(userData.descricao);
-      setPreviewImageUrl(userData.fotoPath);
+      setPreviewImageUrl(fotoPath.length > 1 ? fotoPath : userData.fotoPath);
     }
-    console.log(userData);
-  }, [userData]);
+  }, [fotoPath, userData]);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -191,7 +192,9 @@ export default function MyProfile(): JSX.Element {
                 width={32}
                 height={32}
                 src={previewImageUrl}
+                quality={100}
                 alt="Profile Picture Preview"
+                priority
               />
             )}
 

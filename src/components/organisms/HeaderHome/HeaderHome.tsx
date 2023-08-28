@@ -51,7 +51,9 @@ export const HeaderHome: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (storedData?.token) {
-      setPreviewImageUrl(fotoPath ?? storedData.user.fotoPath);
+      setPreviewImageUrl(
+        fotoPath.length > 1 ? fotoPath : storedData.user.fotoPath
+      );
     }
   }, [storedData?.user?.fotoPath, fotoPath, storedData?.token]);
 
